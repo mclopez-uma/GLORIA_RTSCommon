@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://gloria.eu/rti/fault" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:gloria.rti.fault="http://gloria.eu/rti/fault">
+
+	<simpleType name="errorType">
+    	<restriction base="string">
+    	    <enumeration value="Unsupported"></enumeration>
+    		<enumeration value="General"></enumeration>
+    		<enumeration value="InvalidSession"></enumeration>
+    		<enumeration value="LoginInvalidUserPassword"></enumeration>
+    		<enumeration value="LoginImpossibleAuthenticate"></enumeration>
+    		<enumeration value="DeviceCommunication"></enumeration>
+    		<enumeration value="DeviceInAlarmState"></enumeration>
+    		<enumeration value="DeviceInWrongActivityState"></enumeration>
+    	</restriction>
+    </simpleType>
+    
+    <element name="errorDetail">
+        <complexType>
+          <sequence>
+          	<element name="type" type="gloria.rti.fault:errorType"/>
+            <element name="code" type="integer"/>
+            <element name="desc" type="string"/>
+          </sequence>
+        </complexType>
+    </element>
+  
+	
+   
+</schema>

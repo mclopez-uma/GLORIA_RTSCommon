@@ -1,0 +1,963 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- ******************************** -->
+<!-- * Archive: Gloria RTDI FOCUSER * -->
+<!-- * Author: Juan Cabello         * -->
+<!-- * Date  : 13/09/2012           * -->
+<!-- ******************************** -->
+<wsdl:definitions xmlns:gloria.rt.entity.device="http://gloria.eu/rt/entity/device" xmlns:gloria.rtdi.fault="http://gloria.eu/rtdi/fault" xmlns:rtdi.focuser="http://gloria.eu/rtdi.focuser" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="gloria_rtdi_focuser" targetNamespace="http://gloria.eu/rtdi.focuser">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://gloria.eu/rtdi.focuser">
+    
+      <xsd:import namespace="http://gloria.eu/rtdi/fault" schemaLocation="gloria_rtdi_fault.xsd"/> 
+      <xsd:import namespace="http://gloria.eu/rt/entity/device" schemaLocation="gloria_rti_device.xsd"/>
+      
+      <!-- BASIC TYPE RESPONSES - BEGIN -->
+      
+	  <xsd:element name="voidResponse">
+        <xsd:complexType>
+          <xsd:sequence>            
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+	  
+      <xsd:element name="stringResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <xsd:element name="booleanResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="xsd:boolean"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <xsd:element name="intResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <xsd:element name="longResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="xsd:long"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <xsd:element name="doubleResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="xsd:double"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <!-- BASIC TYPE RESPONSES - END -->
+            
+      <!-- COMMON DEVICE ELEMENTS - BEGIN -->
+      <xsd:element name="devGetConfiguration">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devGetDeviceProperties">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devGetDevicePropertiesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="out" type="gloria.rt.entity.device:deviceProperty"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+     <xsd:element name="devGetDeviceProperty">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="name" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devGetDevicePropertyResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="gloria.rt.entity.device:deviceProperty"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+     <xsd:element name="devIsConnected">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devGetDevice">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="allProperties" type="xsd:boolean"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devGetDeviceResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="gloria.rt.entity.device:device"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devUpdateDeviceProperty">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="name" type="xsd:string"/>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="value" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devUpdateDevicePropertyAsync">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="name" type="xsd:string"/>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="value" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devConnect">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devDisconnect">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devIsBlocked">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <!-- COMMON DEVICE ELEMENTS - END -->
+      
+      <!-- FOCUSER ELEMENTS - BEGIN -->
+      <xsd:element name="focGetCamera">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="focIsAbsolute">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="focGetStepSize">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="focGetMaxIncrement">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="focGetMaxStep">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="focGetPosition">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="focIsTempCompAvailable">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="focGetTemperature">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="focSetTempComp">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="trackingMode" type="xsd:boolean"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="focHalt">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="focMove">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="position" type="xsd:long"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <!-- FOCUSER ELEMENTS - END -->
+      
+    </xsd:schema> 
+  </wsdl:types>
+  
+  <!-- ERROR MESSAGES - BEGIN -->
+  <wsdl:message name="rtdError">
+    <wsdl:part element="gloria.rtdi.fault:errorDetail" name="rtdError">    
+    </wsdl:part>
+  </wsdl:message>
+  <!-- ERROR MESSAGES - END -->
+  
+  <!-- COMMON DEVICE MESSAGES - BEGIN -->
+  <wsdl:message name="devGetConfigurationRequest">
+    <wsdl:part element="rtdi.focuser:devGetConfiguration" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devGetConfigurationResponse">
+    <wsdl:part element="rtdi.focuser:stringResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devGetDeviceRequest">
+    <wsdl:part element="rtdi.focuser:devGetDevice" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devGetDeviceResponse">
+    <wsdl:part element="rtdi.focuser:devGetDeviceResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  
+  <wsdl:message name="devGetDevicePropertiesRequest">
+    <wsdl:part element="rtdi.focuser:devGetDeviceProperties" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devGetDevicePropertiesResponse">
+    <wsdl:part element="rtdi.focuser:devGetDevicePropertiesResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <wsdl:message name="devGetDevicePropertyRequest">
+    <wsdl:part element="rtdi.focuser:devGetDeviceProperty" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devGetDevicePropertyResponse">
+    <wsdl:part element="rtdi.focuser:devGetDevicePropertyResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <wsdl:message name="devUpdateDevicePropertyRequest">
+    <wsdl:part element="rtdi.focuser:devUpdateDeviceProperty" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devUpdateDevicePropertyResponse">
+    <wsdl:part element="rtdi.focuser:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <wsdl:message name="devUpdateDevicePropertyAsyncRequest">
+    <wsdl:part element="rtdi.focuser:devUpdateDevicePropertyAsync" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devUpdateDevicePropertyAsyncResponse">
+    <wsdl:part element="rtdi.focuser:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+   <wsdl:message name="devIsConnectedRequest">
+    <wsdl:part element="rtdi.focuser:devIsConnected" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devIsConnectedResponse">
+    <wsdl:part element="rtdi.focuser:booleanResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <wsdl:message name="devConnectRequest">
+    <wsdl:part element="rtdi.focuser:devConnect" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devConnectResponse">
+    <wsdl:part element="rtdi.focuser:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <wsdl:message name="devDisconnectRequest">
+    <wsdl:part element="rtdi.focuser:devDisconnect" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devDisconnectResponse">
+    <wsdl:part element="rtdi.focuser:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devIsBlockedRequest">
+    <wsdl:part element="rtdi.focuser:devIsBlocked" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devIsBlockedResponse">
+    <wsdl:part element="rtdi.focuser:booleanResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <!-- COMMON DEVICE MESSAGES - END -->
+ 
+  
+  <!-- FOCUSER DEVICE MESSAGES - BEGIN -->
+  <wsdl:message name="focGetCameraRequest">
+    <wsdl:part element="rtdi.focuser:focGetCamera" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="focGetCameraResponse">
+    <wsdl:part element="rtdi.focuser:stringResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="focIsAbsoluteRequest">
+    <wsdl:part element="rtdi.focuser:focIsAbsolute" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="focIsAbsoluteResponse">
+    <wsdl:part element="rtdi.focuser:booleanResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="focGetStepSizeRequest">
+    <wsdl:part element="rtdi.focuser:focGetStepSize" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="focGetStepSizeResponse">
+    <wsdl:part element="rtdi.focuser:doubleResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="focGetMaxIncrementRequest">
+    <wsdl:part element="rtdi.focuser:focGetMaxIncrement" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="focGetMaxIncrementResponse">
+    <wsdl:part element="rtdi.focuser:longResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="focGetMaxStepRequest">
+    <wsdl:part element="rtdi.focuser:focGetMaxStep" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="focGetMaxStepResponse">
+    <wsdl:part element="rtdi.focuser:longResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="focGetPositionRequest">
+    <wsdl:part element="rtdi.focuser:focGetPosition" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="focGetPositionResponse">
+    <wsdl:part element="rtdi.focuser:longResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="focIsTempCompAvailableRequest">
+    <wsdl:part element="rtdi.focuser:focIsTempCompAvailable" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="focIsTempCompAvailableResponse">
+    <wsdl:part element="rtdi.focuser:booleanResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="focGetTemperatureRequest">
+    <wsdl:part element="rtdi.focuser:focGetTemperature" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="focGetTemperatureResponse">
+    <wsdl:part element="rtdi.focuser:doubleResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="focSetTempCompRequest">
+    <wsdl:part element="rtdi.focuser:focSetTempComp" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="focSetTempCompResponse">
+    <wsdl:part element="rtdi.focuser:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>    
+  <wsdl:message name="focHaltRequest">
+    <wsdl:part element="rtdi.focuser:focHalt" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="focHaltResponse">
+    <wsdl:part element="rtdi.focuser:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="focMoveRequest">
+    <wsdl:part element="rtdi.focuser:focMove" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="focMoveResponse">
+    <wsdl:part element="rtdi.focuser:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <!-- FOCUSER DEVICE MESSAGES - END -->
+  
+  
+  <wsdl:portType name="gloria_rtdi_focuser"> 
+  
+  	<!-- COMMON DEVICE PORT TYPE OPS - BEGIN -->    
+    <wsdl:operation name="devGetDevice">
+	  <wsdl:documentation>
+	  Recover the information of one device.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device Identifier.
+	  @return Current device data.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.focuser:devGetDeviceRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.focuser:devGetDeviceResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.focuser:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devGetDeviceProperties">
+	  <wsdl:documentation>
+	  Recover the properties of a device.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device Identifier.
+	  @return Properties List.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.focuser:devGetDevicePropertiesRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.focuser:devGetDevicePropertiesResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.focuser:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devGetDeviceProperty">
+	  <wsdl:documentation>
+	  Recover a property of a device.
+	  @param name Property name
+	  @return Properties List.
+	  @throws RtiError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.focuser:devGetDevicePropertyRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.focuser:devGetDevicePropertyResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.focuser:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devUpdateDeviceProperty">
+	  <wsdl:documentation>
+	  Updates a property into a Device configuration. If the property is a readonly property or the value cannot be (internally) transformed into the proper type, an exception will be throw.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device Identifier.
+	  @param name Property name.
+	  @param value Values of the property.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.focuser:devUpdateDevicePropertyRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.focuser:devUpdateDevicePropertyResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.focuser:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devUpdateDevicePropertyAsync">
+	  <wsdl:documentation>
+	  Updates a property into a Device configuration. If the property is a readonly property or the value cannot be (internally) transformed into the proper type, an exception will be throw.
+	  Asynchronous call.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device Identifier.
+	  @param name Property name.
+	  @param value Values of the property.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.focuser:devUpdateDevicePropertyAsyncRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.focuser:devUpdateDevicePropertyAsyncResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.focuser:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devIsConnected">
+	  <wsdl:documentation>
+	  Checks the link between the driver and the device. If True, the link is enable.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device Identifier.
+	  @return boolean.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.focuser:devIsConnectedRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.focuser:devIsConnectedResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.focuser:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devConnect">
+	  <wsdl:documentation>
+	  Creates the link between the driver and the device.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device Identifier.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.focuser:devConnectRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.focuser:devConnectResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.focuser:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devDisconnect">
+	  <wsdl:documentation>
+	  Controls the link between the driver and the device. Set True to enable the link. Set False to disable the link.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device Identifier.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.focuser:devDisconnectRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.focuser:devDisconnectResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.focuser:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devGetConfiguration">
+	  <wsdl:documentation>
+	  Returns a String containing a full configuration information. For logging purpose.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device Id.
+	  @return Configuration in a string.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.focuser:devGetConfigurationRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.focuser:devGetConfigurationResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.focuser:rtdError" name="error"/>
+    </wsdl:operation>
+    
+     <wsdl:operation name="devIsBlocked">
+	  <wsdl:documentation>
+	  Returns true if the device is blocked because of its blocked state or some dependency to other device.
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.focuser:devIsBlockedRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.focuser:devIsBlockedResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.focuser:rtdError" name="error"/>
+    </wsdl:operation>
+    <!-- COMMON DEVICE PORT TYPE OPS - END -->
+    
+    
+    <!-- FOCUSER PORT TYPE OPS - BEGIN -->
+   <wsdl:operation name="focGetCamera">
+	  <wsdl:documentation>
+	  Retrieves the camera identifier where the focuser is connected. 
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return String
+	  @throws RtiError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.focuser:focGetCameraRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.focuser:focGetCameraResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.focuser:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="focIsAbsolute">
+	  <wsdl:documentation>
+	  True if the focuser is capable of absolute position. 
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return boolean
+	  @throws RtiError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.focuser:focIsAbsoluteRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.focuser:focIsAbsoluteResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.focuser:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="focGetStepSize">
+	  <wsdl:documentation>
+	  Step size (microns) for the focuser.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return size.
+	  @throws RtiError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.focuser:focGetStepSizeRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.focuser:focGetStepSizeResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.focuser:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="focGetMaxIncrement">
+	  <wsdl:documentation>
+	  Maximum increment size in one move operation allowed by the focuser. 
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return Increment.
+	  @throws RtiError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.focuser:focGetMaxIncrementRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.focuser:focGetMaxIncrementResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.focuser:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="focGetMaxStep">
+	  <wsdl:documentation>
+	  Maximum step position permitted.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return Step.
+	  @throws RtiError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.focuser:focGetMaxStepRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.focuser:focGetMaxStepResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.focuser:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="focGetPosition">
+	  <wsdl:documentation>
+	  Current focuser position, in steps. 
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return position.
+	  @throws RtiError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.focuser:focGetPositionRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.focuser:focGetPositionResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.focuser:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="focIsTempCompAvailable">
+	  <wsdl:documentation>
+	  Its value is True if focuser has temperature compensation available.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return boolean.
+	  @throws RtiError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.focuser:focIsTempCompAvailableRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.focuser:focIsTempCompAvailableResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.focuser:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="focGetTemperature">
+	  <wsdl:documentation>
+	  Current ambient temperature as measured by the focuser. Raises an exception if ambient 
+	  temperature is not available. Commonly available on focusers with a built-in temperature
+	  compensation mode.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return Temperature.
+	  @throws RtiError In error case.
+	  </wsdl:documentation>
+	   <wsdl:input message="rtdi.focuser:focGetTemperatureRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.focuser:focGetTemperatureResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.focuser:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="focSetTempComp">
+	  <wsdl:documentation>
+	  If the TempCompAvailable property is True, then setting TempComp to True puts the focuser 
+	  into temperature tracking mode. Set to False to turn off temperature tracking.
+	  While focuser is in temperature tracking mode, Move commands will be rejected.
+	  An exception will be raised if focIsTempCompAvailable is False and an attempt is made to set 
+	  TempComp to true.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @param trackingMode tracking mode.
+	  @throws RtiError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.focuser:focSetTempCompRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.focuser:focSetTempCompResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.focuser:rtdError" name="error"/>
+    </wsdl:operation>    
+    <wsdl:operation name="focHalt">
+	  <wsdl:documentation>
+	  It stops any previous focuser motion. 
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @throws RtiError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.focuser:focHaltRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.focuser:focHaltResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.focuser:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="focMove">
+	  <wsdl:documentation>
+	  Moves the focuser by the specified amount or to the specified position depending on
+	  the value of the Absolute property. If the Absolute property is True, then this is
+	  an absolute positioning focuser. The Move command tells the focuser to move to an exact
+	  step position, and the Position parameter of the Move method is an integer between 0 and 
+	  MaxStep (0 greater or equal to position less or equal to MaxStep). If the Absolute property is False, then this is a
+	  relative positioning focuser. The Move command tells the focuser to move in a relative
+	  direction, and the Position parameter of the Move method (in this case, step distance) 
+	  is an integer between minus MaxIncrement and plus MaxIncrement 
+	  (-MaxIncrement  greater or equal to position less or equal to MaxIncrement)
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @param position The target position of the movement.
+	  @throws RtiError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.focuser:focMoveRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.focuser:focMoveResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.focuser:rtdError" name="error"/>
+    </wsdl:operation>
+   
+    <!-- FOCUSER PORT TYPE OPS - END -->
+    
+  </wsdl:portType>
+
+  
+  <wsdl:binding name="gloria_rtdi_focuserSOAP" type="rtdi.focuser:gloria_rtdi_focuser">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    
+    <!-- COMMON DEVICE BINDING OPS - BEGIN -->
+    <wsdl:operation name="devGetDevice">
+      <soap:operation soapAction="http://gloria.eu/rtdi.focuser/devGetDevice"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devGetDeviceProperties">
+      <soap:operation soapAction="http://gloria.eu/rtdi.focuser/devGetDeviceProperties"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devGetDeviceProperty">
+      <soap:operation soapAction="http://gloria.eu/rtdi.focuser/devGetDeviceProperty"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devUpdateDeviceProperty">
+      <soap:operation soapAction="http://gloria.eu/rtdi.focuser/devUpdateDeviceProperty"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+     <wsdl:operation name="devUpdateDevicePropertyAsync">
+      <soap:operation soapAction="http://gloria.eu/rtdi.focuser/devUpdateDeviceProperty"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devIsConnected">
+      <soap:operation soapAction="http://gloria.eu/rtdi.focuser/devIsConnected"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devConnect">
+      <soap:operation soapAction="http://gloria.eu/rtdi.focuser/devConnect"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devDisconnect">
+      <soap:operation soapAction="http://gloria.eu/rtdi.focuser/devDisconnect"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devGetConfiguration">
+      <soap:operation soapAction="http://gloria.eu/rtdi.focuser/devGetConfiguration"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devIsBlocked">
+      <soap:operation soapAction="http://gloria.eu/rtdi.focuser/devIsBlocked"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <!-- COMMON DEVICE BINDING OPS - END -->
+    
+     <!-- FOCUSER DEVICE BINDING OPS - BEGIN -->
+     <wsdl:operation name="focGetCamera">
+      <soap:operation soapAction="http://gloria.eu/rtdi.focuser/focGetCamera"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="focIsAbsolute">
+      <soap:operation soapAction="http://gloria.eu/rtdi.focuser/focIsAbsolute"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="focGetStepSize">
+      <soap:operation soapAction="http://gloria.eu/rtdi.focuser/focGetStepSize"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="focGetMaxIncrement">
+      <soap:operation soapAction="http://gloria.eu/rtdi.focuser/focGetMaxIncrement"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="focGetMaxStep">
+      <soap:operation soapAction="http://gloria.eu/rtdi.focuser/focGetMaxStep"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="focGetPosition">
+      <soap:operation soapAction="http://gloria.eu/rtdi.focuser/focGetPosition"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="focIsTempCompAvailable">
+      <soap:operation soapAction="http://gloria.eu/rtdi.focuser/focIsTempCompAvailable"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="focGetTemperature">
+      <soap:operation soapAction="http://gloria.eu/rtdi.focuser/focGetTemperature"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="focSetTempComp">
+      <soap:operation soapAction="http://gloria.eu/rtdi.focuser/focSetTempComp"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>    
+    <wsdl:operation name="focHalt">
+      <soap:operation soapAction="http://gloria.eu/rtdi.focuser/focHalt"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="focMove">
+      <soap:operation soapAction="http://gloria.eu/rtdi.focuser/focMove"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+       
+     <!-- FOCUSER DEVICE BINDING OPS - END -->
+    
+  </wsdl:binding>
+  
+  <wsdl:service name="gloria_rtdi_focuser">
+    <wsdl:documentation/>
+    <wsdl:port binding="rtdi.focuser:gloria_rtdi_focuserSOAP" name="gloria_rtdi_focuserSOAP">
+      <soap:address location="http://localhost:8080/RTDI_Focuser/services/gloria_rtdi_focuserSOAP"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

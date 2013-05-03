@@ -1,0 +1,704 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- *********************************** -->
+<!-- * Archive: Gloria RTDI PHOTOMETER * -->
+<!-- * Author: Juan Cabello            * -->
+<!-- * Date  : 13/09/2012              * -->
+<!-- *********************************** -->
+<wsdl:definitions xmlns:gloria.rt.entity.device="http://gloria.eu/rt/entity/device" xmlns:gloria.rtdi.fault="http://gloria.eu/rtdi/fault" xmlns:rtdi.photometer="http://gloria.eu/rtdi.photometer" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="gloria_rtdi_photometer" targetNamespace="http://gloria.eu/rtdi.photometer">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://gloria.eu/rtdi.photometer">
+    
+      <xsd:import namespace="http://gloria.eu/rtdi/fault" schemaLocation="gloria_rtdi_fault.xsd"/> 
+      <xsd:import namespace="http://gloria.eu/rt/entity/device" schemaLocation="gloria_rti_device.xsd"/>
+      
+      <!-- BASIC TYPE RESPONSES - BEGIN -->
+      
+	  <xsd:element name="voidResponse">
+        <xsd:complexType>
+          <xsd:sequence>            
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+	  
+      <xsd:element name="stringResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <xsd:element name="booleanResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="xsd:boolean"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <xsd:element name="intResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <xsd:element name="longResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="xsd:long"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <xsd:element name="doubleResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="xsd:double"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <!-- BASIC TYPE RESPONSES - END -->
+            
+      <!-- COMMON DEVICE ELEMENTS - BEGIN -->
+      <xsd:element name="devGetConfiguration">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devGetDeviceProperties">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devGetDevicePropertiesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="out" type="gloria.rt.entity.device:deviceProperty"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+     <xsd:element name="devGetDeviceProperty">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="name" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devGetDevicePropertyResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="gloria.rt.entity.device:deviceProperty"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+     <xsd:element name="devIsConnected">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devGetDevice">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="allProperties" type="xsd:boolean"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devGetDeviceResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="gloria.rt.entity.device:device"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devUpdateDeviceProperty">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="name" type="xsd:string"/>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="value" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devUpdateDevicePropertyAsync">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="name" type="xsd:string"/>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="value" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devConnect">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devDisconnect">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devIsBlocked">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <!-- COMMON DEVICE ELEMENTS - END -->
+      
+      <!-- PHOTOMETER ELEMENTS - BEGIN -->
+      <xsd:element name="fhtGetMeasureUnit">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fhtGetMeasureUnitResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="gloria.rt.entity.device:measureUnit"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fhtGetMeasure">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fhtSetMeasureStates">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="states" type="gloria.rt.entity.device:sensorStateIntervalDouble"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fhtGetMeasureStates">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fhtGetMeasureStatesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="out" type="gloria.rt.entity.device:sensorStateIntervalDouble"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <!-- PHOTOMETER ELEMENTS - END -->
+      
+    </xsd:schema> 
+  </wsdl:types>
+  
+  <!-- ERROR MESSAGES - BEGIN -->
+  <wsdl:message name="rtdError">
+    <wsdl:part element="gloria.rtdi.fault:errorDetail" name="rtdError">    
+    </wsdl:part>
+  </wsdl:message>
+  <!-- ERROR MESSAGES - END -->
+  
+  <!-- COMMON DEVICE MESSAGES - BEGIN -->
+  <wsdl:message name="devGetConfigurationRequest">
+    <wsdl:part element="rtdi.photometer:devGetConfiguration" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devGetConfigurationResponse">
+    <wsdl:part element="rtdi.photometer:stringResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devGetDeviceRequest">
+    <wsdl:part element="rtdi.photometer:devGetDevice" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devGetDeviceResponse">
+    <wsdl:part element="rtdi.photometer:devGetDeviceResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  
+  <wsdl:message name="devGetDevicePropertiesRequest">
+    <wsdl:part element="rtdi.photometer:devGetDeviceProperties" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devGetDevicePropertiesResponse">
+    <wsdl:part element="rtdi.photometer:devGetDevicePropertiesResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <wsdl:message name="devGetDevicePropertyRequest">
+    <wsdl:part element="rtdi.photometer:devGetDeviceProperty" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devGetDevicePropertyResponse">
+    <wsdl:part element="rtdi.photometer:devGetDevicePropertyResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <wsdl:message name="devUpdateDevicePropertyRequest">
+    <wsdl:part element="rtdi.photometer:devUpdateDeviceProperty" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devUpdateDevicePropertyResponse">
+    <wsdl:part element="rtdi.photometer:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <wsdl:message name="devUpdateDevicePropertyAsyncRequest">
+    <wsdl:part element="rtdi.photometer:devUpdateDevicePropertyAsync" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devUpdateDevicePropertyAsyncResponse">
+    <wsdl:part element="rtdi.photometer:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+   <wsdl:message name="devIsConnectedRequest">
+    <wsdl:part element="rtdi.photometer:devIsConnected" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devIsConnectedResponse">
+    <wsdl:part element="rtdi.photometer:booleanResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <wsdl:message name="devConnectRequest">
+    <wsdl:part element="rtdi.photometer:devConnect" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devConnectResponse">
+    <wsdl:part element="rtdi.photometer:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <wsdl:message name="devDisconnectRequest">
+    <wsdl:part element="rtdi.photometer:devDisconnect" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devDisconnectResponse">
+    <wsdl:part element="rtdi.photometer:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devIsBlockedRequest">
+    <wsdl:part element="rtdi.photometer:devIsBlocked" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devIsBlockedResponse">
+    <wsdl:part element="rtdi.photometer:booleanResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <!-- COMMON DEVICE MESSAGES - END -->
+ 
+  
+  <!-- PHOTOMETER DEVICE MESSAGES - BEGIN -->
+  <wsdl:message name="fhtGetMeasureUnitRequest">
+    <wsdl:part element="rtdi.photometer:fhtGetMeasureUnit" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="fhtGetMeasureUnitResponse">
+    <wsdl:part element="rtdi.photometer:fhtGetMeasureUnitResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="fhtGetMeasureRequest">
+    <wsdl:part element="rtdi.photometer:fhtGetMeasure" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="fhtGetMeasureResponse">
+    <wsdl:part element="rtdi.photometer:doubleResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="fhtSetMeasureStatesRequest">
+    <wsdl:part element="rtdi.photometer:fhtSetMeasureStates" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="fhtSetMeasureStatesResponse">
+    <wsdl:part element="rtdi.photometer:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="fhtGetMeasureStatesRequest">
+    <wsdl:part element="rtdi.photometer:fhtGetMeasureStates" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="fhtGetMeasureStatesResponse">
+    <wsdl:part element="rtdi.photometer:fhtGetMeasureStatesResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <!-- PHOTOMETER DEVICE MESSAGES - END -->
+  
+  
+  <wsdl:portType name="gloria_rtdi_photometer"> 
+  
+  	<!-- COMMON DEVICE PORT TYPE OPS - BEGIN -->    
+    <wsdl:operation name="devGetDevice">
+	  <wsdl:documentation>
+	  Recover the information of one device.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device Identifier.
+	  @return Current device data.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.photometer:devGetDeviceRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.photometer:devGetDeviceResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.photometer:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devGetDeviceProperties">
+	  <wsdl:documentation>
+	  Recover the properties of a device.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device Identifier.
+	  @return Properties List.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.photometer:devGetDevicePropertiesRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.photometer:devGetDevicePropertiesResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.photometer:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devGetDeviceProperty">
+	  <wsdl:documentation>
+	  Recover a property of a device.
+	  @param name Property name
+	  @return Properties List.
+	  @throws RtiError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.photometer:devGetDevicePropertyRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.photometer:devGetDevicePropertyResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.photometer:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devUpdateDeviceProperty">
+	  <wsdl:documentation>
+	  Updates a property into a Device configuration. If the property is a readonly property or the value cannot be (internally) transformed into the proper type, an exception will be throw.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device Identifier.
+	  @param name Property name.
+	  @param value Values of the property.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.photometer:devUpdateDevicePropertyRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.photometer:devUpdateDevicePropertyResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.photometer:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devUpdateDevicePropertyAsync">
+	  <wsdl:documentation>
+	  Updates a property into a Device configuration. If the property is a readonly property or the value cannot be (internally) transformed into the proper type, an exception will be throw.
+	  Asynchronous call.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device Identifier.
+	  @param name Property name.
+	  @param value Values of the property.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.photometer:devUpdateDevicePropertyAsyncRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.photometer:devUpdateDevicePropertyAsyncResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.photometer:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devIsConnected">
+	  <wsdl:documentation>
+	  Checks the link between the driver and the device. If True, the link is enable.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device Identifier.
+	  @return boolean.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.photometer:devIsConnectedRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.photometer:devIsConnectedResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.photometer:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devConnect">
+	  <wsdl:documentation>
+	  Creates the link between the driver and the device.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device Identifier.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.photometer:devConnectRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.photometer:devConnectResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.photometer:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devDisconnect">
+	  <wsdl:documentation>
+	  Controls the link between the driver and the device. Set True to enable the link. Set False to disable the link.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device Identifier.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.photometer:devDisconnectRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.photometer:devDisconnectResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.photometer:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devGetConfiguration">
+	  <wsdl:documentation>
+	  Returns a String containing a full configuration information. For logging purpose.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device Id.
+	  @return Configuration in a string.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.photometer:devGetConfigurationRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.photometer:devGetConfigurationResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.photometer:rtdError" name="error"/>
+    </wsdl:operation>
+    
+     <wsdl:operation name="devIsBlocked">
+	  <wsdl:documentation>
+	  Returns true if the device is blocked because of its blocked state or some dependency to other device.
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.photometer:devIsBlockedRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.photometer:devIsBlockedResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.photometer:rtdError" name="error"/>
+    </wsdl:operation>
+    <!-- COMMON DEVICE PORT TYPE OPS - END -->
+    
+    
+    <!-- PHOTOMETER PORT TYPE OPS - BEGIN -->
+   <wsdl:operation name="fhtGetMeasureUnit">
+	  <wsdl:documentation>
+	  Return the measure unit of the sensor. A/V if a photodiode is used; Ohms is a photoresistor is used... 
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return MeasureUnit.
+	  @throws RtiError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.photometer:fhtGetMeasureUnitRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.photometer:fhtGetMeasureUnitResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.photometer:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="fhtGetMeasure">
+	  <wsdl:documentation>
+	  Returns the measure of the sensor.  
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return MeasureUnit.
+	  @throws RtiError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.photometer:fhtGetMeasureRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.photometer:fhtGetMeasureResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.photometer:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="fhtSetMeasureStates">
+	  <wsdl:documentation>
+	  Sets the measure interval states. 
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @param states State (measure interval and alarm activation).
+	  @throws RtiError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.photometer:fhtSetMeasureStatesRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.photometer:fhtSetMeasureStatesResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.photometer:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="fhtGetMeasureStates">
+	  <wsdl:documentation>
+	  Returns the list of the measure interval states. 
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return List of states information.
+	  @throws RtiError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.photometer:fhtGetMeasureStatesRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.photometer:fhtGetMeasureStatesResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.photometer:rtdError" name="error"/>
+    </wsdl:operation>
+   
+    <!-- PHOTOMETER PORT TYPE OPS - END -->
+    
+  </wsdl:portType>
+
+  
+  <wsdl:binding name="gloria_rtdi_photometerSOAP" type="rtdi.photometer:gloria_rtdi_photometer">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    
+    <!-- COMMON DEVICE BINDING OPS - BEGIN -->
+    <wsdl:operation name="devGetDevice">
+      <soap:operation soapAction="http://gloria.eu/rtdi.photometer/devGetDevice"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devGetDeviceProperties">
+      <soap:operation soapAction="http://gloria.eu/rtdi.photometer/devGetDeviceProperties"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devGetDeviceProperty">
+      <soap:operation soapAction="http://gloria.eu/rtdi.photometer/devGetDeviceProperty"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devUpdateDeviceProperty">
+      <soap:operation soapAction="http://gloria.eu/rtdi.photometer/devUpdateDeviceProperty"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+     <wsdl:operation name="devUpdateDevicePropertyAsync">
+      <soap:operation soapAction="http://gloria.eu/rtdi.photometer/devUpdateDeviceProperty"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devIsConnected">
+      <soap:operation soapAction="http://gloria.eu/rtdi.photometer/devIsConnected"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devConnect">
+      <soap:operation soapAction="http://gloria.eu/rtdi.photometer/devConnect"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devDisconnect">
+      <soap:operation soapAction="http://gloria.eu/rtdi.photometer/devDisconnect"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devGetConfiguration">
+      <soap:operation soapAction="http://gloria.eu/rtdi.photometer/devGetConfiguration"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devIsBlocked">
+      <soap:operation soapAction="http://gloria.eu/rtdi.photometer/devIsBlocked"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <!-- COMMON DEVICE BINDING OPS - END -->
+    
+     <!-- PHOTOMETER DEVICE BINDING OPS - BEGIN -->
+     <wsdl:operation name="fhtGetMeasureUnit">
+      <soap:operation soapAction="http://gloria.eu/rtdi.photometer/fhtGetMeasureUnit"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="fhtGetMeasure">
+      <soap:operation soapAction="http://gloria.eu/rtdi.photometer/fhtGetMeasure"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="fhtSetMeasureStates">
+      <soap:operation soapAction="http://gloria.eu/rtdi.photometer/fhtSetMeasureStates"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="fhtGetMeasureStates">
+      <soap:operation soapAction="http://gloria.eu/rtdi.photometer/fhtGetMeasureStates"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+       
+     <!-- PHOTOMETER DEVICE BINDING OPS - END -->
+    
+  </wsdl:binding>
+  
+  <wsdl:service name="gloria_rtdi_photometer">
+    <wsdl:documentation/>
+    <wsdl:port binding="rtdi.photometer:gloria_rtdi_photometerSOAP" name="gloria_rtdi_photometerSOAP">
+      <soap:address location="http://localhost:8080/RTDI_Photometer/services/gloria_rtdi_photometerSOAP"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

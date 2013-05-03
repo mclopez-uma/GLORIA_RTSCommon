@@ -1,0 +1,922 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- ******************************* -->
+<!-- * Archive: Gloria RTDI FILTER * -->
+<!-- * Author: Mª Carmen López     * -->
+<!-- * Date  : 7/09/2012           * -->
+<!-- ******************************* -->
+<wsdl:definitions xmlns:gloria.rt.entity.device="http://gloria.eu/rt/entity/device" xmlns:gloria.rtdi.fault="http://gloria.eu/rtdi/fault" xmlns:rtdi.filter="http://gloria.eu/rtdi.filter" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="gloria_rtdi_filter" targetNamespace="http://gloria.eu/rtdi.filter">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://gloria.eu/rtdi.filter">
+    
+      <xsd:import namespace="http://gloria.eu/rtdi/fault" schemaLocation="gloria_rtdi_fault.xsd"/> 
+      <xsd:import namespace="http://gloria.eu/rt/entity/device" schemaLocation="gloria_rti_device.xsd"/>
+
+      <!-- BASIC TYPE RESPONSES - BEGIN -->
+      
+	  <xsd:element name="voidResponse">
+        <xsd:complexType>
+          <xsd:sequence>            
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+	  
+      <xsd:element name="stringResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <xsd:element name="booleanResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="xsd:boolean"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <xsd:element name="intResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <xsd:element name="longResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="xsd:long"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <xsd:element name="doubleResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="xsd:double"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <!-- BASIC TYPE RESPONSES - END -->
+            
+      <!-- COMMON DEVICE ELEMENTS - BEGIN -->
+      <xsd:element name="devGetConfiguration">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devGetDeviceProperties">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devGetDevicePropertiesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="out" type="gloria.rt.entity.device:deviceProperty"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+     <xsd:element name="devGetDeviceProperty">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="name" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devGetDevicePropertyResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="gloria.rt.entity.device:deviceProperty"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+     <xsd:element name="devIsConnected">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devGetDevice">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="allProperties" type="xsd:boolean"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devGetDeviceResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="gloria.rt.entity.device:device"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devUpdateDeviceProperty">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="name" type="xsd:string"/>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="value" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devUpdateDevicePropertyAsync">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="name" type="xsd:string"/>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="value" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devConnect">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devDisconnect">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devIsBlocked">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <!-- COMMON DEVICE ELEMENTS - END -->
+      
+      <!-- FILTER WHEEL ELEMENTS - BEGIN -->      
+      <xsd:element name="fwGetCamera">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fwGetFilterList">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fwGetFilterListResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="out" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fwGetPositionNumber">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fwGetSpeedSwitching">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fwGetFilterSize">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fwGetFilterSizeResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="xsd:float"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fwGetFilterKind">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fwIsAtHome">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fwSetOffset">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="positions" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fwSelectFilterKind">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="kind" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fwSelectFilterPosition">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="position" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fwGoHome">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <!-- FILTER WHEEL ELEMENTS - END -->
+      
+     </xsd:schema> 
+  </wsdl:types>
+  
+  <!-- ERROR MESSAGES - BEGIN -->
+  <wsdl:message name="rtdError">
+    <wsdl:part element="gloria.rtdi.fault:errorDetail" name="rtdError">    
+    </wsdl:part>
+  </wsdl:message>
+  <!-- ERROR MESSAGES - END -->
+  
+  <!-- COMMON DEVICE MESSAGES - BEGIN -->
+  <wsdl:message name="devGetConfigurationRequest">
+    <wsdl:part element="rtdi.filter:devGetConfiguration" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devGetConfigurationResponse">
+    <wsdl:part element="rtdi.filter:stringResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devGetDeviceRequest">
+    <wsdl:part element="rtdi.filter:devGetDevice" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devGetDeviceResponse">
+    <wsdl:part element="rtdi.filter:devGetDeviceResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  
+  <wsdl:message name="devGetDevicePropertiesRequest">
+    <wsdl:part element="rtdi.filter:devGetDeviceProperties" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devGetDevicePropertiesResponse">
+    <wsdl:part element="rtdi.filter:devGetDevicePropertiesResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <wsdl:message name="devGetDevicePropertyRequest">
+    <wsdl:part element="rtdi.filter:devGetDeviceProperty" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devGetDevicePropertyResponse">
+    <wsdl:part element="rtdi.filter:devGetDevicePropertyResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <wsdl:message name="devUpdateDevicePropertyRequest">
+    <wsdl:part element="rtdi.filter:devUpdateDeviceProperty" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devUpdateDevicePropertyResponse">
+    <wsdl:part element="rtdi.filter:booleanResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <wsdl:message name="devUpdateDevicePropertyAsyncRequest">
+    <wsdl:part element="rtdi.filter:devUpdateDevicePropertyAsync" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devUpdateDevicePropertyAsyncResponse">
+    <wsdl:part element="rtdi.filter:booleanResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+   <wsdl:message name="devIsConnectedRequest">
+    <wsdl:part element="rtdi.filter:devIsConnected" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devIsConnectedResponse">
+    <wsdl:part element="rtdi.filter:booleanResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <wsdl:message name="devConnectRequest">
+    <wsdl:part element="rtdi.filter:devConnect" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devConnectResponse">
+    <wsdl:part element="rtdi.filter:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <wsdl:message name="devDisconnectRequest">
+    <wsdl:part element="rtdi.filter:devDisconnect" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devDisconnectResponse">
+    <wsdl:part element="rtdi.filter:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <wsdl:message name="devIsBlockedRequest">
+    <wsdl:part element="rtdi.filter:devIsBlocked" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devIsBlockedResponse">
+    <wsdl:part element="rtdi.filter:booleanResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <!-- COMMON DEVICE MESSAGES - END -->
+  
+  <!-- FILTER WHEEL DEVICE MESSAGES - BEGIN -->
+  <wsdl:message name="fwGetCameraRequest">
+    <wsdl:part element="rtdi.filter:fwGetCamera" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="fwGetCameraResponse">
+    <wsdl:part element="rtdi.filter:stringResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="fwGetFilterListRequest">
+    <wsdl:part element="rtdi.filter:fwGetFilterList" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="fwGetFilterListResponse">
+    <wsdl:part element="rtdi.filter:fwGetFilterListResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="fwGetPositionNumberRequest">
+    <wsdl:part element="rtdi.filter:fwGetPositionNumber" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="fwGetPositionNumberResponse">
+    <wsdl:part element="rtdi.filter:intResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="fwGetSpeedSwitchingRequest">
+    <wsdl:part element="rtdi.filter:fwGetSpeedSwitching" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="fwGetSpeedSwitchingResponse">
+    <wsdl:part element="rtdi.filter:intResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="fwGetFilterSizeRequest">
+    <wsdl:part element="rtdi.filter:fwGetFilterSize" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="fwGetFilterSizeResponse">
+    <wsdl:part element="rtdi.filter:fwGetFilterSizeResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="fwGetFilterKindRequest">
+    <wsdl:part element="rtdi.filter:fwGetFilterKind" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="fwGetFilterKindResponse">
+    <wsdl:part element="rtdi.filter:stringResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="fwIsAtHomeRequest">
+    <wsdl:part element="rtdi.filter:fwIsAtHome" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="fwIsAtHomeResponse">
+    <wsdl:part element="rtdi.filter:booleanResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="fwSetOffsetRequest">
+    <wsdl:part element="rtdi.filter:fwSetOffset" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="fwSetOffsetResponse">
+    <wsdl:part element="rtdi.filter:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="fwSelectFilterKindRequest">
+    <wsdl:part element="rtdi.filter:fwSelectFilterKind" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="fwSelectFilterKindResponse">
+    <wsdl:part element="rtdi.filter:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="fwSelectFilterPositionRequest">
+    <wsdl:part element="rtdi.filter:fwSelectFilterPosition" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="fwSelectFilterPositionResponse">
+    <wsdl:part element="rtdi.filter:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="fwGoHomeRequest">
+    <wsdl:part element="rtdi.filter:fwGoHome" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="fwGoHomeResponse">
+    <wsdl:part element="rtdi.filter:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <!-- FILTER WHEEL DEVICE MESSAGES - END -->
+  
+  <wsdl:portType name="gloria_rtdi_filter"> 
+  
+  <!-- COMMON DEVICE PORT TYPE OPS - BEGIN -->    
+    <wsdl:operation name="devGetDevice">
+	  <wsdl:documentation>
+	  Recover the information of one device.
+	  @return Current device data.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.filter:devGetDeviceRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.filter:devGetDeviceResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.filter:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devGetDeviceProperties">
+	  <wsdl:documentation>
+	  Recover the properties of a device.
+	  @return Properties List.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.filter:devGetDevicePropertiesRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.filter:devGetDevicePropertiesResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.filter:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devGetDeviceProperty">
+	  <wsdl:documentation>
+	  Recover a property of a device.
+	  @param name Property name
+	  @return Properties List.
+	  @throws RtiError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.filter:devGetDevicePropertyRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.filter:devGetDevicePropertyResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.filter:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devUpdateDeviceProperty">
+	  <wsdl:documentation>
+	  Updates a property into a Device configuration. If the property is a readonly property or the value cannot be (internally) transformed into the proper type, an exception will be throw.
+	  @param name Property name.
+	  @param value Values of the property.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.filter:devUpdateDevicePropertyRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.filter:devUpdateDevicePropertyResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.filter:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devUpdateDevicePropertyAsync">
+	  <wsdl:documentation>
+	  Updates a property into a Device configuration. If the property is a readonly property or the value cannot be (internally) transformed into the proper type, an exception will be throw.
+	  Asynchronous call.
+	  @param name Property name.
+	  @param value Values of the property.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.filter:devUpdateDevicePropertyAsyncRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.filter:devUpdateDevicePropertyAsyncResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.filter:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devIsConnected">
+	  <wsdl:documentation>
+	  Checks the link between the driver and the device. If True, the link is enable.
+	  @return boolean.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.filter:devIsConnectedRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.filter:devIsConnectedResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.filter:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devConnect">
+	  <wsdl:documentation>
+	  Creates the link between the driver and the device.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.filter:devConnectRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.filter:devConnectResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.filter:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devDisconnect">
+	  <wsdl:documentation>
+	  Controls the link between the driver and the device. Set True to enable the link. Set False to disable the link.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.filter:devDisconnectRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.filter:devDisconnectResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.filter:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devGetConfiguration">
+	  <wsdl:documentation>
+	  Returns a String containing a full configuration information. For logging purpose.
+	  @return Configuration in a string.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.filter:devGetConfigurationRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.filter:devGetConfigurationResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.filter:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devIsBlocked">
+	  <wsdl:documentation>
+	  Returns true if the device is blocked because of its blocked state or some dependency to other device.
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.filter:devIsBlockedRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.filter:devIsBlockedResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.filter:rtdError" name="error"/>
+    </wsdl:operation>
+    <!-- COMMON DEVICE PORT TYPE OPS - END -->
+    
+    <!-- FILTER WHEEL PORT TYPE OPS - BEGIN -->
+    <wsdl:operation name="fwGetCamera">
+	  <wsdl:documentation>
+	  Retrieves the camera identifier where the filter wheel is connected.
+	  @return Camera identifier.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.filter:fwGetCameraRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.filter:fwGetCameraResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.filter:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="fwGetFilterList">
+	  <wsdl:documentation>
+	  Retrieves the list of filter in the wheel. The list position corresponds with the wheel position.
+	  @return filter list.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.filter:fwGetFilterListRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.filter:fwGetFilterListResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.filter:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="fwGetPositionNumber">
+	  <wsdl:documentation>
+	  Number of filter position in wheel.
+	  @return Number of the possible positions.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.filter:fwGetPositionNumberRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.filter:fwGetPositionNumberResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.filter:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="fwGetSpeedSwitching">
+	  <wsdl:documentation>
+	  Speed filter switching (ms).
+	  @return Speed switching (ms).
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.filter:fwGetSpeedSwitchingRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.filter:fwGetSpeedSwitchingResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.filter:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="fwGetFilterSize">
+	  <wsdl:documentation>
+	  Retrieves the filter inches (1.25’’, 2’’...)
+	  @return inches.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.filter:fwGetFilterSizeRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.filter:fwGetFilterSizeResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.filter:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="fwGetFilterKind">
+	  <wsdl:documentation>
+	  Retrieves the kind of filter selected
+	  @return Kind (G, R, Z, clear...).
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.filter:fwGetFilterKindRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.filter:fwGetFilterKindResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.filter:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="fwIsAtHome">
+	  <wsdl:documentation>
+	  Returns true if the wheel is stopped in the home position.
+	  @return boolean value.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.filter:fwIsAtHomeRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.filter:fwIsAtHomeResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.filter:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="fwSetOffset">
+	  <wsdl:documentation>
+	  Focus offset in each wheel position. These 	values are focuser and filter dependent.
+	  @param positions A list of wheel position, one per wheel belonging to the device.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.filter:fwSetOffsetRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.filter:fwSetOffsetResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.filter:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="fwSelectFilterKind">
+	  <wsdl:documentation>
+	  Select the filter, by filter kind, to switch to.
+	  @param kind Wheel Kind.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.filter:fwSelectFilterKindRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.filter:fwSelectFilterKindResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.filter:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="fwSelectFilterPosition">
+	  <wsdl:documentation>
+	  Select filter, by wheel position, to switch to.
+	  @param position Position within the wheel (1..N).
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.filter:fwSelectFilterPositionRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.filter:fwSelectFilterPositionResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.filter:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="fwGoHome">
+	  <wsdl:documentation>
+	  Switch the wheel to the home position.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.filter:fwGoHomeRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.filter:fwGoHomeResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.filter:rtdError" name="error"/>
+    </wsdl:operation>
+    <!-- FILTER WHEEL PORT TYPE OPS - END -->
+    
+  </wsdl:portType>
+
+  
+  <wsdl:binding name="gloria_rtdi_filterSOAP" type="rtdi.filter:gloria_rtdi_filter">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    
+    <!-- COMMON DEVICE BINDING OPS - BEGIN -->
+    <wsdl:operation name="devGetDevice">
+      <soap:operation soapAction="http://gloria.eu/rtdi.filter/devGetDevice"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devGetDeviceProperties">
+      <soap:operation soapAction="http://gloria.eu/rtdi.filter/devGetDeviceProperties"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devGetDeviceProperty">
+      <soap:operation soapAction="http://gloria.eu/rtdi.filter/devGetDeviceProperty"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devUpdateDeviceProperty">
+      <soap:operation soapAction="http://gloria.eu/rtdi.filter/devUpdateDeviceProperty"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+     <wsdl:operation name="devUpdateDevicePropertyAsync">
+      <soap:operation soapAction="http://gloria.eu/rtdi.filter/devUpdateDeviceProperty"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devIsConnected">
+      <soap:operation soapAction="http://gloria.eu/rtdi.filter/devIsConnected"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devConnect">
+      <soap:operation soapAction="http://gloria.eu/rtdi.filter/devConnect"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devDisconnect">
+      <soap:operation soapAction="http://gloria.eu/rtdi.filter/devDisconnect"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devIsBlocked">
+      <soap:operation soapAction="http://gloria.eu/rtdi.filter/devIsBlocked"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devGetConfiguration">
+      <soap:operation soapAction="http://gloria.eu/rtdi.filter/devGetConfiguration"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <!-- COMMON DEVICE BINDING OPS - END -->
+    
+    <!-- FILTER WHEEL DEVICE BINDING OPS - BEGIN -->
+    <wsdl:operation name="fwGetCamera">
+      <soap:operation soapAction="http://gloria.eu/rtdi.filter/fwGetCamera"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="fwGetFilterList">
+      <soap:operation soapAction="http://gloria.eu/rtdi.filter/fwGetFilterList"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="fwGetPositionNumber">
+      <soap:operation soapAction="http://gloria.eu/rtdi.filter/fwGetPositionNumber"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="fwGetSpeedSwitching">
+      <soap:operation soapAction="http://gloria.eu/rtdi.filter/fwGetSpeedSwitching"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="fwGetFilterSize">
+      <soap:operation soapAction="http://gloria.eu/rtdi.filter/fwGetFilterSize"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="fwGetFilterKind">
+      <soap:operation soapAction="http://gloria.eu/rtdi.filter/fwGetFilterKind"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="fwIsAtHome">
+      <soap:operation soapAction="http://gloria.eu/rtdi.filter/fwIsAtHome"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="fwSetOffset">
+      <soap:operation soapAction="http://gloria.eu/rtdi.filter/fwSetOffset"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="fwSelectFilterKind">
+      <soap:operation soapAction="http://gloria.eu/rtdi.filter/fwSelectFilterKind"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="fwSelectFilterPosition">
+      <soap:operation soapAction="http://gloria.eu/rtdi.filter/fwSelectFilterPosition"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="fwGoHome">
+      <soap:operation soapAction="http://gloria.eu/rtdi.filter/fwGoHome"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <!-- FILTER WHEEL DEVICE BINDING OPS - END -->
+    
+  </wsdl:binding>
+  
+  <wsdl:service name="gloria_rtdi_filter">
+    <wsdl:documentation/>
+    <wsdl:port binding="rtdi.filter:gloria_rtdi_filterSOAP" name="gloria_rtdi_filterSOAP">
+      <soap:address location="http://localhost:8080/RTDI_Filter/services/gloria_rtdi_filterSOAP"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

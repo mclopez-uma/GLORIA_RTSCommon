@@ -1,0 +1,1644 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- ***************************** -->
+<!-- * Archive: Gloria RTDI SCAM * -->
+<!-- * Author: Mª Carmen López   * -->
+<!-- * Date  : 7/09/2012         * -->
+<!-- ***************************** -->
+<wsdl:definitions xmlns:gloria.rt.entity.device="http://gloria.eu/rt/entity/device" xmlns:gloria.rtdi.fault="http://gloria.eu/rtdi/fault" xmlns:rtdi.scamera="http://gloria.eu/rtdi.scamera" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="gloria_rtdi_scamera" targetNamespace="http://gloria.eu/rtdi.scamera">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://gloria.eu/rtdi.scamera">
+    
+      <xsd:import namespace="http://gloria.eu/rtdi/fault" schemaLocation="gloria_rtdi_fault.xsd"/> 
+      <xsd:import namespace="http://gloria.eu/rt/entity/device" schemaLocation="gloria_rti_device.xsd"/>
+
+      <!-- BASIC TYPE RESPONSES - BEGIN -->
+      
+	  <xsd:element name="voidResponse">
+        <xsd:complexType>
+          <xsd:sequence>            
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+	  
+      <xsd:element name="stringResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <xsd:element name="booleanResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="xsd:boolean"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <xsd:element name="intResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <xsd:element name="longResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="xsd:long"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <xsd:element name="doubleResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="xsd:double"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <!-- BASIC TYPE RESPONSES - END -->
+            
+      <!-- COMMON DEVICE ELEMENTS - BEGIN -->
+      <xsd:element name="devGetConfiguration">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devGetDeviceProperties">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devGetDevicePropertiesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="out" type="gloria.rt.entity.device:deviceProperty"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+     <xsd:element name="devGetDeviceProperty">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="name" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devGetDevicePropertyResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="gloria.rt.entity.device:deviceProperty"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+     <xsd:element name="devIsConnected">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devGetDevice">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="allProperties" type="xsd:boolean"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devGetDeviceResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="gloria.rt.entity.device:device"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devUpdateDeviceProperty">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="name" type="xsd:string"/>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="value" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devUpdateDevicePropertyAsync">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="name" type="xsd:string"/>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="value" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devConnect">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devDisconnect">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devIsBlocked">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <!-- COMMON DEVICE ELEMENTS - END -->
+      
+      <!-- SURVEILLANCE CAMERA ELEMENTS - BEGIN -->
+      <xsd:element name="scamHasBrightness">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="scamHasContrast">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="scamAcquisitionMode">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="scamAcquisitionModeResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="gloria.rt.entity.device:cameraAcquisitionMode"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="scamGetFPS">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="scamGetFPSResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="xsd:float"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="scamGetDigitizingMode">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="scamGetDigitizingModeResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="gloria.rt.entity.device:cameraDigitizingMode"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="scamIsPTSupported">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="scamIsZoomSupported">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="scamGetPanMin">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="scamGetPanMax">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="scamGetTiltMin">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="scamGetTiltMax">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="scamGetZoomMax">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="scamGetExposureTime">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="scamSetExposureTime">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="value" type="xsd:double"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="scamIsImageReady">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="scamGetVideoStreamingURL">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="scamGetImageURL">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="scamSetBrightness">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="value" type="xsd:long"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="scamGetBrightness">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="scamSetContrast">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="value" type="xsd:long"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="scamGetContrast">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="scamGetPanRotation">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="scamSetPanRotation">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="value" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="scamGetTiltRotation">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="scamSetTiltRotation">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="value" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="scamGetZoom">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="scamSetZoom">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="value" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="scamAbortExposure">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="scamStartExposure">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="light" type="xsd:boolean"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="scamStopExposure">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="scamGetImage">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="scamGetImageResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="gloria.rt.entity.device:Image"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <!-- SURVEILLANCE CAMERA ELEMENTS - END -->
+      
+    </xsd:schema> 
+  </wsdl:types>
+  
+  <!-- ERROR MESSAGES - BEGIN -->
+  <wsdl:message name="rtdError">
+    <wsdl:part element="gloria.rtdi.fault:errorDetail" name="rtdError">    
+    </wsdl:part>
+  </wsdl:message>
+  <!-- ERROR MESSAGES - END -->
+  
+  <!-- COMMON DEVICE MESSAGES - BEGIN -->
+  <wsdl:message name="devGetConfigurationRequest">
+    <wsdl:part element="rtdi.scamera:devGetConfiguration" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devGetConfigurationResponse">
+    <wsdl:part element="rtdi.scamera:stringResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devGetDeviceRequest">
+    <wsdl:part element="rtdi.scamera:devGetDevice" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devGetDeviceResponse">
+    <wsdl:part element="rtdi.scamera:devGetDeviceResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  
+  <wsdl:message name="devGetDevicePropertiesRequest">
+    <wsdl:part element="rtdi.scamera:devGetDeviceProperties" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devGetDevicePropertiesResponse">
+    <wsdl:part element="rtdi.scamera:devGetDevicePropertiesResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <wsdl:message name="devGetDevicePropertyRequest">
+    <wsdl:part element="rtdi.scamera:devGetDeviceProperty" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devGetDevicePropertyResponse">
+    <wsdl:part element="rtdi.scamera:devGetDevicePropertyResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <wsdl:message name="devUpdateDevicePropertyRequest">
+    <wsdl:part element="rtdi.scamera:devUpdateDeviceProperty" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devUpdateDevicePropertyResponse">
+    <wsdl:part element="rtdi.scamera:booleanResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <wsdl:message name="devUpdateDevicePropertyAsyncRequest">
+    <wsdl:part element="rtdi.scamera:devUpdateDevicePropertyAsync" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devUpdateDevicePropertyAsyncResponse">
+    <wsdl:part element="rtdi.scamera:booleanResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+   <wsdl:message name="devIsConnectedRequest">
+    <wsdl:part element="rtdi.scamera:devIsConnected" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devIsConnectedResponse">
+    <wsdl:part element="rtdi.scamera:booleanResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <wsdl:message name="devConnectRequest">
+    <wsdl:part element="rtdi.scamera:devConnect" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devConnectResponse">
+    <wsdl:part element="rtdi.scamera:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <wsdl:message name="devDisconnectRequest">
+    <wsdl:part element="rtdi.scamera:devDisconnect" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devDisconnectResponse">
+    <wsdl:part element="rtdi.scamera:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <wsdl:message name="devIsBlockedRequest">
+    <wsdl:part element="rtdi.scamera:devIsBlocked" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devIsBlockedResponse">
+    <wsdl:part element="rtdi.scamera:booleanResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <!-- COMMON DEVICE MESSAGES - END -->
+  
+  <!-- SURVEILLANCE CAMERA MESSAGES - BEGIN -->
+  <wsdl:message name="scamHasBrightnessRequest">
+    <wsdl:part element="rtdi.scamera:scamHasBrightness" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamHasBrightnessResponse">
+    <wsdl:part element="rtdi.scamera:booleanResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamHasContrastRequest">
+    <wsdl:part element="rtdi.scamera:scamHasContrast" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamHasContrastResponse">
+    <wsdl:part element="rtdi.scamera:booleanResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamAcquisitionModeRequest">
+    <wsdl:part element="rtdi.scamera:scamAcquisitionMode" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamAcquisitionModeResponse">
+    <wsdl:part element="rtdi.scamera:scamAcquisitionModeResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamGetFPSRequest">
+    <wsdl:part element="rtdi.scamera:scamGetFPS" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamGetFPSResponse">
+    <wsdl:part element="rtdi.scamera:scamGetFPSResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamGetDigitizingModeRequest">
+    <wsdl:part element="rtdi.scamera:scamGetDigitizingMode" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamGetDigitizingModeResponse">
+    <wsdl:part element="rtdi.scamera:scamGetDigitizingModeResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamIsPTSupportedRequest">
+    <wsdl:part element="rtdi.scamera:scamIsPTSupported" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamIsPTSupportedResponse">
+    <wsdl:part element="rtdi.scamera:booleanResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamIsZoomSupportedRequest">
+    <wsdl:part element="rtdi.scamera:scamIsZoomSupported" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamIsZoomSupportedResponse">
+    <wsdl:part element="rtdi.scamera:booleanResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamGetPanMinRequest">
+    <wsdl:part element="rtdi.scamera:scamGetPanMin" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamGetPanMinResponse">
+    <wsdl:part element="rtdi.scamera:intResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamGetPanMaxRequest">
+    <wsdl:part element="rtdi.scamera:scamGetPanMax" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamGetPanMaxResponse">
+    <wsdl:part element="rtdi.scamera:intResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamGetTiltMinRequest">
+    <wsdl:part element="rtdi.scamera:scamGetTiltMin" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamGetTiltMinResponse">
+    <wsdl:part element="rtdi.scamera:intResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamGetTiltMaxRequest">
+    <wsdl:part element="rtdi.scamera:scamGetTiltMax" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamGetTiltMaxResponse">
+    <wsdl:part element="rtdi.scamera:intResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamGetZoomMaxRequest">
+    <wsdl:part element="rtdi.scamera:scamGetZoomMax" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamGetZoomMaxResponse">
+    <wsdl:part element="rtdi.scamera:intResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamGetExposureTimeRequest">
+    <wsdl:part element="rtdi.scamera:scamGetExposureTime" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamGetExposureTimeResponse">
+    <wsdl:part element="rtdi.scamera:doubleResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamSetExposureTimeRequest">
+    <wsdl:part element="rtdi.scamera:scamSetExposureTime" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamSetExposureTimeResponse">
+    <wsdl:part element="rtdi.scamera:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamIsImageReadyRequest">
+    <wsdl:part element="rtdi.scamera:scamIsImageReady" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamIsImageReadyResponse">
+    <wsdl:part element="rtdi.scamera:booleanResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamGetVideoStreamingURLRequest">
+    <wsdl:part element="rtdi.scamera:scamGetVideoStreamingURL" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamGetVideoStreamingURLResponse">
+    <wsdl:part element="rtdi.scamera:stringResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamGetImageURLRequest">
+    <wsdl:part element="rtdi.scamera:scamGetImageURL" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamGetImageURLResponse">
+    <wsdl:part element="rtdi.scamera:stringResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamSetBrightnessRequest">
+    <wsdl:part element="rtdi.scamera:scamSetBrightness" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamSetBrightnessResponse">
+    <wsdl:part element="rtdi.scamera:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamGetBrightnessRequest">
+    <wsdl:part element="rtdi.scamera:scamGetBrightness" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamGetBrightnessResponse">
+    <wsdl:part element="rtdi.scamera:longResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamSetContrastRequest">
+    <wsdl:part element="rtdi.scamera:scamSetContrast" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamSetContrastResponse">
+    <wsdl:part element="rtdi.scamera:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamGetContrastRequest">
+    <wsdl:part element="rtdi.scamera:scamGetContrast" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamGetContrastResponse">
+    <wsdl:part element="rtdi.scamera:longResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamGetPanRotationRequest">
+    <wsdl:part element="rtdi.scamera:scamGetPanRotation" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamGetPanRotationResponse">
+    <wsdl:part element="rtdi.scamera:intResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamSetPanRotationRequest">
+    <wsdl:part element="rtdi.scamera:scamSetPanRotation" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamSetPanRotationResponse">
+    <wsdl:part element="rtdi.scamera:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamGetTiltRotationRequest">
+    <wsdl:part element="rtdi.scamera:scamGetTiltRotation" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamGetTiltRotationResponse">
+    <wsdl:part element="rtdi.scamera:intResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamSetTiltRotationRequest">
+    <wsdl:part element="rtdi.scamera:scamSetTiltRotation" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamSetTiltRotationResponse">
+    <wsdl:part element="rtdi.scamera:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamGetZoomRequest">
+    <wsdl:part element="rtdi.scamera:scamGetZoom" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamGetZoomResponse">
+    <wsdl:part element="rtdi.scamera:intResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamSetZoomRequest">
+    <wsdl:part element="rtdi.scamera:scamSetZoom" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamSetZoomResponse">
+    <wsdl:part element="rtdi.scamera:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamAbortExposureRequest">
+    <wsdl:part element="rtdi.scamera:scamAbortExposure" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamAbortExposureResponse">
+    <wsdl:part element="rtdi.scamera:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamStartExposureRequest">
+    <wsdl:part element="rtdi.scamera:scamStartExposure" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamStartExposureResponse">
+    <wsdl:part element="rtdi.scamera:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamStopExposureRequest">
+    <wsdl:part element="rtdi.scamera:scamStopExposure" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamStopExposureResponse">
+    <wsdl:part element="rtdi.scamera:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamGetImageRequest">
+    <wsdl:part element="rtdi.scamera:scamGetImage" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="scamGetImageResponse">
+    <wsdl:part element="rtdi.scamera:scamGetImageResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <!-- SURVEILLANCE CAMERA MESSAGES - END -->
+  
+  <wsdl:portType name="gloria_rtdi_scamera"> 
+  
+  <!-- COMMON DEVICE PORT TYPE OPS - BEGIN -->    
+    <wsdl:operation name="devGetDevice">
+	  <wsdl:documentation>
+	  Recover the information of one device.
+	  @return Current device data.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.scamera:devGetDeviceRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.scamera:devGetDeviceResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.scamera:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devGetDeviceProperties">
+	  <wsdl:documentation>
+	  Recover the properties of a device.
+	  @return Properties List.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.scamera:devGetDevicePropertiesRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.scamera:devGetDevicePropertiesResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.scamera:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devGetDeviceProperty">
+	  <wsdl:documentation>
+	  Recover a property of a device.
+	  @param name Property name
+	  @return Properties List.
+	  @throws RtiError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.scamera:devGetDevicePropertyRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.scamera:devGetDevicePropertyResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.scamera:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devUpdateDeviceProperty">
+	  <wsdl:documentation>
+	  Updates a property into a Device configuration. If the property is a readonly property or the value cannot be (internally) transformed into the proper type, an exception will be throw.
+	  @param name Property name.
+	  @param value Values of the property.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.scamera:devUpdateDevicePropertyRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.scamera:devUpdateDevicePropertyResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.scamera:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devUpdateDevicePropertyAsync">
+	  <wsdl:documentation>
+	  Updates a property into a Device configuration. If the property is a readonly property or the value cannot be (internally) transformed into the proper type, an exception will be throw.
+	  Asynchronous call.
+	  @param name Property name.
+	  @param value Values of the property.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.scamera:devUpdateDevicePropertyAsyncRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.scamera:devUpdateDevicePropertyAsyncResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.scamera:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devIsConnected">
+	  <wsdl:documentation>
+	  Checks the link between the driver and the device. If True, the link is enable.
+	  @return boolean.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.scamera:devIsConnectedRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.scamera:devIsConnectedResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.scamera:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devConnect">
+	  <wsdl:documentation>
+	  Creates the link between the driver and the device.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.scamera:devConnectRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.scamera:devConnectResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.scamera:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devDisconnect">
+	  <wsdl:documentation>
+	  Controls the link between the driver and the device. Set True to enable the link. Set False to disable the link.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.scamera:devDisconnectRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.scamera:devDisconnectResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.scamera:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devGetConfiguration">
+	  <wsdl:documentation>
+	  Returns a String containing a full configuration information. For logging purpose.
+	  @return Configuration in a string.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.scamera:devGetConfigurationRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.scamera:devGetConfigurationResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.scamera:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devIsBlocked">
+	  <wsdl:documentation>
+	  Returns true if the device is blocked because of its blocked state or some dependency to other device.
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.scamera:devIsBlockedRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.scamera:devIsBlockedResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.scamera:rtdError" name="error"/>
+    </wsdl:operation>
+    <!-- COMMON DEVICE PORT TYPE OPS - END -->
+    
+  <!-- SURVEILLANCE CAMERA PORT TYPE OPS - BEGIN -->
+    <wsdl:operation name="scamHasBrightness">
+	  <wsdl:documentation>
+	  If True, the camera's brightness can be adjusted. If False, the camera can not adjust the brightness.
+	  @return Boolean value.
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.scamera:scamHasBrightnessRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.scamera:scamHasBrightnessResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.scamera:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="scamHasContrast">
+	  <wsdl:documentation>
+	  If True, the camera's contrast can be adjusted. If False, the camera can not adjust the contrast.
+	  @return Boolean value.
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.scamera:scamHasContrastRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.scamera:scamHasContrastResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.scamera:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="scamAcquisitionMode">
+	  <wsdl:documentation>
+	  If it is Continuous mode, the camera will take a video streaming. If it is OneShot mode, only one image will be taken.
+	  @return Continuous, OneShot.
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.scamera:scamAcquisitionModeRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.scamera:scamAcquisitionModeResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.scamera:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="scamGetFPS">
+	  <wsdl:documentation>
+	  Frames Per Second. It only takes effect in the “Continuous” Acquisition Mode.
+	  @return FPS.
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.scamera:scamGetFPSRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.scamera:scamGetFPSResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.scamera:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="scamGetDigitizingMode">
+	  <wsdl:documentation>
+	  If it is Automatic mode, the camera will take images according to the Brightness, Contrast,
+	  Gamma and Gain values calculated automatically by the camera itself. If it is Manual mode, the camera will
+	  take images according to the Brightness, Contrast, Gamma and Gain values established by the variables.
+	  @return Automatic, Manual.
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.scamera:scamGetDigitizingModeRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.scamera:scamGetDigitizingModeResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.scamera:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="scamIsPTSupported">
+	  <wsdl:documentation>
+	  Returns if the camera supports Pan and Tilt.
+	  @return Boolean value.
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.scamera:scamIsPTSupportedRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.scamera:scamIsPTSupportedResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.scamera:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="scamIsZoomSupported">
+	  <wsdl:documentation>
+	  Returns if the camera supports Zoom.
+	  @return Boolean value.
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.scamera:scamIsZoomSupportedRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.scamera:scamIsZoomSupportedResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.scamera:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="scamGetPanMin">
+	  <wsdl:documentation>
+	  Returns the minimum degrees for the Pan movement. This property will be defined if the camera supports Pan and Tilt feature.
+	  @return The minimum degrees for the Pan movement.
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.scamera:scamGetPanMinRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.scamera:scamGetPanMinResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.scamera:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="scamGetPanMax">
+	  <wsdl:documentation>
+	  Returns the maximum degrees for the Pan movement. This property will be defined if the camera supports Pan and Tilt feature.
+	  @return The maximum degrees for the Pan movement.
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.scamera:scamGetPanMaxRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.scamera:scamGetPanMaxResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.scamera:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="scamGetTiltMin">
+	  <wsdl:documentation>
+	  Returns the minimum degrees for the Tilt movement. This property will be defined if the camera supports Pan and Tilt feature.
+	  @return The minimum degrees for the Tilt movement.
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.scamera:scamGetTiltMinRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.scamera:scamGetTiltMinResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.scamera:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="scamGetTiltMax">
+	  <wsdl:documentation>
+	  Returns the maximum degrees for the Tilt movement. This property will be defined if the camera supports Pan and Tilt feature.
+	  @return The maximum degrees for the Tilt movement.
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.scamera:scamGetTiltMaxRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.scamera:scamGetTiltMaxResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.scamera:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="scamGetZoomMax">
+	  <wsdl:documentation>
+	  Gets the maximum zoom value allowed. This is the maximum value that applications can set.
+	  Applications should call ZoomSupported(bool) before using this property. Minimun zoom value is zero.
+	  @return The maximum zoom value allowed.
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.scamera:scamGetZoomMaxRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.scamera:scamGetZoomMaxResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.scamera:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="scamGetExposureTime">
+	  <wsdl:documentation>
+	  Gets the value in seconds for the image exposure time. 
+	  @return The value in seconds for the image exposure time.
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.scamera:scamGetExposureTimeRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.scamera:scamGetExposureTimeResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.scamera:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="scamSetExposureTime">
+	  <wsdl:documentation>
+	  Sets the value in seconds for the image exposure time. 
+	  @param value The value in seconds for the image exposure time.
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.scamera:scamSetExposureTimeRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.scamera:scamSetExposureTimeResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.scamera:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="scamIsImageReady">
+	  <wsdl:documentation>
+	  If True, there is an image from the camera available. If False, no image is available and attempts to use the ImageArray method will produce an exception.
+	  @return Boolean value.
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.scamera:scamIsImageReadyRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.scamera:scamIsImageReadyResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.scamera:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="scamGetVideoStreamingURL">
+	  <wsdl:documentation>
+	  URL for streaming.
+	  @return URL for streaming.
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.scamera:scamGetVideoStreamingURLRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.scamera:scamGetVideoStreamingURLResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.scamera:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="scamGetImageURL">
+	  <wsdl:documentation>
+	  Returns the last image URL.
+	  @return String URL
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.scamera:scamGetImageURLRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.scamera:scamGetImageURLResponse">
+      </wsdl:output>
+      <wsdl:fault message="rtdi.scamera:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="scamSetBrightness">
+	  <wsdl:documentation>
+	  Sets the value for image brightness.
+	  @param value brightness.
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.scamera:scamSetBrightnessRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.scamera:scamSetBrightnessResponse">
+      </wsdl:output> 
+    <wsdl:fault message="rtdi.scamera:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="scamGetBrightness">
+	  <wsdl:documentation>
+	  Returns the value of image brightness.
+	  @return image brightness.
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.scamera:scamGetBrightnessRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.scamera:scamGetBrightnessResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.scamera:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="scamSetContrast">
+	  <wsdl:documentation>
+	  Sets the value for image contrast.
+	  @param value New value.
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.scamera:scamSetContrastRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.scamera:scamSetContrastResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.scamera:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="scamGetContrast">
+	  <wsdl:documentation>
+	  Returns the image contrast.
+	  @return Current value.
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.scamera:scamGetContrastRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.scamera:scamGetContrastResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.scamera:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="scamGetPanRotation">
+	  <wsdl:documentation>
+	  Returns the current pan rotation in degrees.
+	  @return The current pan rotation in degrees.
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.scamera:scamGetPanRotationRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.scamera:scamGetPanRotationResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.scamera:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="scamSetPanRotation">
+	  <wsdl:documentation>
+	  The pan will be moved until the desired position in degrees.
+	  @param value New value.
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.scamera:scamSetPanRotationRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.scamera:scamSetPanRotationResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.scamera:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="scamGetTiltRotation">
+	  <wsdl:documentation>
+	  Return the current tilt rotation in degrees.
+	  @return The current tilt rotation in degrees.
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.scamera:scamGetTiltRotationRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.scamera:scamGetTiltRotationResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.scamera:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="scamSetTiltRotation">
+	  <wsdl:documentation>
+	  The tilt will be moved until the desired position in degrees.
+	  @param value New value.
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.scamera:scamSetTiltRotationRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.scamera:scamSetTiltRotationResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.scamera:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="scamGetZoom">
+	  <wsdl:documentation>
+	  Return the current zoom value.
+	  @return The current zoom value.
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.scamera:scamGetZoomRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.scamera:scamGetZoomResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.scamera:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="scamSetZoom">
+	  <wsdl:documentation>
+	  The zoom will be moved until the desired position in degrees.
+	  @param value New value.
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.scamera:scamSetZoomRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.scamera:scamSetZoomResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.scamera:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="scamAbortExposure">
+	  <wsdl:documentation>
+	  Aborts the current exposure, if any, and returns the camera to READY state.
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.scamera:scamAbortExposureRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.scamera:scamAbortExposureResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.scamera:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="scamStartExposure">
+	  <wsdl:documentation>
+	  Starts an exposure. Use ImageReady to check when the exposure is complete, and also use the AcquisitionMode and DigitizingMode values. This method uses ExposureTime variable.
+	  @param light Frame type (true: light frame, false: darkframe).
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.scamera:scamStartExposureRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.scamera:scamStartExposureResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.scamera:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="scamStopExposure">
+	  <wsdl:documentation>
+	  Stops the current exposure, if any. If an exposure is in progress, the readout process is initiated. Ignored if readout is already in process.
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.scamera:scamStopExposureRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.scamera:scamStopExposureResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.scamera:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="scamGetImage">
+	  <wsdl:documentation>
+	  Returns an image from the last exposure. 
+	  The image could be an array of short, long, double (imageContentType attribute shows the type).
+	  @return Image data.
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.scamera:scamGetImageRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.scamera:scamGetImageResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.scamera:rtdError" name="error"/>
+    </wsdl:operation>
+    <!-- SURVEILLANCE CAMERA PORT TYPE OPS - END -->
+    
+  </wsdl:portType>
+
+  
+  <wsdl:binding name="gloria_rtdi_scameraSOAP" type="rtdi.scamera:gloria_rtdi_scamera">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    
+    <!-- COMMON DEVICE BINDING OPS - BEGIN -->
+    <wsdl:operation name="devGetDevice">
+      <soap:operation soapAction="http://gloria.eu/rtdi.scamera/devGetDevice"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devGetDeviceProperties">
+      <soap:operation soapAction="http://gloria.eu/rtdi.scamera/devGetDeviceProperties"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devGetDeviceProperty">
+      <soap:operation soapAction="http://gloria.eu/rtdi.scamera/devGetDeviceProperty"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devUpdateDeviceProperty">
+      <soap:operation soapAction="http://gloria.eu/rtdi.scamera/devUpdateDeviceProperty"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+     <wsdl:operation name="devUpdateDevicePropertyAsync">
+      <soap:operation soapAction="http://gloria.eu/rtdi.scamera/devUpdateDeviceProperty"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devIsConnected">
+      <soap:operation soapAction="http://gloria.eu/rtdi.scamera/devIsConnected"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devConnect">
+      <soap:operation soapAction="http://gloria.eu/rtdi.scamera/devConnect"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devDisconnect">
+      <soap:operation soapAction="http://gloria.eu/rtdi.scamera/devDisconnect"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devIsBlocked">
+      <soap:operation soapAction="http://gloria.eu/rtdi.scamera/devIsBlocked"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devGetConfiguration">
+      <soap:operation soapAction="http://gloria.eu/rtdi.scamera/devGetConfiguration"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <!-- COMMON DEVICE BINDING OPS - END -->
+    
+    <!-- SURVEILLANCE CAMERA OPS - BEGIN -->
+    <wsdl:operation name="scamHasBrightness">
+      <soap:operation soapAction="http://gloria.eu/rtdi.scamera/scamHasBrightness"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="scamHasContrast">
+      <soap:operation soapAction="http://gloria.eu/rtdi.scamera/scamHasContrast"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="scamAcquisitionMode">
+      <soap:operation soapAction="http://gloria.eu/rtdi.scamera/scamAcquisitionMode"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="scamGetFPS">
+      <soap:operation soapAction="http://gloria.eu/rtdi.scamera/scamGetFPS"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="scamGetDigitizingMode">
+      <soap:operation soapAction="http://gloria.eu/rtdi.scamera/scamGetDigitizingMode"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="scamIsPTSupported">
+      <soap:operation soapAction="http://gloria.eu/rtdi.scamera/scamIsPTSupported "/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="scamIsZoomSupported">
+      <soap:operation soapAction="http://gloria.eu/rtdi.scamera/scamIsZoomSupported"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="scamGetPanMin">
+      <soap:operation soapAction="http://gloria.eu/rtdi.scamera/scamGetPanMin"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="scamGetPanMax">
+      <soap:operation soapAction="http://gloria.eu/rtdi.scamera/scamGetPanMax"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="scamGetTiltMin">
+      <soap:operation soapAction="http://gloria.eu/rtdi.scamera/scamGetTiltMin"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="scamGetTiltMax">
+      <soap:operation soapAction="http://gloria.eu/rtdi.scamera/scamGetTiltMax"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="scamGetZoomMax">
+      <soap:operation soapAction="http://gloria.eu/rtdi.scamera/scamGetZoomMax"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="scamGetExposureTime">
+      <soap:operation soapAction="http://gloria.eu/rtdi.scamera/scamGetExposureTime"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="scamSetExposureTime">
+      <soap:operation soapAction="http://gloria.eu/rtdi.scamera/scamSetExposureTime"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="scamIsImageReady">
+      <soap:operation soapAction="http://gloria.eu/rtdi.scamera/scamIsImageReady"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="scamGetVideoStreamingURL">
+      <soap:operation soapAction="http://gloria.eu/rtdi.scamera/scamGetVideoStreamingURL"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="scamGetImageURL">
+      <soap:operation soapAction="http://gloria.eu/rtdi.scamera/scamGetImageURL"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="scamSetBrightness">
+      <soap:operation soapAction="http://gloria.eu/rtdi.scamera/scamSetBrightness"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="scamGetBrightness">
+      <soap:operation soapAction="http://gloria.eu/rtdi.scamera/scamGetBrightness"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="scamSetContrast">
+      <soap:operation soapAction="http://gloria.eu/rtdi.scamera/scamSetContrast"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="scamGetContrast">
+      <soap:operation soapAction="http://gloria.eu/rtdi.scamera/scamGetContrast"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="scamGetPanRotation">
+      <soap:operation soapAction="http://gloria.eu/rtdi.scamera/scamGetPanRotation"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="scamSetPanRotation">
+      <soap:operation soapAction="http://gloria.eu/rtdi.scamera/scamSetPanRotation"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="scamGetTiltRotation">
+      <soap:operation soapAction="http://gloria.eu/rtdi.scamera/scamGetTiltRotation"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="scamSetTiltRotation">
+      <soap:operation soapAction="http://gloria.eu/rtdi.scamera/scamSetTiltRotation"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="scamGetZoom">
+      <soap:operation soapAction="http://gloria.eu/rtdi.scamera/scamGetZoom"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="scamSetZoom">
+      <soap:operation soapAction="http://gloria.eu/rtdi.scamera/scamSetZoom"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="scamAbortExposure">
+      <soap:operation soapAction="http://gloria.eu/rtdi.scamera/scamAbortExposure"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="scamStartExposure">
+      <soap:operation soapAction="http://gloria.eu/rtdi.scamera/scamStartExposure"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="scamStopExposure">
+      <soap:operation soapAction="http://gloria.eu/rtdi.scamera/scamStopExposure"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="scamGetImage">
+      <soap:operation soapAction="http://gloria.eu/rtdi.scamera/scamGetImage"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <!-- SURVEILLANCE CAMERA OPS - END -->
+    
+  </wsdl:binding>
+  
+  <wsdl:service name="gloria_rtdi_scamera">
+    <wsdl:documentation/>
+    <wsdl:port binding="rtdi.scamera:gloria_rtdi_scameraSOAP" name="gloria_rtdi_scameraSOAP">
+      <soap:address location="http://localhost:8080/RTDI_SCamera/services/gloria_rtdi_scameraSOAP"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

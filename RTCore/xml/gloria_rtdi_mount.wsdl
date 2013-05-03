@@ -1,0 +1,2604 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- ****************************** -->
+<!-- * Archive: Gloria RTDI MOUNT * -->
+<!-- * Author: Juan Cabello       * -->
+<!-- * Date  : 10/09/2012         * -->
+<!-- ****************************** -->
+<wsdl:definitions xmlns:gloria.rt.entity.device="http://gloria.eu/rt/entity/device" xmlns:gloria.rtdi.fault="http://gloria.eu/rtdi/fault" xmlns:rtdi.mount="http://gloria.eu/rtdi.mount" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="gloria_rtdi_mount" targetNamespace="http://gloria.eu/rtdi.mount">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://gloria.eu/rtdi.mount">
+    
+      <xsd:import namespace="http://gloria.eu/rtdi/fault" schemaLocation="gloria_rtdi_fault.xsd"/> 
+      <xsd:import namespace="http://gloria.eu/rt/entity/device" schemaLocation="gloria_rti_device.xsd"/>
+      
+      <!-- BASIC TYPE RESPONSES - BEGIN -->
+      
+	  <xsd:element name="voidResponse">
+        <xsd:complexType>
+          <xsd:sequence>            
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+	  
+      <xsd:element name="stringResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <xsd:element name="booleanResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="xsd:boolean"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <xsd:element name="intResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <xsd:element name="longResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="xsd:long"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <xsd:element name="doubleResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="xsd:double"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <!-- BASIC TYPE RESPONSES - END -->
+            
+      <!-- COMMON DEVICE ELEMENTS - BEGIN -->
+      <xsd:element name="devGetConfiguration">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devGetDeviceProperties">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devGetDevicePropertiesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="out" type="gloria.rt.entity.device:deviceProperty"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devGetDeviceProperty">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="name" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devGetDevicePropertyResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="gloria.rt.entity.device:deviceProperty"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+     <xsd:element name="devIsConnected">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devGetDevice">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="allProperties" type="xsd:boolean"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devGetDeviceResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="gloria.rt.entity.device:device"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devUpdateDeviceProperty">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="name" type="xsd:string"/>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="value" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devUpdateDevicePropertyAsync">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="name" type="xsd:string"/>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="value" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devConnect">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devDisconnect">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devIsBlocked">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <!-- COMMON DEVICE ELEMENTS - END -->
+      
+      
+      <!-- MOUNT DEVICE ELEMENTS - BEGIN -->
+      <xsd:element name="mntGetUtcClock">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntGetUtcClockResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="xsd:date"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntSetUtcClock">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="date" type="xsd:date"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntGetSiderealDate">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntIsAtHome">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntIsParked">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntGetTargetRightAscension">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntGetTargetDeclination">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntGetTrackingDeclinationRate">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntGetTrackingAscensionRate">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntGetTrackingRate">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntGetTrackingRateResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="gloria.rt.entity.device:trackingRateType"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntSetTrackingRate">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="rate" type="gloria.rt.entity.device:trackingRateType"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntGetTracking">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntSetTracking">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="value" type="xsd:boolean"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntGetGuideRateDeclination">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntGetDeclinationRateRightAscension">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntIsSlewing">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntGetPosAxis2">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntGetPosAxis3">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntGetPosAxis1">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntCanPulseGuide">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntCanSetGuideRates">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntCanSetPark">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntSetPark">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="ascension" type="xsd:double"/>
+            <xsd:element name="declination" type="xsd:double"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntGetALTParkPos">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntGetAZParkPos">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntCanSetTracking">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntCanSetTrackingRate">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>      
+      <xsd:element name="mntCanSlewCoordinates">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntCanSlewCoordinatesAsync">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntCanSlewObject">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntCanSlewAltAz">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntCanSlewAzAsync">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntCanMoveAzis">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntAxisRate">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntAxisRateResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="out" type="gloria.rt.entity.device:axisRateType"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntTrackingRates">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntTrackingRatesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="out" type="gloria.rt.entity.device:trackingRateType"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntGoHome">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntPark">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntUnpark">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntSlewToAltAz">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="azimuth" type="xsd:double"/>
+            <xsd:element name="altitude" type="xsd:double"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntSlewToAltAzAsync">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="azimuth" type="xsd:double"/>
+            <xsd:element name="altitude" type="xsd:double"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntSlewToCoordinates">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="ascension" type="xsd:double"/>
+            <xsd:element name="declination" type="xsd:double"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntSlewToCoordinatesAsync">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="ascension" type="xsd:double"/>
+            <xsd:element name="declination" type="xsd:double"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntMoveAxis">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="axisType" type="xsd:int"/>
+            <xsd:element name="rate" type="xsd:double"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntPulseGuide">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="guideDirection" type="xsd:int"/>
+            <xsd:element name="duration" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntStopSlewAxis">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="axisType" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntStopSlew">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntGetPointingModel">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntGetPointingModelResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="gloria.rt.entity.device:mountPointingModel"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntMoveNorth">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntMoveSouth">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntMoveEast">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntMoveWest">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntSetSlewRate">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="rate" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntGetSlewRate">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntSlewObject">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="object" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <!-- MOUNT DEVICE ELEMENTS - END -->
+      
+    </xsd:schema> 
+  </wsdl:types>
+  
+  <!-- ERROR MESSAGES - BEGIN -->
+  <wsdl:message name="rtdError">
+    <wsdl:part element="gloria.rtdi.fault:errorDetail" name="rtdError">    
+    </wsdl:part>
+  </wsdl:message>
+  <!-- ERROR MESSAGES - END -->
+  
+  <!-- COMMON DEVICE MESSAGES - BEGIN -->
+  <wsdl:message name="devGetConfigurationRequest">
+    <wsdl:part element="rtdi.mount:devGetConfiguration" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devGetConfigurationResponse">
+    <wsdl:part element="rtdi.mount:stringResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devGetDeviceRequest">
+    <wsdl:part element="rtdi.mount:devGetDevice" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devGetDeviceResponse">
+    <wsdl:part element="rtdi.mount:devGetDeviceResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  
+  <wsdl:message name="devGetDevicePropertiesRequest">
+    <wsdl:part element="rtdi.mount:devGetDeviceProperties" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devGetDevicePropertiesResponse">
+    <wsdl:part element="rtdi.mount:devGetDevicePropertiesResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <wsdl:message name="devGetDevicePropertyRequest">
+    <wsdl:part element="rtdi.mount:devGetDeviceProperty" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devGetDevicePropertyResponse">
+    <wsdl:part element="rtdi.mount:devGetDevicePropertyResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <wsdl:message name="devUpdateDevicePropertyRequest">
+    <wsdl:part element="rtdi.mount:devUpdateDeviceProperty" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devUpdateDevicePropertyResponse">
+    <wsdl:part element="rtdi.mount:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <wsdl:message name="devUpdateDevicePropertyAsyncRequest">
+    <wsdl:part element="rtdi.mount:devUpdateDevicePropertyAsync" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devUpdateDevicePropertyAsyncResponse">
+    <wsdl:part element="rtdi.mount:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+   <wsdl:message name="devIsConnectedRequest">
+    <wsdl:part element="rtdi.mount:devIsConnected" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devIsConnectedResponse">
+    <wsdl:part element="rtdi.mount:booleanResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <wsdl:message name="devConnectRequest">
+    <wsdl:part element="rtdi.mount:devConnect" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devConnectResponse">
+    <wsdl:part element="rtdi.mount:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <wsdl:message name="devDisconnectRequest">
+    <wsdl:part element="rtdi.mount:devDisconnect" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devDisconnectResponse">
+    <wsdl:part element="rtdi.mount:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devIsBlockedRequest">
+    <wsdl:part element="rtdi.mount:devIsBlocked" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devIsBlockedResponse">
+    <wsdl:part element="rtdi.mount:booleanResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <!-- COMMON DEVICE MESSAGES - END -->
+ 
+  
+  <!-- MOUNT DEVICE MESSAGES - BEGIN -->
+  <wsdl:message name="mntGetUtcClockRequest">
+    <wsdl:part element="rtdi.mount:mntGetUtcClock" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntGetUtcClockResponse">
+    <wsdl:part element="rtdi.mount:mntGetUtcClockResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntSetUtcClockRequest">
+    <wsdl:part element="rtdi.mount:mntSetUtcClock" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntSetUtcClockResponse">
+    <wsdl:part element="rtdi.mount:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntGetSiderealDateRequest">
+    <wsdl:part element="rtdi.mount:mntGetSiderealDate" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntGetSiderealDateResponse">
+    <wsdl:part element="rtdi.mount:doubleResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntIsAtHomeRequest">
+    <wsdl:part element="rtdi.mount:mntIsAtHome" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntIsAtHomeResponse">
+    <wsdl:part element="rtdi.mount:booleanResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntIsParkedRequest">
+    <wsdl:part element="rtdi.mount:mntIsParked" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntIsParkedResponse">
+    <wsdl:part element="rtdi.mount:booleanResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message> 
+  <wsdl:message name="mntGetTargetRightAscensionRequest">
+    <wsdl:part element="rtdi.mount:mntGetTargetRightAscension" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntGetTargetRightAscensionResponse">
+    <wsdl:part element="rtdi.mount:doubleResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+   <wsdl:message name="mntGetTargetDeclinationRequest">
+    <wsdl:part element="rtdi.mount:mntGetTargetDeclination" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntGetTargetDeclinationResponse">
+    <wsdl:part element="rtdi.mount:doubleResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntGetTrackingDeclinationRateRequest">
+    <wsdl:part element="rtdi.mount:mntGetTrackingDeclinationRate" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntGetTrackingDeclinationRateResponse">
+    <wsdl:part element="rtdi.mount:doubleResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntGetTrackingAscensionRateRequest">
+    <wsdl:part element="rtdi.mount:mntGetTrackingAscensionRate" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntGetTrackingAscensionRateResponse">
+    <wsdl:part element="rtdi.mount:doubleResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntGetTrackingRateRequest">
+    <wsdl:part element="rtdi.mount:mntGetTrackingRate" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntGetTrackingRateResponse">
+    <wsdl:part element="rtdi.mount:mntGetTrackingRateResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntSetTrackingRateRequest">
+    <wsdl:part element="rtdi.mount:mntSetTrackingRate" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntSetTrackingRateResponse">
+    <wsdl:part element="rtdi.mount:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntGetTrackingRequest">
+    <wsdl:part element="rtdi.mount:mntGetTracking" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntGetTrackingResponse">
+    <wsdl:part element="rtdi.mount:booleanResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntSetTrackingRequest">
+    <wsdl:part element="rtdi.mount:mntSetTracking" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntSetTrackingResponse">
+    <wsdl:part element="rtdi.mount:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntGetGuideRateDeclinationRequest">
+    <wsdl:part element="rtdi.mount:mntGetGuideRateDeclination" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntGetGuideRateDeclinationResponse">
+    <wsdl:part element="rtdi.mount:doubleResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntGetDeclinationRateRightAscensionRequest">
+    <wsdl:part element="rtdi.mount:mntGetDeclinationRateRightAscension" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntGetDeclinationRateRightAscensionResponse">
+    <wsdl:part element="rtdi.mount:doubleResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntIsSlewingRequest">
+    <wsdl:part element="rtdi.mount:mntIsSlewing" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntIsSlewingResponse">
+    <wsdl:part element="rtdi.mount:booleanResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message> 
+  <wsdl:message name="mntGetPosAxis2Request">
+    <wsdl:part element="rtdi.mount:mntGetPosAxis2" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntGetPosAxis2Response">
+    <wsdl:part element="rtdi.mount:doubleResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>  
+  <wsdl:message name="mntGetPosAxis3Request">
+    <wsdl:part element="rtdi.mount:mntGetPosAxis3" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntGetPosAxis3Response">
+    <wsdl:part element="rtdi.mount:doubleResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntGetPosAxis1Request">
+    <wsdl:part element="rtdi.mount:mntGetPosAxis1" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntGetPosAxis1Response">
+    <wsdl:part element="rtdi.mount:doubleResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntCanPulseGuideRequest">
+    <wsdl:part element="rtdi.mount:mntCanPulseGuide" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntCanPulseGuideResponse">
+    <wsdl:part element="rtdi.mount:booleanResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntCanSetGuideRatesRequest">
+    <wsdl:part element="rtdi.mount:mntCanSetGuideRates" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntCanSetGuideRatesResponse">
+    <wsdl:part element="rtdi.mount:booleanResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntCanSetParkRequest">
+    <wsdl:part element="rtdi.mount:mntCanSetPark" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntCanSetParkResponse">
+    <wsdl:part element="rtdi.mount:booleanResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntSetParkRequest">
+    <wsdl:part element="rtdi.mount:mntSetPark" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntSetParkResponse">
+    <wsdl:part element="rtdi.mount:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntGetALTParkPosRequest">
+    <wsdl:part element="rtdi.mount:mntGetALTParkPos" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntGetALTParkPosResponse">
+    <wsdl:part element="rtdi.mount:doubleResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntGetAZParkPosRequest">
+    <wsdl:part element="rtdi.mount:mntGetAZParkPos" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntGetAZParkPosResponse">
+    <wsdl:part element="rtdi.mount:doubleResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntCanSetTrackingRequest">
+    <wsdl:part element="rtdi.mount:mntCanSetTracking" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntCanSetTrackingResponse">
+    <wsdl:part element="rtdi.mount:booleanResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntCanSetTrackingRateRequest">
+    <wsdl:part element="rtdi.mount:mntCanSetTrackingRate" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntCanSetTrackingRateResponse">
+    <wsdl:part element="rtdi.mount:booleanResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>  
+  <wsdl:message name="mntCanSlewCoordinatesRequest">
+    <wsdl:part element="rtdi.mount:mntCanSlewCoordinates" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntCanSlewCoordinatesResponse">
+    <wsdl:part element="rtdi.mount:booleanResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntCanSlewCoordinatesAsyncRequest">
+    <wsdl:part element="rtdi.mount:mntCanSlewCoordinatesAsync" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntCanSlewCoordinatesAsyncResponse">
+    <wsdl:part element="rtdi.mount:booleanResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntCanSlewObjectRequest">
+    <wsdl:part element="rtdi.mount:mntCanSlewObject" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntCanSlewObjectResponse">
+    <wsdl:part element="rtdi.mount:booleanResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntCanSlewAltAzRequest">
+    <wsdl:part element="rtdi.mount:mntCanSlewAltAz" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntCanSlewAltAzResponse">
+    <wsdl:part element="rtdi.mount:booleanResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntCanSlewAzAsyncRequest">
+    <wsdl:part element="rtdi.mount:mntCanSlewAzAsync" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntCanSlewAzAsyncResponse">
+    <wsdl:part element="rtdi.mount:booleanResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntCanMoveAzisRequest">
+    <wsdl:part element="rtdi.mount:mntCanMoveAzis" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntCanMoveAzisResponse">
+    <wsdl:part element="rtdi.mount:booleanResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntAxisRateRequest">
+    <wsdl:part element="rtdi.mount:mntAxisRate" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntAxisRateResponse">
+    <wsdl:part element="rtdi.mount:mntAxisRateResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntTrackingRatesRequest">
+    <wsdl:part element="rtdi.mount:mntTrackingRates" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntTrackingRatesResponse">
+    <wsdl:part element="rtdi.mount:mntTrackingRatesResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntGoHomeRequest">
+    <wsdl:part element="rtdi.mount:mntGoHome" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntGoHomeResponse">
+    <wsdl:part element="rtdi.mount:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntParkRequest">
+    <wsdl:part element="rtdi.mount:mntPark" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+    <wsdl:message name="mntParkResponse">
+    <wsdl:part element="rtdi.mount:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntUnparkRequest">
+    <wsdl:part element="rtdi.mount:mntUnpark" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntUnparkResponse">
+    <wsdl:part element="rtdi.mount:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntSlewToAltAzRequest">
+    <wsdl:part element="rtdi.mount:mntSlewToAltAz" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntSlewToAltAzResponse">
+    <wsdl:part element="rtdi.mount:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntSlewToAltAzAsyncRequest">
+    <wsdl:part element="rtdi.mount:mntSlewToAltAzAsync" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntSlewToAltAzAsyncResponse">
+    <wsdl:part element="rtdi.mount:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntSlewToCoordinatesRequest">
+    <wsdl:part element="rtdi.mount:mntSlewToCoordinates" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntSlewToCoordinatesResponse">
+    <wsdl:part element="rtdi.mount:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntSlewToCoordinatesAsyncRequest">
+    <wsdl:part element="rtdi.mount:mntSlewToCoordinatesAsync" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntSlewToCoordinatesAsyncResponse">
+    <wsdl:part element="rtdi.mount:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntMoveAxisRequest">
+    <wsdl:part element="rtdi.mount:mntMoveAxis" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntMoveAxisResponse">
+    <wsdl:part element="rtdi.mount:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntPulseGuideRequest">
+    <wsdl:part element="rtdi.mount:mntPulseGuide" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntPulseGuideResponse">
+    <wsdl:part element="rtdi.mount:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntStopSlewAxisRequest">
+    <wsdl:part element="rtdi.mount:mntStopSlewAxis" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntStopSlewAxisResponse">
+    <wsdl:part element="rtdi.mount:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntStopSlewRequest">
+    <wsdl:part element="rtdi.mount:mntStopSlew" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntStopSlewResponse">
+    <wsdl:part element="rtdi.mount:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntGetPointingModelRequest">
+    <wsdl:part element="rtdi.mount:mntGetPointingModel" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntGetPointingModelResponse">
+    <wsdl:part element="rtdi.mount:mntGetPointingModelResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntMoveNorthRequest">
+    <wsdl:part element="rtdi.mount:mntMoveNorth" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntMoveNorthResponse">
+    <wsdl:part element="rtdi.mount:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntMoveSouthRequest">
+    <wsdl:part element="rtdi.mount:mntMoveSouth" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntMoveSouthResponse">
+    <wsdl:part element="rtdi.mount:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntMoveEastRequest">
+    <wsdl:part element="rtdi.mount:mntMoveEast" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntMoveEastResponse">
+    <wsdl:part element="rtdi.mount:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntMoveWestRequest">
+    <wsdl:part element="rtdi.mount:mntMoveWest" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntMoveWestResponse">
+    <wsdl:part element="rtdi.mount:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntSetSlewRateRequest">
+    <wsdl:part element="rtdi.mount:mntSetSlewRate" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntSetSlewRateResponse">
+    <wsdl:part element="rtdi.mount:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntGetSlewRateRequest">
+    <wsdl:part element="rtdi.mount:mntGetSlewRate" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntGetSlewRateResponse">
+    <wsdl:part element="rtdi.mount:stringResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntSlewObjectRequest">
+    <wsdl:part element="rtdi.mount:mntSlewObject" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntSlewObjectResponse">
+    <wsdl:part element="rtdi.mount:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <!-- MOUNT DEVICE MESSAGES - END -->
+  
+  
+  <wsdl:portType name="gloria_rtdi_mount"> 
+  
+  	<!-- COMMON DEVICE PORT TYPE OPS - BEGIN -->    
+    <wsdl:operation name="devGetDevice">
+	  <wsdl:documentation>
+	  Recover the information of one device.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device Identifier.
+	  @return Current device data.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:devGetDeviceRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.mount:devGetDeviceResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devGetDeviceProperties">
+	  <wsdl:documentation>
+	  Recover the properties of a device.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device Identifier.
+	  @return Properties List.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:devGetDevicePropertiesRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.mount:devGetDevicePropertiesResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devGetDeviceProperty">
+	  <wsdl:documentation>
+	  Recover a property of a device.
+	  @param name Property name
+	  @return Properties List.
+	  @throws RtiError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:devGetDevicePropertyRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.mount:devGetDevicePropertyResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devUpdateDeviceProperty">
+	  <wsdl:documentation>
+	  Updates a property into a Device configuration. If the property is a readonly property or the value cannot be (internally) transformed into the proper type, an exception will be throw.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device Identifier.
+	  @param name Property name.
+	  @param value Values of the property.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:devUpdateDevicePropertyRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.mount:devUpdateDevicePropertyResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devUpdateDevicePropertyAsync">
+	  <wsdl:documentation>
+	  Updates a property into a Device configuration. If the property is a readonly property or the value cannot be (internally) transformed into the proper type, an exception will be throw.
+	  Asynchronous call.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device Identifier.
+	  @param name Property name.
+	  @param value Values of the property.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:devUpdateDevicePropertyAsyncRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.mount:devUpdateDevicePropertyAsyncResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devIsConnected">
+	  <wsdl:documentation>
+	  Checks the link between the driver and the device. If True, the link is enable.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device Identifier.
+	  @return boolean.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:devIsConnectedRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.mount:devIsConnectedResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devConnect">
+	  <wsdl:documentation>
+	  Creates the link between the driver and the device.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device Identifier.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:devConnectRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.mount:devConnectResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devDisconnect">
+	  <wsdl:documentation>
+	  Controls the link between the driver and the device. Set True to enable the link. Set False to disable the link.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device Identifier.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:devDisconnectRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.mount:devDisconnectResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devGetConfiguration">
+	  <wsdl:documentation>
+	  Returns a String containing a full configuration information. For logging purpose.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device Id.
+	  @return Configuration in a string.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:devGetConfigurationRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.mount:devGetConfigurationResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devIsBlocked">
+	  <wsdl:documentation>
+	  Returns true if the device is blocked because of its blocked state or some dependency to other device.
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:devIsBlockedRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.mount:devIsBlockedResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <!-- COMMON DEVICE PORT TYPE OPS - END -->
+    
+    
+    <!-- MOUNT PORT TYPE OPS - BEGIN -->
+    <wsdl:operation name="mntGetUtcClock">
+	  <wsdl:documentation>
+	  Returns the UTC date/time of the telescope's internal clock. 
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return Date Value.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntGetUtcClockRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntGetUtcClockResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntSetUtcClock">
+	  <wsdl:documentation>
+	  Sets the UTC date/time of the telescope's internal clock.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @param date New date.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntSetUtcClockRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntSetUtcClockResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntGetSiderealDate">
+	  <wsdl:documentation>
+	  The local apparent sidereal time from the telescope's internal clock (hours, sidereal).
+	  Local Apparent Sidereal Time is the sidereal time used for pointing telescopes, and thus 
+	  must be calculated from the Greenwich Mean Sidereal time, longitude, nutation in longitude 
+	  and true ecliptic obliquity. 
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return Double Value.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntGetSiderealDateRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntGetSiderealDateResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntIsAtHome">
+	  <wsdl:documentation>
+	  Returns true if the mount is stopped in the home position.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return Boolean Value.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntIsAtHomeRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntIsAtHomeResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntIsParked">
+	  <wsdl:documentation>
+	  Returns true if the mount is stopped in the parked position.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return Boolean Value.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntIsParkedRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntIsParkedResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>    
+    <wsdl:operation name="mntGetTargetRightAscension">
+	  <wsdl:documentation>
+	  The right ascension for the target of an equatorial slew operation.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return Double target right ascension.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntGetTargetRightAscensionRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntGetTargetRightAscensionResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntGetTargetDeclination">
+	  <wsdl:documentation>
+	  The declination for the target of an equatorial slew operation.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return Double target declination.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntGetTargetDeclinationRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntGetTargetDeclinationResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntGetTrackingDeclinationRate">
+	  <wsdl:documentation>
+	  Returns the Declination tracking rate. 
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return Double declination tracking rate.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntGetTrackingDeclinationRateRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntGetTrackingDeclinationRateResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntGetTrackingAscensionRate">
+	  <wsdl:documentation>
+	  Returns True if the camera can abort exposures. False if not. 
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return double Ascension rate.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntGetTrackingAscensionRateRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntGetTrackingAscensionRateResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntGetTrackingRate">
+	  <wsdl:documentation>
+	  Returns the current tracking rate of the mount. 
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return int The tracking rate. 
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntGetTrackingRateRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntGetTrackingRateResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntSetTrackingRate">
+	  <wsdl:documentation>
+	  Sets the current tracking rate of the mount. 
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @param rateThe tracking rate.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntSetTrackingRateRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntSetTrackingRateResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntGetTracking">
+	  <wsdl:documentation>
+	  Access method to the state (on/off) of the telescope's sidereal tracking drive.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return Boolean value.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntGetTrackingRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntGetTrackingResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntSetTracking">
+	  <wsdl:documentation>
+	  Access method to the state (on/off) of the telescope's sidereal tracking drive.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @param value New Value.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntSetTrackingRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntSetTrackingResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntGetGuideRateDeclination">
+	  <wsdl:documentation>
+	  Returns the  current Declination movement rate offset for telescope guiding (degrees/sec).
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return the declination movement rate offset.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntGetGuideRateDeclinationRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntGetGuideRateDeclinationResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntGetDeclinationRateRightAscension">
+	  <wsdl:documentation>
+	  Returns the current Right Ascension movement rate offset for telescope guiding (degrees/sec).
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return The right ascension movement rate offset.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntGetDeclinationRateRightAscensionRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntGetDeclinationRateRightAscensionResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntIsSlewing">
+	  <wsdl:documentation>
+	  Returns True if the camera can abort exposures. False if not. 
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return Boolean value.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntIsSlewingRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntIsSlewingResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>    
+    <wsdl:operation name="mntGetPosAxis2">
+	  <wsdl:documentation>
+	  Returns  the Azimuth current position.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return AZ Position.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntGetPosAxis2Request">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntGetPosAxis2Response">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>    
+    <wsdl:operation name="mntGetPosAxis3">
+	  <wsdl:documentation>
+	  Returns Image rotator/de-rotator current position.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return ROT Position.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntGetPosAxis3Request">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntGetPosAxis3Response">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntGetPosAxis1">
+	  <wsdl:documentation>
+	  Returns  the Altitude current position. 
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return ALT Position.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntGetPosAxis1Request">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntGetPosAxis1Response">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntCanPulseGuide">
+	  <wsdl:documentation>
+	  Returns true if this property can be set. 
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return Boolean value.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntCanPulseGuideRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntCanPulseGuideResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntCanSetGuideRates">
+	  <wsdl:documentation>
+	  True if the guide rate properties used for PulseGuide method can be adjusted.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return Boolean value.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntCanSetGuideRatesRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntCanSetGuideRatesResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntCanSetPark">
+	  <wsdl:documentation>
+	  Returns true if this property can be set.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return Boolean value.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntCanSetParkRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntCanSetParkResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntSetPark">
+	  <wsdl:documentation>
+	  Set the parked position in equatorial coordinates 
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @param ascension Angle.
+	  @param declination Angle.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntSetParkRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntSetParkResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntGetALTParkPos">
+	  <wsdl:documentation>
+	  Return the parked position ALT coordinate.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return Parked RA Position.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntGetALTParkPosRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntGetALTParkPosResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntGetAZParkPos">
+	  <wsdl:documentation>
+	  Return the parked position AZ coordinate. 
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return Parked DEC Position.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntGetAZParkPosRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntGetAZParkPosResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntCanSetTracking">
+	  <wsdl:documentation>
+	  Returns true if the  sidereal drive can be change to on/off value.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return Boolean value.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntCanSetTrackingRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntCanSetTrackingResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntCanSetTrackingRate">
+	  <wsdl:documentation>
+	  Returns true if this property can be set. 
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return Boolean value.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntCanSetTrackingRateRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntCanSetTrackingRateResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>    
+    <wsdl:operation name="mntCanSlewCoordinates">
+	  <wsdl:documentation>
+	  Returns true if this telescope is capable of programmed slewing (synchronous) to equatorial.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return Boolean value.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntCanSlewCoordinatesRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntCanSlewCoordinatesResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntCanSlewCoordinatesAsync">
+	  <wsdl:documentation>
+	  Returns true if the mount is capable of programmed slewing (asynchronous) to equatorial.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return Boolean value.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntCanSlewCoordinatesAsyncRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntCanSlewCoordinatesAsyncResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntCanSlewObject">
+	  <wsdl:documentation>
+	  Return true if the mount is capable of slewing to an object.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return Boolean value.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntCanSlewObjectRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntCanSlewObjectResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntCanSlewAltAz">
+	  <wsdl:documentation>
+	  Returns true if the mount  is capable of programmed synchronous slewing to local horizontal coordinates.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return Boolean value.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntCanSlewAltAzRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntCanSlewAltAzResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntCanSlewAzAsync">
+	  <wsdl:documentation>
+	  Returns true if the mount  is capable of programmed asynchronous slewing to local horizontal coordinates.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return Boolean value.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntCanSlewAzAsyncRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntCanSlewAzAsyncResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntCanMoveAzis">
+	  <wsdl:documentation>
+	  Returns True if the mount can be controlled about the specified axis via. 
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return Boolean value.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntCanMoveAzisRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntCanMoveAzisResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntAxisRate">
+	  <wsdl:documentation>
+	  Returns a collection of Rate objects describing the supported rates of motion.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return List of AxisRateType.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntAxisRateRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntAxisRateResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntTrackingRates">
+	  <wsdl:documentation>
+	  Returns a collection of Rate values of the TrackingRate property.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return List of TrackingRateType.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntTrackingRatesRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntTrackingRatesResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntGoHome">
+	  <wsdl:documentation>
+	  Moves the mount to the home position (synchronous).
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @throws rtdError In error case.
+	</wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntGoHomeRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntGoHomeResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntPark">
+	  <wsdl:documentation>
+	  Moves the mount to the parked position and fix the state to PARKED.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntParkRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntParkResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntUnpark">
+	  <wsdl:documentation>
+	  Moves the mount to a ready position. Before call Unpark(), the mount state must have fixed to READY.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntUnparkRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntUnparkResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntSlewToAltAz">
+	  <wsdl:documentation>
+	  This synchronous method moves the mount to the given local horizontal coordinates. This Method must be implemented if CanSlewAltAz returns True. Raises an error if the slew fails.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @param azimuth Azimuth value.
+	  @param altitude Altitude value.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntSlewToAltAzRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntSlewToAltAzResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntSlewToAltAzAsync">
+	  <wsdl:documentation>
+	  Asynchronous SlewToAltAz method.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @param azimuth Azimuth value.
+	  @param altitude Altitude value.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntSlewToAltAzAsyncRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntSlewToAltAzAsyncResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntSlewToCoordinates">
+	  <wsdl:documentation>
+	  This synchronous method moves the mount to the given ecuatorial coordinates. This Method must be implemented if CanSlewCoordinates returns True. Raises an error if the slew fails.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @param ascension Angle.
+	  @param declination Angle.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntSlewToCoordinatesRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntSlewToCoordinatesResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntSlewToCoordinatesAsync">
+	  <wsdl:documentation>
+	  Asynchronous SlewToCoordinates method. 
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @param ascension Angle.
+	  @param declination Angle.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntSlewToCoordinatesAsyncRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntSlewToCoordinatesAsyncResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntMoveAxis">
+	  <wsdl:documentation>
+	  The mount will start moving at the specified rate about the specified axis and continue indefinitely following the rate of motion.
+	  This must be implemented if the CanMoveAxis property returns True for the given axis.
+	  The movement rate must be within the allowed values (AxisRate method). 
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @param axisType 0-Primary axis (e.g., Right Ascension or Azimuth), 1-Secondary axis (e.g., Declination or Altitude), 2-Tertiary axis (e.g. imager rotator/de-rotator).
+	  @param rate The rate of motion (deg/sec, + = clockwise) about the specified axis.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntMoveAxisRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntMoveAxisResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntPulseGuide">
+	  <wsdl:documentation>
+	  Moves the scope in the given direction for the given interval or time at the rate given by the corresponding guide rate property.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @param guideDirection North-0, South-1, East-2, West-3 
+	  @param duration Duration of the movement.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntPulseGuideRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntPulseGuideResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntStopSlew">
+	  <wsdl:documentation>
+	  To stop the movement in the axis parameter. 
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @param axisType  0-Primary axis (e.g., Right Ascension or Azimuth), 1-Secondary axis (e.g., Declination or Altitude), 2-Tertiary axis (e.g. imager rotator/de-rotator).
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntStopSlewRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntStopSlewResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntStopSlewAxis">
+	  <wsdl:documentation>
+	  To stop all movements. 
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntStopSlewAxisRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntStopSlewAxisResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntGetPointingModel">
+	  <wsdl:documentation>
+	  Returns the pointing model of a mount. 
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return The pointing model.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntGetPointingModelRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntGetPointingModelResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntMoveNorth">
+	  <wsdl:documentation>
+	  The mount moves North during a period of time 
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntMoveNorthRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntMoveNorthResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntMoveSouth">
+	  <wsdl:documentation>
+	  The mount moves South during a period of time 
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntMoveSouthRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntMoveSouthResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntMoveEast">
+	  <wsdl:documentation>
+	  The mount moves East during a period of time 
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntMoveEastRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntMoveEastResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntMoveWest">
+	  <wsdl:documentation>
+	  The mount moves West during a period of time 
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntMoveWestRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntMoveWestResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntSetSlewRate">
+	  <wsdl:documentation>
+	  Sets the slew rate.
+	  * SLEW_RATE (faster)
+	  * MOVE_RATE (second faster)
+	  * GUIDE_RATE (slowest)
+	  * CENTER_RATE(second lowest)
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @param rate String.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntSetSlewRateRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntSetSlewRateResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntGetSlewRate">
+	  <wsdl:documentation>
+	  Gets the slew rate.
+	  * SLEW_RATE (faster)
+	  * MOVE_RATE (second faster)
+	  * GUIDE_RATE (slowest)
+	  * CENTER_RATE(second lowest)
+	  @param rate String.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntGetSlewRateRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntGetSlewRateResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntSlewObject">
+	  <wsdl:documentation>
+	  Slew to an object 
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @param object Object to slew to.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntSlewObjectRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntSlewObjectResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    <!-- MOUNT PORT TYPE OPS - END -->
+    
+  </wsdl:portType>
+
+  
+  <wsdl:binding name="gloria_rtdi_mountSOAP" type="rtdi.mount:gloria_rtdi_mount">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    
+    <!-- COMMON DEVICE BINDING OPS - BEGIN -->
+    <wsdl:operation name="devGetDevice">
+      <soap:operation soapAction="http://gloria.eu/rtdi.mount/devGetDevice"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devGetDeviceProperties">
+      <soap:operation soapAction="http://gloria.eu/rtdi.mount/devGetDeviceProperties"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devGetDeviceProperty">
+      <soap:operation soapAction="http://gloria.eu/rtdi.mount/devGetDeviceProperty"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devUpdateDeviceProperty">
+      <soap:operation soapAction="http://gloria.eu/rtdi.mount/devUpdateDeviceProperty"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+     <wsdl:operation name="devUpdateDevicePropertyAsync">
+      <soap:operation soapAction="http://gloria.eu/rtdi.mount/devUpdateDeviceProperty"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devIsConnected">
+      <soap:operation soapAction="http://gloria.eu/rtdi.mount/devIsConnected"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devConnect">
+      <soap:operation soapAction="http://gloria.eu/rtdi.mount/devConnect"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devDisconnect">
+      <soap:operation soapAction="http://gloria.eu/rtdi.mount/devDisconnect"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devGetConfiguration">
+      <soap:operation soapAction="http://gloria.eu/rtdi.mount/devGetConfiguration"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devIsBlocked">
+      <soap:operation soapAction="http://gloria.eu/rtdi.mount/devIsBlocked"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <!-- COMMON DEVICE BINDING OPS - END -->
+    
+    <!-- MOUNT DEVICE BINDING OPS - BEGIN -->
+    <wsdl:operation name="mntGetUtcClock">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntGetUtcClock"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntSetUtcClock">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntSetUtcClock"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntGetSiderealDate">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntGetSiderealDate"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntIsAtHome">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntIsAtHome"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntIsParked">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntIsParked"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>    
+    <wsdl:operation name="mntGetTargetRightAscension">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntGetTargetRightAscension"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntGetTargetDeclination">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntGetTargetDeclination"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntGetTrackingDeclinationRate">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntGetTrackingDeclinationRate"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntGetTrackingAscensionRate">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntGetTrackingAscensionRate"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntGetTrackingRate">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntGetTrackingRate"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntSetTrackingRate">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntSetTrackingRate"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntGetTracking">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntGetTracking"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntSetTracking">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntSetTracking"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntGetGuideRateDeclination">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntGetGuideRateDeclination"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntGetDeclinationRateRightAscension">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntGetDeclinationRateRightAscension"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntIsSlewing">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntIsSlewing"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>   
+    <wsdl:operation name="mntGetPosAxis2">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntGetPosAxis2"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>   
+    <wsdl:operation name="mntGetPosAxis3">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntGetPosAxis3"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntGetPosAxis1">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntGetPosAxis1"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntCanPulseGuide">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntCanPulseGuide"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntCanSetGuideRates">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntCanSetGuideRates"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntCanSetPark">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntCanSetPark"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntSetPark">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntSetPark"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntGetALTParkPos">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntGetALTParkPos"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntGetAZParkPos">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntGetAZParkPos"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntCanSetTracking">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntCanSetTracking"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntCanSetTrackingRate">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntCanSetTrackingRate"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>    
+    <wsdl:operation name="mntCanSlewCoordinates">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntCanSlewCoordinates"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntCanSlewCoordinatesAsync">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntCanSlewCoordinatesAsync"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntCanSlewObject">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntCanSlewObject"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntCanSlewAltAz">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntCanSlewAltAz"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntCanSlewAzAsync">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntCanSlewAzAsync"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntCanMoveAzis">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntCanMoveAzis"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntAxisRate">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntAxisRate"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntTrackingRates">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntTrackingRates"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntGoHome">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntGoHome"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntPark">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntPark"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntUnpark">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntUnpark"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntSlewToAltAz">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntSlewToAltAz"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntSlewToAltAzAsync">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntSlewToAltAzAsync"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntSlewToCoordinates">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntSlewToCoordinates"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntSlewToCoordinatesAsync">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntSlewToCoordinatesAsync"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntMoveAxis">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntMoveAxis"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntPulseGuide">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntPulseGuide"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntStopSlewAxis">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntStopSlewAxis"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntStopSlew">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntStopSlew"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntGetPointingModel">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntGetPointingModel"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntMoveNorth">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntMoveNorth"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntMoveSouth">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntMoveSouth"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntMoveEast">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntMoveEast"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntMoveWest">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntMoveWest"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntSetSlewRate">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntSetSlewRate"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntGetSlewRate">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntGetSlewRate"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntSlewObject">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntSlewObject"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+       
+    <!-- MOUNT DEVICE BINDING OPS - END -->
+    
+  </wsdl:binding>
+  
+  <wsdl:service name="gloria_rtdi_mount">
+    <wsdl:documentation/>
+    <wsdl:port binding="rtdi.mount:gloria_rtdi_mountSOAP" name="gloria_rtdi_mountSOAP">
+      <soap:address location="http://localhost:8080/RTDI_Mount/services/gloria_rtdi_mountSOAP"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

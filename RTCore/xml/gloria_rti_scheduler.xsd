@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://gloria.eu/rt/entity/scheduler" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:gloria.rt.entity.scheduler="http://gloria.eu/rt/entity/scheduler">
+    
+    <simpleType name="planState">
+    	<restriction base="string">
+    		<enumeration value="NONE"></enumeration>
+    	    <enumeration value="QUEUED"></enumeration>
+    		<enumeration value="ABORTED"></enumeration>
+    		<enumeration value="RUNNING"></enumeration>
+    		<enumeration value="DONE"></enumeration>
+    		<enumeration value="OUT_OF_TIME"></enumeration>
+    		<enumeration value="EXCEEDED_TIME"></enumeration>
+    		<enumeration value="ERROR"></enumeration>
+    	</restriction>
+    </simpleType>
+    
+    <complexType name="templatePlan">
+        <sequence>
+        	<element name="id" type="string"></element>
+    		<element name="user" type="string"></element>
+    		<element name="creationDate" type="date"></element>
+    		<element name="xml" type="string"></element>
+    		<element name="description" type="string"></element>
+    	</sequence>
+    </complexType>
+    
+    <complexType name="plan">
+        <sequence>
+        	<element name="id" type="string"></element>
+        	<element name="user" type="string"></element>
+        	<element name="templateId" type="string"></element>
+        	<element name="state" type="gloria.rt.entity.scheduler:planState"></element>
+        	<element name="creationDate" type="date"></element>
+    		<element name="errorDevId" type="string"></element>
+    		<element name="errorCode" type="integer"></element>
+    		<element name="errorDesc" type="string"></element>
+    		<element name="execWindowStart" type="date"></element>
+    		<element name="execWindowEnd" type="date"></element>
+    		<element name="execMaxTime" type="long"></element>
+    		<element name="rtStart" type="date"></element>
+    		<element name="rtSEnd" type="date"></element>
+    	</sequence>
+    </complexType>
+    
+    
+</schema>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ************************************************ -->
+<!-- * Project: GLORIA                              * -->
+<!-- * Archive: gloria_rt_db_entities.xsd           * -->
+<!-- * Author: Juan Cabello                         * -->
+<!-- * Date : 25/03/2013                            * -->
+<!-- ************************************************ -->
+<schema targetNamespace="http://gloria.eu/rt/entity/db"
+	elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:gloria.rt.entity.db="http://gloria.eu/rt/entity/db">
+	
+	<simpleType name="fileContentType">
+		<restriction base="string">
+			<enumeration value="DARK"></enumeration>
+			<enumeration value="FLAT"></enumeration>
+			<enumeration value="OBSERVATION"></enumeration>
+		</restriction>
+	</simpleType>
+	
+	<simpleType name="fileFormat">
+		<restriction base="string">
+			<enumeration value="FITS"></enumeration>
+			<enumeration value="JPG"></enumeration>
+		</restriction>
+	</simpleType>
+	
+	<simpleType name="fileType">
+		<restriction base="string">
+			<enumeration value="IMAGE"></enumeration>
+			<enumeration value="VIDEO"></enumeration>
+			<enumeration value="RADIO"></enumeration>
+		</restriction>
+	</simpleType>
+	
+	<simpleType name="observingPlanOwner">
+		<restriction base="string">
+			<enumeration value="SYSTEM"></enumeration>
+			<enumeration value="USER"></enumeration>
+		</restriction>
+	</simpleType>
+	
+	<simpleType name="observingPlanType">
+		<restriction base="string">
+			<enumeration value="DARK"></enumeration>
+			<enumeration value="FLAT"></enumeration>
+			<enumeration value="OBSERVATION"></enumeration>
+		</restriction>
+	</simpleType>
+	
+	<complexType name="format">
+		<sequence>
+			<element name="fileFormat" type="gloria.rt.entity.db:fileFormat" minOccurs="1" maxOccurs="1" />
+			<element name="url" type="string" minOccurs="1" maxOccurs="1" />
+		</sequence>
+	</complexType>
+	
+	<complexType name="file">
+		<sequence>
+			<element name="id" type="string" minOccurs="1" maxOccurs="1" />
+			<element name="uuid" type="string" minOccurs="1" maxOccurs="1" />
+			<element name="date" maxOccurs="1" minOccurs="1" type="date" />
+			<element name="contentType" type="gloria.rt.entity.db:fileContentType" minOccurs="1" maxOccurs="1" />
+			<element name="formats" type="gloria.rt.entity.db:format" minOccurs="1" maxOccurs="unbounded" />
+			<element name="type" type="gloria.rt.entity.db:fileType" minOccurs="1" maxOccurs="1" />
+		</sequence>
+	</complexType>
+	
+	<complexType name="observingPlan">
+		<sequence>
+			<element name="id" type="string" minOccurs="1" maxOccurs="1" />
+			<element name="uuid" type="string" minOccurs="1" maxOccurs="1" />
+			<element name="owner" type="gloria.rt.entity.db:observingPlanOwner" minOccurs="1" maxOccurs="1" />
+			<element name="type" type="gloria.rt.entity.db:observingPlanType" minOccurs="1" maxOccurs="1" />
+			<element name="user" type="string" maxOccurs="1" minOccurs="1"  />
+			<element name="files" minOccurs="0" maxOccurs="unbounded" type="gloria.rt.entity.db:file" />
+		</sequence>
+	</complexType>
+	
+</schema>

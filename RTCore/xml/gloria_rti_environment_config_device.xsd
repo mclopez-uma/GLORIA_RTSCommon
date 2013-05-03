@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://gloria.eu/rt/entity/environment/config/device"
+	elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:gloria.rt.entity.environment.config.device="http://gloria.eu/rt/entity/environment/config/device">
+
+
+	<simpleType name="deviceType">
+		<restriction base="string">
+			<enumeration value="UNKNOWN"></enumeration>
+			<enumeration value="SERV_SERVERD"></enumeration>
+			<enumeration value="MOUNT"></enumeration>
+			<enumeration value="CCD"></enumeration>
+			<enumeration value="DOME"></enumeration>
+			<enumeration value="GENERIC_WEATHER_SENSOR"></enumeration>
+			<enumeration value="ROTATOR"></enumeration>
+			<enumeration value="PHOTOMETER"></enumeration>
+			<enumeration value="SERV_PLAN"></enumeration>
+			<enumeration value="SERV_GRB"></enumeration>
+			<enumeration value="FOCUS"></enumeration>
+			<enumeration value="MIRROR"></enumeration>
+			<enumeration value="CUPOLA"></enumeration>
+			<enumeration value="FW"></enumeration>
+			<enumeration value="SERV_AUGERSH"></enumeration>
+			<enumeration value="GENERIC_SENSOR"></enumeration>
+			<enumeration value="SERV_EXECUTOR"></enumeration>
+			<enumeration value="SERV_IMGPROC"></enumeration>
+			<enumeration value="SERV_SELECTOR"></enumeration>
+			<enumeration value="SERV_XMLRPC"></enumeration>
+
+			<enumeration value="SERV_INDI"></enumeration>
+			<enumeration value="SERV_LOGD"></enumeration>
+			<enumeration value="SERV_SCRIPTOR"></enumeration>
+			<enumeration value="SURVEILLANCE_CAMERA"></enumeration>
+			<enumeration value="CLOUD_DETECTOR"></enumeration>
+			<enumeration value="WIND_SPEED_SENSOR"></enumeration>
+			<enumeration value="RAIN_SENSOR"></enumeration>
+			<enumeration value="STORM_SENSOR"></enumeration>
+			<enumeration value="RH_SENSOR"></enumeration>
+			<enumeration value="WEATHER_VANE"></enumeration>
+			<enumeration value="DEW_REMOVER"></enumeration>
+			<enumeration value="TEMPERATURE_SENSOR"></enumeration>
+    		<enumeration value="BAROMETER"></enumeration>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="devicePropertyBasicType">
+		<restriction base="string">
+			<enumeration value="STRING"></enumeration>
+			<enumeration value="INTEGER"></enumeration>
+			<enumeration value="TIME"></enumeration>
+			<enumeration value="DOUBLE"></enumeration>
+			<enumeration value="FLOAT"></enumeration>
+			<enumeration value="BOOL"></enumeration>
+			<enumeration value="SELECTION"></enumeration>
+			<enumeration value="LONGINT"></enumeration>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="devicePropertyComplexType">
+		<restriction base="string">
+			<enumeration value="MMAX"></enumeration>
+			<enumeration value="NONE"></enumeration>
+			<enumeration value="RADEC"></enumeration>
+			<enumeration value="ALTAZ"></enumeration>
+			<enumeration value="STAT"></enumeration>
+			<enumeration value="RECTANGLE"></enumeration>
+			<enumeration value="ARRAY"></enumeration>
+		</restriction>
+	</simpleType>
+
+	<complexType name="deviceProperty">
+		<sequence>
+			<element name="name" type="string"></element>
+			<element name="basicType"
+				type="gloria.rt.entity.environment.config.device:devicePropertyBasicType">
+			</element>
+			<element name="complexType"
+				type="gloria.rt.entity.environment.config.device:devicePropertyComplexType">
+			</element>
+			<element name="description" type="string"></element>
+			<element name="mandatory" type="boolean"></element>
+			<element name="defaultValue" type="string"></element>
+			<element name="readonly" type="boolean"></element>
+			<element name="value" type="string" minOccurs="0" maxOccurs="unbounded">
+			</element>
+			<element name="possibleValue" type="string" minOccurs="0"
+				maxOccurs="unbounded">
+			</element>
+			<element name="minmax" type="string" minOccurs="0" maxOccurs="2"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="device">
+		<sequence>
+			<element name="shortName" type="string"></element>
+			<element name="version" type="string"></element>
+			<element name="description" type="string"></element>
+			<element name="type"
+				type="gloria.rt.entity.environment.config.device:deviceType"></element>
+			<element name="subtype" type="string"></element>
+			<element name="property"
+				type="gloria.rt.entity.environment.config.device:deviceProperty"
+				maxOccurs="unbounded" minOccurs="0">
+			</element>
+		</sequence>
+	</complexType>
+
+
+	<xs:element name="deviceList">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="device"
+					type="gloria.rt.entity.environment.config.device:device" maxOccurs="unbounded"
+					minOccurs="0"></xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+</xs:schema>

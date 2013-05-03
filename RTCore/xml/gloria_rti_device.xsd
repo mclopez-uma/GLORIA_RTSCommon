@@ -1,0 +1,606 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://gloria.eu/rt/entity/device" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:gloria.rt.entity.device="http://gloria.eu/rt/entity/device">
+
+    <simpleType name="deviceType">
+    	<restriction base="string">
+    		<enumeration value="UNKNOWN"></enumeration>
+    		<enumeration value="SERV_SERVERD"></enumeration>
+    		<enumeration value="MOUNT"></enumeration>
+    		<enumeration value="CCD"></enumeration>
+    		<enumeration value="DOME"></enumeration>
+    		<enumeration value="GENERIC_WEATHER_SENSOR"></enumeration>
+    		<enumeration value="ROTATOR"></enumeration>
+    		<enumeration value="PHOTOMETER"></enumeration>
+    		<enumeration value="SERV_PLAN"></enumeration>
+    		<enumeration value="SERV_GRB"></enumeration>
+    		<enumeration value="FOCUS"></enumeration>
+    		<enumeration value="MIRROR"></enumeration>
+    		<enumeration value="CUPOLA"></enumeration>
+    		<enumeration value="FW"></enumeration>
+    		<enumeration value="SERV_AUGERSH"></enumeration>
+    		<enumeration value="GENERIC_SENSOR"></enumeration>
+    		<enumeration value="SERV_EXECUTOR"></enumeration>
+    		<enumeration value="SERV_IMGPROC"></enumeration>
+    		<enumeration value="SERV_SELECTOR"></enumeration>
+    		<enumeration value="SERV_XMLRPC"></enumeration>
+
+    		<enumeration value="SERV_INDI"></enumeration>
+    		<enumeration value="SERV_LOGD"></enumeration>
+    		<enumeration value="SERV_SCRIPTOR"></enumeration>
+    		<enumeration value="SURVEILLANCE_CAMERA"></enumeration>
+    		<enumeration value="CLOUD_DETECTOR"></enumeration>
+    		<enumeration value="WIND_SPEED_SENSOR"></enumeration>
+    		<enumeration value="RAIN_SENSOR"></enumeration>
+    		<enumeration value="STORM_SENSOR"></enumeration>
+    		<enumeration value="RH_SENSOR"></enumeration>
+    		<enumeration value="WEATHER_VANE"></enumeration>
+    		<enumeration value="DEW_REMOVER"></enumeration>
+    		<enumeration value="TEMPERATURE_SENSOR"></enumeration>
+    		<enumeration value="BAROMETER"></enumeration>
+    	</restriction>
+    </simpleType>
+
+    <complexType name="device">
+    	<sequence>
+    		<element name="shortName" type="string"></element>
+    		<element name="version" type="string"></element>
+    		<element name="description" type="string"></element>
+    		<element name="info" type="string"></element>
+    		<element name="configuration" type="string"></element>
+    		<element name="type"
+    			type="gloria.rt.entity.device:deviceType">
+    		</element>
+    		<element name="communicationState"
+    			type="gloria.rt.entity.device:communicationState">
+    		</element>
+    		<element name="blockState"
+    			type="gloria.rt.entity.device:blockState">
+    		</element>
+    		<element name="alarmState"
+    			type="gloria.rt.entity.device:alarmState">
+    		</element>
+    		<element name="error"
+    			type="gloria.rt.entity.device:error">
+    		</element>
+    		<element name="activityStateDesc" type="string"></element>
+    		<element name="properties"
+    			type="gloria.rt.entity.device:deviceProperty"
+    			maxOccurs="unbounded" minOccurs="0">
+    		</element>
+    		<element name="measureUnit" type="gloria.rt.entity.device:measureUnit"></element>
+    	</sequence>
+    </complexType>
+
+    <simpleType name="communicationState">
+    	<restriction base="string">
+    		<enumeration value="READY"></enumeration>
+    		<enumeration value="IDLE"></enumeration>
+    		<enumeration value="BUSY"></enumeration>
+    	</restriction>
+    </simpleType>
+    
+    <simpleType name="blockState">
+    	<restriction base="string">
+    		<enumeration value="UNBLOCK"></enumeration>
+    		<enumeration value="BLOCKED_EXPOSURE"></enumeration>
+    		<enumeration value="BLOCKED_READOUT"></enumeration>
+    		<enumeration value="BLOCKED_TEL_MOVE"></enumeration>
+    		<enumeration value="BLOCKED_WILL_EXPOSURE"></enumeration>
+    	</restriction>
+    </simpleType>
+
+    <simpleType name="alarmState">
+    	<restriction base="string">
+    		<enumeration value="NONE"></enumeration>
+    		<enumeration value="MALFUNCTION"></enumeration>
+    		<enumeration value="DRIVER_HW"></enumeration>
+    		<enumeration value="DRIVER_SW"></enumeration>
+    		<enumeration value="SHUTDOWN"></enumeration>
+    	</restriction>
+    </simpleType>
+
+    <complexType name="error">
+    	<sequence>
+    		<element name="cod" type="int"></element>
+    		<element name="msg" type="string"></element>
+    	</sequence>
+    </complexType>
+
+
+
+    <complexType name="deviceGeneral">
+    	<complexContent>
+    		<extension base="gloria.rt.entity.device:device">
+    			<sequence>
+    				<element name="activityState" type="gloria.rt.entity.device:activityState"></element>
+    			</sequence>
+    		</extension>
+    	</complexContent>
+    </complexType>
+    
+    <simpleType name="activityState">
+    	<restriction base="string">
+    		<enumeration value="NOT_DEFINED"></enumeration>
+    		<enumeration value="READY"></enumeration>
+    		<enumeration value="BUSY"></enumeration>
+    		<enumeration value="OFF"></enumeration>
+    		<enumeration value="MAINTENANCE"></enumeration>
+    		<enumeration value="ERROR"></enumeration>
+    	</restriction>
+    </simpleType>
+
+    <simpleType name="activityStateCamera">
+    	<restriction base="string">
+    		<enumeration value="NOT_DEFINED"></enumeration>
+    		<enumeration value="READY"></enumeration>
+    		<enumeration value="BUSY"></enumeration>
+    		<enumeration value="OFF"></enumeration>
+    		<enumeration value="MAINTENANCE"></enumeration>
+    		<enumeration value="ERROR"></enumeration>
+    		<enumeration value="WAITING"></enumeration>
+    		<enumeration value="EXPOSING"></enumeration>
+    		<enumeration value="READING"></enumeration>
+    		<enumeration value="DOWNLOADING"></enumeration>
+    		<enumeration value="COOLING"></enumeration>
+    	</restriction>
+    </simpleType>
+
+    <simpleType name="activityStateFocuser">
+    	<restriction base="string">
+    		<enumeration value="NOT_DEFINED"></enumeration>
+    		<enumeration value="READY"></enumeration>
+    		<enumeration value="BUSY"></enumeration>
+    		<enumeration value="OFF"></enumeration>
+    		<enumeration value="MAINTENANCE"></enumeration>
+    		<enumeration value="ERROR"></enumeration>
+    		<enumeration value="HALT"></enumeration>
+    		<enumeration value="FOCUSING"></enumeration>
+    	</restriction>
+    </simpleType>
+
+    <simpleType name="activityStateMount">
+    	<restriction base="string">
+    		<enumeration value="NOT_DEFINED"></enumeration>
+    		<enumeration value="READY"></enumeration>
+    		<enumeration value="BUSY"></enumeration>
+    		<enumeration value="OFF"></enumeration>
+    		<enumeration value="MAINTENANCE"></enumeration>
+    		<enumeration value="ERROR"></enumeration>
+    		<enumeration value="PARKED"></enumeration>
+    		<enumeration value="PARKING"></enumeration>
+    		<enumeration value="MOVING"></enumeration>
+    		<enumeration value="STOP"></enumeration>
+    		<enumeration value="TRACKING"></enumeration>
+    	</restriction>
+    </simpleType>
+    
+    <simpleType name="mountPointingModel">
+    	<restriction base="string">
+    		<enumeration value="EQU"></enumeration>
+    		<enumeration value="ALT_AZ"></enumeration>
+    		<enumeration value="ALT_ALT"></enumeration>
+    	</restriction>
+    </simpleType>
+    
+    <simpleType name="activityStateDome">
+    	<restriction base="string">
+    		<enumeration value="NOT_DEFINED"></enumeration>
+    		<enumeration value="READY"></enumeration>
+    		<enumeration value="BUSY"></enumeration>
+    		<enumeration value="OFF"></enumeration>
+    		<enumeration value="MAINTENANCE"></enumeration>
+    		<enumeration value="ERROR"></enumeration>
+    		<enumeration value="STOP"></enumeration>
+    		<enumeration value="MOVING"></enumeration>
+    	</restriction>
+    </simpleType>
+
+    <simpleType name="activityStateDomeOpening">
+    	<restriction base="string">
+    		<enumeration value="NOT_DEFINED"></enumeration>
+    		<enumeration value="READY"></enumeration>
+    		<enumeration value="BUSY"></enumeration>
+    		<enumeration value="OFF"></enumeration>
+    		<enumeration value="MAINTENANCE"></enumeration>
+    		<enumeration value="ERROR"></enumeration>
+    		<enumeration value="OPEN"></enumeration>
+    		<enumeration value="CLOSE"></enumeration>
+    		<enumeration value="OPENING"></enumeration>
+    		<enumeration value="CLOSING"></enumeration>
+    		<enumeration value="STOP"></enumeration>
+    		<enumeration value="PARTS_COMPOSITION"></enumeration>
+    	</restriction>
+    </simpleType>
+    
+    <simpleType name="activityStateMirror">
+    	<restriction base="string">
+    		<enumeration value="NOT_DEFINED"></enumeration>
+    		<enumeration value="READY"></enumeration>
+    		<enumeration value="BUSY"></enumeration>
+    		<enumeration value="OFF"></enumeration>
+    		<enumeration value="MAINTENANCE"></enumeration>
+    		<enumeration value="ERROR"></enumeration>
+    		<enumeration value="MOVING"></enumeration>
+    	</restriction>
+    </simpleType>
+    
+    <simpleType name="activityStateFilter">
+    	<restriction base="string">
+    		<enumeration value="NOT_DEFINED"></enumeration>
+    		<enumeration value="READY"></enumeration>
+    		<enumeration value="BUSY"></enumeration>
+    		<enumeration value="OFF"></enumeration>
+    		<enumeration value="MAINTENANCE"></enumeration>
+    		<enumeration value="ERROR"></enumeration>
+    		<enumeration value="MOVING"></enumeration>
+    	</restriction>
+    </simpleType>
+    
+    <simpleType name="imageFormat">
+    	<restriction base="string">
+    		<enumeration value="FITS"></enumeration>
+    		<enumeration value="JPG"></enumeration>
+    	</restriction>
+    </simpleType>
+
+    <complexType name="deviceCamera">
+        <annotation>
+        	<documentation></documentation>
+        </annotation>
+        <complexContent>
+    		<extension base="gloria.rt.entity.device:device">
+    			<sequence>
+    				<element name="hasImage" type="boolean"></element>
+    				<element name="activityState"
+    					type="gloria.rt.entity.device:activityStateCamera">
+    				</element>
+    				<element name="activityContinueState" type="gloria.rt.entity.device:activityContinueStateCamera"></element>
+    			</sequence>
+    		</extension>
+    	</complexContent>
+    </complexType>
+
+    <complexType name="deviceFocuser">
+    	<complexContent>
+    		<extension base="gloria.rt.entity.device:device">
+    			<sequence>
+    				<element name="activityState" type="gloria.rt.entity.device:activityStateFocuser"></element>
+    			</sequence>
+    		</extension>
+    	</complexContent>
+    </complexType>
+
+    <complexType name="deviceMount">
+    	<complexContent>
+    		<extension base="gloria.rt.entity.device:device">
+    			<sequence>
+    				<element name="activityState" type="gloria.rt.entity.device:activityStateMount"></element>
+    			</sequence>
+    		</extension>
+    	</complexContent>
+    </complexType>
+    
+    <complexType name="deviceMirror">
+    	<complexContent>
+    		<extension base="gloria.rt.entity.device:device">
+    			<sequence>
+    				<element name="activityState" type="gloria.rt.entity.device:activityStateMirror"></element>
+    			</sequence>
+    		</extension>
+    	</complexContent>
+    </complexType>
+    
+    <simpleType name="filterType">
+    	<restriction base="string">
+    		<enumeration value="OPEN"></enumeration>
+    		<enumeration value="CLOSED"></enumeration>
+    		<enumeration value="BESSEL_I"></enumeration>
+    		<enumeration value="BESSEL_R"></enumeration>
+    		<enumeration value="BESSEL_V"></enumeration>
+    		<enumeration value="BESSEL_B"></enumeration>
+    		<enumeration value="BESSEL_U"></enumeration>
+    		<enumeration value="SLOAN_U"></enumeration>
+    		<enumeration value="SLOAN_G"></enumeration>
+    		<enumeration value="SLOAN_R"></enumeration>
+    		<enumeration value="SLOAN_I"></enumeration>
+    		<enumeration value="SLOAN_Z"></enumeration>
+    		<enumeration value="Z_FILTER"></enumeration>
+    		<enumeration value="Y_FILTER"></enumeration>
+    		<enumeration value="CCD_RESPONSE"></enumeration>
+    		<enumeration value="GRISM"></enumeration>
+    		<enumeration value="SLIT_25UM"></enumeration>
+    		<enumeration value="SLIT_50UM"></enumeration>
+    		<enumeration value="SLIT_75UM"></enumeration>
+    		<enumeration value="SLIT_100UM"></enumeration>
+    		<enumeration value="UKIRT_H"></enumeration>
+    		<enumeration value="UKIRT_J"></enumeration>
+    		<enumeration value="UKIRT_K"></enumeration>
+    		<enumeration value="UKIRT_Z"></enumeration>
+    		<enumeration value="UKIRT_Y"></enumeration>
+    		<enumeration value="JOHNSON_B"></enumeration>
+    		<enumeration value="JOHNSON_R"></enumeration>
+    		<enumeration value="JOHNSON_I"></enumeration>
+    		<enumeration value="JOHNSON_J"></enumeration>
+    		<enumeration value="JOHNSON_K"></enumeration>
+    		<enumeration value="JOHNSON_L"></enumeration>
+    		<enumeration value="H_ALPHA"></enumeration>
+    	</restriction>
+    </simpleType>
+    
+    <complexType name="deviceFilter">
+    	<complexContent>
+    		<extension base="gloria.rt.entity.device:device">
+    			<sequence>
+    				<element name="activityState" type="gloria.rt.entity.device:activityStateFilter"></element>
+    			</sequence>
+    		</extension>
+    	</complexContent>
+    </complexType>
+
+    <complexType name="deviceDome">
+    	<complexContent>
+    		<extension base="gloria.rt.entity.device:device">
+    			<sequence>
+    				<element name="synch" type="boolean"></element>
+    				<element name="activityState"
+    					type="gloria.rt.entity.device:activityStateDome">
+    				</element>
+    				<element name="activityStateOpening"
+    					type="gloria.rt.entity.device:activityStateDomeOpening">
+    				</element>
+    				<element name="activityStateOpeningParts" minOccurs="0" maxOccurs="unbounded" type="gloria.rt.entity.device:activityStateDomeOpening">
+    				</element>
+    			</sequence>
+    		</extension>
+    	</complexContent>
+    </complexType>
+
+    <complexType name="deviceProperty">
+    	<sequence>
+    		<element name="name" type="string"></element>
+    		<element name="basicType"
+    			type="gloria.rt.entity.device:devicePropertyBasicType">
+    		</element>
+    		<element name="complexType"
+    			type="gloria.rt.entity.device:devicePropertyComplexType">
+    		</element>
+    		<element name="description" type="string"></element>
+    		<element name="mandatory" type="boolean"></element>
+    		<element name="defaultValue" type="string"></element>
+    		<element name="readonly" type="boolean"></element>
+    		<element name="value" type="string" minOccurs="0"
+    			maxOccurs="unbounded">
+    		</element>
+    		<element name="possibleValue" type="string" minOccurs="0"
+    			maxOccurs="unbounded">
+    		</element>
+    		<element name="minmax" type="string" minOccurs="0" maxOccurs="2"></element>
+    	</sequence>
+    </complexType>
+
+
+    <simpleType name="devicePropertyBasicType">
+    	<restriction base="string">
+    		<enumeration value="STRING"></enumeration>
+    		<enumeration value="INTEGER"></enumeration>
+    		<enumeration value="TIME"></enumeration>
+    		<enumeration value="DOUBLE"></enumeration>
+    		<enumeration value="FLOAT"></enumeration>
+    		<enumeration value="BOOL"></enumeration>
+    		<enumeration value="SELECTION"></enumeration>
+    		<enumeration value="LONGINT"></enumeration>
+     	</restriction>
+    </simpleType>
+    
+    <simpleType name="devicePropertyComplexType">
+    	<restriction base="string">
+    		<enumeration value="MMAX"></enumeration>
+    		<enumeration value="NONE"></enumeration>
+    		<enumeration value="RADEC"></enumeration>
+    		<enumeration value="ALTAZ"></enumeration>
+    		<enumeration value="STAT"></enumeration>
+    		<enumeration value="RECTANGLE"></enumeration>
+    		<enumeration value="ARRAY"></enumeration>
+     	</restriction>
+    </simpleType>
+   
+    <simpleType name="imageContentType">
+   		<restriction base="string">
+    		<enumeration value="SHORT"></enumeration>
+    		<enumeration value="LONG"></enumeration>
+    		<enumeration value="DOUBLE"></enumeration>
+    	</restriction>
+    </simpleType>
+  
+    
+   <complexType name="ImageContent">
+    <sequence>
+    		<element name="contentType" type="gloria.rt.entity.device:imageContentType"></element>
+    		<element name="contentLong" type="long"
+    			maxOccurs="unbounded" minOccurs="0">
+    		</element>
+                <element name="contentDouble" type="double" maxOccurs="unbounded" minOccurs="0">
+    		</element>
+                <element name="contentShort" type="short"
+    			maxOccurs="unbounded" minOccurs="0">
+    		</element>
+    	</sequence>
+    </complexType>
+
+
+    <complexType name="Image">
+    	<sequence>
+    		<element name="format" type="gloria.rt.entity.device:imageFormat"></element>
+    		<element name="numX" type="int"></element>
+    		<element name="numY" type="int"></element>
+    		<element name="numPlanes" type="int"></element>
+    		<element name="imageContent" type="gloria.rt.entity.device:ImageContent"></element>
+    	</sequence>
+    </complexType>
+    
+<!--     <complexType name="altaz"> -->
+<!--     	<sequence> -->
+<!--     		<element name="alt" type="double"></element> -->
+<!--     		<element name="az" type="double"></element> -->
+<!--     	</sequence> -->
+<!--     </complexType> -->
+
+    <simpleType name="axisRateType">
+        <annotation>
+        	<documentation>0-Primary axis (e.g., Right Ascension or Azimuth).
+1-Secondary axis (e.g., Declination or Altitude).
+2-Tertiary axis (e.g. imager rotator/de-rotator).</documentation>
+        </annotation>
+        <restriction base="string">
+    		<enumeration value="Primary"></enumeration>
+    		<enumeration value="Secondary"></enumeration>
+    		<enumeration value="Tertiary"></enumeration>
+    	</restriction>
+    </simpleType>
+
+    <simpleType name="trackingRateType">
+        <annotation>
+        	<documentation>DriveSidereal: 0
+DriveLunar: 1.
+DriveSolar: 2.
+DriveKing: 3.</documentation></annotation>
+        <restriction base="string">
+    		<enumeration value="DriveSidereal"></enumeration>
+    		<enumeration value="DriveLunar"></enumeration>
+    		<enumeration value="DriveSolar"></enumeration>
+    		<enumeration value="DriveKing"></enumeration>          <!-- (deprecated) -->
+    		<!-- <enumeration value="SlowSSO"></enumeration> -->   <!-- TODO::(using ephemeris, tracking=sidereal + linear differential, speed=low) -->
+    		<!-- <enumeration value="FastSSO"></enumeration> -->   <!-- TODO::(using ephemeris, tracking = complex differential, speed=high) -->
+    		<!-- <enumeration value="Satellite"></enumeration> --> <!-- using ephemeris, tracking = geocentricl, speed=very high -->
+    		
+    	</restriction>
+    </simpleType>
+
+    <simpleType name="measureUnit">
+    	<restriction base="string">
+    		<enumeration value="NONE"></enumeration>
+    		<enumeration value="KM/H"></enumeration>
+    		<enumeration value="CYCLE"></enumeration>
+    		<enumeration value="INCH"></enumeration>
+    		<enumeration value="MILLE"></enumeration>
+    		<enumeration value="KM"></enumeration>
+    		<enumeration value="PERCENT"></enumeration>
+    		<enumeration value="DEGREE"></enumeration>
+    		<enumeration value="OHM"></enumeration>
+    		<enumeration value="A/V"></enumeration>
+    		<enumeration value="KELVIN"></enumeration>
+    		<enumeration value="CELSIUS"></enumeration>
+    		<enumeration value="PASCAL"></enumeration>
+    	</restriction>
+    </simpleType>
+    
+    <simpleType name="dewRemoverChannelType">
+    	<restriction base="string">
+    		<enumeration value="TEMPERATURE_CONTROLLED"></enumeration>
+    		<enumeration value="DUTY_CYCLE"></enumeration>
+    	</restriction>
+    </simpleType>
+
+    <complexType name="sensorStateIntervalDouble">
+    	<sequence>
+    		<element name="beginValue" type="double"></element>
+    		<element name="beginClosed" type="boolean"></element>
+    		<element name="endValue" type="double"></element>
+    		<element name="endClosed" type="boolean"></element>
+    		<element name="alarm" type="boolean"></element>
+    		<element name="alarmName" type="string"></element>
+    	</sequence>
+    </complexType>
+    
+    <complexType name="sensorStateIntervalLong">
+    	<sequence>
+    		<element name="beginValue" type="long"></element>
+    		<element name="beginClosed" type="boolean"></element>
+    		<element name="endValue" type="long"></element>
+    		<element name="endClosed" type="boolean"></element>
+    		<element name="alarm" type="boolean"></element>
+    		<element name="alarmName" type="string"></element>
+    	</sequence>
+    </complexType>
+    
+    <complexType name="dbFileInfo">
+    	<sequence>
+    		<element name="size" type="long"></element>
+    		<element name="name" type="string"></element>
+    		<element name="fullName" type="string"></element>
+    	</sequence>
+    </complexType>
+    <complexType name="dbFileMetadata">
+    	<sequence>
+    		<element name="name" type="string"></element>
+    		<element name="value" type="string"></element>
+    	</sequence>
+    </complexType>
+    
+    <complexType name="dbFileSystemInfo">
+    	<sequence>
+    		<element name="used" type="long"></element>
+    		<element name="free" type="long"></element>
+    	</sequence>
+    </complexType>
+    
+    <simpleType name="cameraType">
+    	<restriction base="string">
+    		<enumeration value="AllSkyCamera"></enumeration>
+    		<enumeration value="DeepSkyCamera"></enumeration>
+    		<enumeration value="PlanetaryCamera"></enumeration>
+    	</restriction>
+    </simpleType>
+    
+    <simpleType name="cameraAcquisitionMode">
+    	<restriction base="string">
+    		<enumeration value="Continuous"></enumeration>
+    		<enumeration value="OneShot"></enumeration>
+    	</restriction>
+    </simpleType>
+    
+    <simpleType name="cameraDigitizingMode">
+    	<restriction base="string">
+    		<enumeration value="Automatic"></enumeration>
+    		<enumeration value="Manual"></enumeration>
+    	</restriction>
+    </simpleType>
+    
+       
+   
+    
+
+    <simpleType name="activityStateRotator">
+    	<restriction base="string">
+    		<enumeration value="NOT_DEFINED"></enumeration>
+    		<enumeration value="READY"></enumeration>
+    		<enumeration value="BUSY"></enumeration>
+    		<enumeration value="OFF"></enumeration>
+    		<enumeration value="MAINTENANCE"></enumeration>
+    		<enumeration value="ERROR"></enumeration>
+    		<enumeration value="ROTATING"></enumeration>
+    	</restriction>
+    </simpleType>
+
+    <complexType name="deviceRotator">
+    	<complexContent>
+    		<extension base="gloria.rt.entity.device:device">
+    			<sequence>
+    				<element name="activityState" type="gloria.rt.entity.device:activityStateRotator"></element>
+    			</sequence>
+    		</extension>
+    	</complexContent>
+    </complexType>
+
+    <simpleType name="activityContinueStateCamera">
+    	<restriction base="string">
+    		<enumeration value="NOT_DEFINED"></enumeration>
+    		<enumeration value="OFF"></enumeration>
+    		<enumeration value="ERROR"></enumeration>
+    		<enumeration value="MAITENANCE"></enumeration>
+    		<enumeration value="BUSY"></enumeration>
+    		<enumeration value="READY"></enumeration>
+    		<enumeration value="EXPOSING"></enumeration>
+    	</restriction>
+    </simpleType>
+</schema>

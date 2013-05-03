@@ -1,0 +1,860 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- ************************************* -->
+<!-- * Archive: Gloria RTDI STORM SENSOR * -->
+<!-- * Author: Mª Carmen López           * -->
+<!-- * Date  : 7/09/2012                 * -->
+<!-- ************************************* -->
+<wsdl:definitions xmlns:gloria.rt.entity.device="http://gloria.eu/rt/entity/device" xmlns:gloria.rtdi.fault="http://gloria.eu/rtdi/fault" xmlns:rtdi.stormsensor="http://gloria.eu/rtdi.stormsensor" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="gloria_rtdi_stormsensor" targetNamespace="http://gloria.eu/rtdi.stormsensor">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://gloria.eu/rtdi.stormsensor">
+    
+      <xsd:import namespace="http://gloria.eu/rtdi/fault" schemaLocation="gloria_rtdi_fault.xsd"/> 
+      <xsd:import namespace="http://gloria.eu/rt/entity/device" schemaLocation="gloria_rti_device.xsd"/>
+
+      <!-- BASIC TYPE RESPONSES - BEGIN -->
+      
+	  <xsd:element name="voidResponse">
+        <xsd:complexType>
+          <xsd:sequence>            
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+	  
+      <xsd:element name="stringResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <xsd:element name="booleanResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="xsd:boolean"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <xsd:element name="intResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <xsd:element name="longResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="xsd:long"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <xsd:element name="doubleResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="xsd:double"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <!-- BASIC TYPE RESPONSES - END -->
+            
+      <!-- COMMON DEVICE ELEMENTS - BEGIN -->
+      <xsd:element name="devGetConfiguration">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devGetDeviceProperties">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devGetDevicePropertiesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="out" type="gloria.rt.entity.device:deviceProperty"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+     <xsd:element name="devGetDeviceProperty">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="name" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devGetDevicePropertyResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="gloria.rt.entity.device:deviceProperty"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+     <xsd:element name="devIsConnected">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devGetDevice">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="allProperties" type="xsd:boolean"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devGetDeviceResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="gloria.rt.entity.device:device"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devUpdateDeviceProperty">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="name" type="xsd:string"/>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="value" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devUpdateDevicePropertyAsync">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="name" type="xsd:string"/>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="value" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devConnect">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devDisconnect">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="devIsBlocked">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <!-- COMMON DEVICE ELEMENTS - END -->
+      
+      <!-- STORM SENSOR ELEMENTS - BEGIN -->
+      <xsd:element name="strIsAvailableOrientation">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="strGetDistanceMeasureUnit">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="strGetDistanceMeasureUnitResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="gloria.rt.entity.device:measureUnit"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="strGetDistanceMeasure">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="strGetDegrees">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="strGetAbosoluteDegrees">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="strSetDistanceMeasureStates">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="states" type="gloria.rt.entity.device:sensorStateIntervalLong"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="strGetDistanceMeasureStates">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="strGetDistanceMeasureStatesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="out" type="gloria.rt.entity.device:sensorStateIntervalLong"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="strSetOrientationMeasureStates">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="states" type="gloria.rt.entity.device:sensorStateIntervalDouble"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="strGetOrientationMeasureStates">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="strGetOrientationMeasureStatesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="out" type="gloria.rt.entity.device:sensorStateIntervalDouble"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <!-- STORM SENSOR ELEMENTS - END -->
+      
+     </xsd:schema> 
+  </wsdl:types>
+  
+  <!-- ERROR MESSAGES - BEGIN -->
+  <wsdl:message name="rtdError">
+    <wsdl:part element="gloria.rtdi.fault:errorDetail" name="rtdError">    
+    </wsdl:part>
+  </wsdl:message>
+  <!-- ERROR MESSAGES - END -->
+  
+  <!-- COMMON DEVICE MESSAGES - BEGIN -->
+  <wsdl:message name="devGetConfigurationRequest">
+    <wsdl:part element="rtdi.stormsensor:devGetConfiguration" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devGetConfigurationResponse">
+    <wsdl:part element="rtdi.stormsensor:stringResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devGetDeviceRequest">
+    <wsdl:part element="rtdi.stormsensor:devGetDevice" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devGetDeviceResponse">
+    <wsdl:part element="rtdi.stormsensor:devGetDeviceResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  
+  <wsdl:message name="devGetDevicePropertiesRequest">
+    <wsdl:part element="rtdi.stormsensor:devGetDeviceProperties" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devGetDevicePropertiesResponse">
+    <wsdl:part element="rtdi.stormsensor:devGetDevicePropertiesResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <wsdl:message name="devGetDevicePropertyRequest">
+    <wsdl:part element="rtdi.stormsensor:devGetDeviceProperty" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devGetDevicePropertyResponse">
+    <wsdl:part element="rtdi.stormsensor:devGetDevicePropertyResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <wsdl:message name="devUpdateDevicePropertyRequest">
+    <wsdl:part element="rtdi.stormsensor:devUpdateDeviceProperty" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devUpdateDevicePropertyResponse">
+    <wsdl:part element="rtdi.stormsensor:booleanResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <wsdl:message name="devUpdateDevicePropertyAsyncRequest">
+    <wsdl:part element="rtdi.stormsensor:devUpdateDevicePropertyAsync" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devUpdateDevicePropertyAsyncResponse">
+    <wsdl:part element="rtdi.stormsensor:booleanResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+   <wsdl:message name="devIsConnectedRequest">
+    <wsdl:part element="rtdi.stormsensor:devIsConnected" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devIsConnectedResponse">
+    <wsdl:part element="rtdi.stormsensor:booleanResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <wsdl:message name="devConnectRequest">
+    <wsdl:part element="rtdi.stormsensor:devConnect" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devConnectResponse">
+    <wsdl:part element="rtdi.stormsensor:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <wsdl:message name="devDisconnectRequest">
+    <wsdl:part element="rtdi.stormsensor:devDisconnect" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devDisconnectResponse">
+    <wsdl:part element="rtdi.stormsensor:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <wsdl:message name="devIsBlockedRequest">
+    <wsdl:part element="rtdi.stormsensor:devIsBlocked" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="devIsBlockedResponse">
+    <wsdl:part element="rtdi.stormsensor:booleanResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <!-- COMMON DEVICE MESSAGES - END -->
+  
+   <!-- STORM SENSOR DEVICE MESSAGES - BEGIN -->
+  <wsdl:message name="strIsAvailableOrientationRequest">
+    <wsdl:part element="rtdi.stormsensor:strIsAvailableOrientation" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="strIsAvailableOrientationResponse">
+    <wsdl:part element="rtdi.stormsensor:booleanResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="strGetDistanceMeasureUnitRequest">
+    <wsdl:part element="rtdi.stormsensor:strGetDistanceMeasureUnit" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="strGetDistanceMeasureUnitResponse">
+    <wsdl:part element="rtdi.stormsensor:strGetDistanceMeasureUnitResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="strGetDistanceMeasureRequest">
+    <wsdl:part element="rtdi.stormsensor:strGetDistanceMeasure" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="strGetDistanceMeasureResponse">
+    <wsdl:part element="rtdi.stormsensor:longResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="strGetDegreesRequest">
+    <wsdl:part element="rtdi.stormsensor:strGetDegrees" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="strGetDegreesResponse">
+    <wsdl:part element="rtdi.stormsensor:doubleResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="strGetAbosoluteDegreesRequest">
+    <wsdl:part element="rtdi.stormsensor:strGetAbosoluteDegrees" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="strGetAbosoluteDegreesResponse">
+    <wsdl:part element="rtdi.stormsensor:doubleResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="strSetDistanceMeasureStatesRequest">
+    <wsdl:part element="rtdi.stormsensor:strSetDistanceMeasureStates" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="strSetDistanceMeasureStatesResponse">
+    <wsdl:part element="rtdi.stormsensor:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="strGetDistanceMeasureStatesRequest">
+    <wsdl:part element="rtdi.stormsensor:strGetDistanceMeasureStates" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="strGetDistanceMeasureStatesResponse">
+    <wsdl:part element="rtdi.stormsensor:strGetDistanceMeasureStatesResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="strSetOrientationMeasureStatesRequest">
+    <wsdl:part element="rtdi.stormsensor:strSetOrientationMeasureStates" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="strSetOrientationMeasureStatesResponse">
+    <wsdl:part element="rtdi.stormsensor:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="strGetOrientationMeasureStatesRequest">
+    <wsdl:part element="rtdi.stormsensor:strGetOrientationMeasureStates" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="strGetOrientationMeasureStatesResponse">
+    <wsdl:part element="rtdi.stormsensor:strGetOrientationMeasureStatesResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+ 
+  <!-- STORM SENSOR DEVICE MESSAGES - END -->
+  
+   <wsdl:portType name="gloria_rtdi_stormsensor"> 
+  
+  <!-- COMMON DEVICE PORT TYPE OPS - BEGIN -->    
+    <wsdl:operation name="devGetDevice">
+	  <wsdl:documentation>
+	  Recover the information of one device.
+	  @return Current device data.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.stormsensor:devGetDeviceRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.stormsensor:devGetDeviceResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.stormsensor:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devGetDeviceProperties">
+	  <wsdl:documentation>
+	  Recover the properties of a device.
+	  @return Properties List.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.stormsensor:devGetDevicePropertiesRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.stormsensor:devGetDevicePropertiesResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.stormsensor:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devGetDeviceProperty">
+	  <wsdl:documentation>
+	  Recover a property of a device.
+	  @param name Property name
+	  @return Properties List.
+	  @throws RtiError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.stormsensor:devGetDevicePropertyRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.stormsensor:devGetDevicePropertyResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.stormsensor:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devUpdateDeviceProperty">
+	  <wsdl:documentation>
+	  Updates a property into a Device configuration. If the property is a readonly property or the value cannot be (internally) transformed into the proper type, an exception will be throw.
+	  @param name Property name.
+	  @param value Values of the property.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.stormsensor:devUpdateDevicePropertyRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.stormsensor:devUpdateDevicePropertyResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.stormsensor:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devUpdateDevicePropertyAsync">
+	  <wsdl:documentation>
+	  Updates a property into a Device configuration. If the property is a readonly property or the value cannot be (internally) transformed into the proper type, an exception will be throw.
+	  Asynchronous call.
+	  @param name Property name.
+	  @param value Values of the property.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.stormsensor:devUpdateDevicePropertyAsyncRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.stormsensor:devUpdateDevicePropertyAsyncResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.stormsensor:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devIsConnected">
+	  <wsdl:documentation>
+	  Checks the link between the driver and the device. If True, the link is enable.
+	  @return boolean.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.stormsensor:devIsConnectedRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.stormsensor:devIsConnectedResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.stormsensor:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devConnect">
+	  <wsdl:documentation>
+	  Creates the link between the driver and the device.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.stormsensor:devConnectRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.stormsensor:devConnectResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.stormsensor:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devDisconnect">
+	  <wsdl:documentation>
+	  Controls the link between the driver and the device. Set True to enable the link. Set False to disable the link.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.stormsensor:devDisconnectRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.stormsensor:devDisconnectResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.stormsensor:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devGetConfiguration">
+	  <wsdl:documentation>
+	  Returns a String containing a full configuration information. For logging purpose.
+	  @return Configuration in a string.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.stormsensor:devGetConfigurationRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.stormsensor:devGetConfigurationResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.stormsensor:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devIsBlocked">
+	  <wsdl:documentation>
+	  Returns true if the device is blocked because of its blocked state or some dependency to other device.
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.stormsensor:devIsBlockedRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.stormsensor:devIsBlockedResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.stormsensor:rtdError" name="error"/>
+    </wsdl:operation>
+    <!-- COMMON DEVICE PORT TYPE OPS - END -->
+    
+    <!-- STORM SENSOR PORT TYPE OPS - BEGIN -->
+    <wsdl:operation name="strIsAvailableOrientation">
+	  <wsdl:documentation>
+	  Returns true if the the device can provide the storm orientation.
+	  @return Boolean value.
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.stormsensor:strIsAvailableOrientationRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.stormsensor:strIsAvailableOrientationResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.stormsensor:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="strGetDistanceMeasureUnit">
+	  <wsdl:documentation>
+	  Returns the measure unit of the sensor (distance: MILES, KM).
+	  @return MeasureUnit.
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.stormsensor:strGetDistanceMeasureUnitRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.stormsensor:strGetDistanceMeasureUnitResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.stormsensor:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="strGetDistanceMeasure">
+	  <wsdl:documentation>
+	  Returns the measure  of the sensor distance:(MILES, KM).
+	  @return Measure.
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.stormsensor:strGetDistanceMeasureRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.stormsensor:strGetDistanceMeasureResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.stormsensor:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="strGetDegrees">
+	  <wsdl:documentation>
+	  Returns the relative storm orientation.
+	  @return degrees.
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.stormsensor:strGetDegreesRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.stormsensor:strGetDegreesResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.stormsensor:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="strGetAbosoluteDegrees">
+	  <wsdl:documentation>
+	  Returns the absolute storm orientation (Configuration).
+	  @return degrees.
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.stormsensor:strGetAbosoluteDegreesRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.stormsensor:strGetAbosoluteDegreesResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.stormsensor:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="strSetDistanceMeasureStates">
+	  <wsdl:documentation>
+	  Sets the distance measure interval states.
+	  @param states State (measure interval and alarm activation).
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.stormsensor:strSetDistanceMeasureStatesRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.stormsensor:strSetDistanceMeasureStatesResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.stormsensor:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="strGetDistanceMeasureStates">
+	  <wsdl:documentation>
+	  Returns the list of the distance measure interval states.
+	  @return List of states information.
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.stormsensor:strGetDistanceMeasureStatesRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.stormsensor:strGetDistanceMeasureStatesResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.stormsensor:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="strSetOrientationMeasureStates">
+	  <wsdl:documentation>
+	  Sets the orientation measure interval states.
+	  @param states State (measure interval and alarm activation).
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.stormsensor:strSetOrientationMeasureStatesRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.stormsensor:strSetOrientationMeasureStatesResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.stormsensor:rtdError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="strGetOrientationMeasureStates">
+	  <wsdl:documentation>
+	  Returns the list of the orientation measure interval states.
+	  @return List of states information.
+	  @throws RtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.stormsensor:strGetOrientationMeasureStatesRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.stormsensor:strGetOrientationMeasureStatesResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.stormsensor:rtdError" name="error"/>
+    </wsdl:operation>
+    <!-- STORM SENSOR PORT TYPE OPS - END -->
+    
+    </wsdl:portType>
+
+  
+  <wsdl:binding name="gloria_rtdi_stormsensorSOAP" type="rtdi.stormsensor:gloria_rtdi_stormsensor">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    
+    <!-- COMMON DEVICE BINDING OPS - BEGIN -->
+    <wsdl:operation name="devGetDevice">
+      <soap:operation soapAction="http://gloria.eu/rtdi.stormsensor/devGetDevice"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devGetDeviceProperties">
+      <soap:operation soapAction="http://gloria.eu/rtdi.stormsensor/devGetDeviceProperties"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devGetDeviceProperty">
+      <soap:operation soapAction="http://gloria.eu/rtdi.stormsensor/devGetDeviceProperty"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devUpdateDeviceProperty">
+      <soap:operation soapAction="http://gloria.eu/rtdi.stormsensor/devUpdateDeviceProperty"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+     <wsdl:operation name="devUpdateDevicePropertyAsync">
+      <soap:operation soapAction="http://gloria.eu/rtdi.stormsensor/devUpdateDeviceProperty"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devIsConnected">
+      <soap:operation soapAction="http://gloria.eu/rtdi.stormsensor/devIsConnected"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devConnect">
+      <soap:operation soapAction="http://gloria.eu/rtdi.stormsensor/devConnect"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devDisconnect">
+      <soap:operation soapAction="http://gloria.eu/rtdi.stormsensor/devDisconnect"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devIsBlocked">
+      <soap:operation soapAction="http://gloria.eu/rtdi.stormsensor/devIsBlocked"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="devGetConfiguration">
+      <soap:operation soapAction="http://gloria.eu/rtdi.stormsensor/devGetConfiguration"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <!-- COMMON DEVICE BINDING OPS - END -->
+    
+    <!-- STORM SENSOR DEVICE BINDING OPS - BEGIN -->
+    <wsdl:operation name="strIsAvailableOrientation">
+      <soap:operation soapAction="http://gloria.eu/rtdi.stormsensor/strIsAvailableOrientation"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="strGetDistanceMeasureUnit">
+      <soap:operation soapAction="http://gloria.eu/rtdi.stormsensor/strGetDistanceMeasureUnit"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="strGetDistanceMeasure">
+      <soap:operation soapAction="http://gloria.eu/rtdi.stormsensor/strGetDistanceMeasure"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="strGetDegrees">
+      <soap:operation soapAction="http://gloria.eu/rtdi.stormsensor/strGetDegrees"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="strGetAbosoluteDegrees">
+      <soap:operation soapAction="http://gloria.eu/rtdi.stormsensor/strGetAbosoluteDegrees"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="strSetDistanceMeasureStates">
+      <soap:operation soapAction="http://gloria.eu/rtdi.stormsensor/strSetDistanceMeasureStates"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="strGetDistanceMeasureStates">
+      <soap:operation soapAction="http://gloria.eu/rtdi.stormsensor/strGetDistanceMeasureStates"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="strSetOrientationMeasureStates">
+      <soap:operation soapAction="http://gloria.eu/rtdi.stormsensor/strSetOrientationMeasureStates"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="strGetOrientationMeasureStates">
+      <soap:operation soapAction="http://gloria.eu/rtdi.stormsensor/strGetOrientationMeasureStates"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <!-- STORM SENSOR DEVICE BINDING OPS - END -->
+      
+  </wsdl:binding>
+  
+  <wsdl:service name="gloria_rtdi_stormsensor">
+    <wsdl:documentation/>
+    <wsdl:port binding="rtdi.stormsensor:gloria_rtdi_stormsensorSOAP" name="gloria_rtdi_stormsensorSOAP">
+      <soap:address location="http://localhost:8080/RTDI_Stormsensor/services/gloria_rtdi_stormsensorSOAP"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
