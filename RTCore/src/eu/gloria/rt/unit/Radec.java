@@ -376,5 +376,57 @@ public class Radec {
 	public String toString(){
 		return "RADEC::[ra=" + raDecimal + ", dec=" + decDecimal + ", epoch=" + epoch + "]";
 	}
+	
+	public boolean equals(double ra, double dec, double raError, double decError){
+		
+		//RA:[0, 360)
+		//DEC:[-90, +90]
+		
+		
+		//DEC......
+		double currentDec =  getDecDecimal();
+		boolean decOK = ((dec - decError) <= currentDec) && (currentDec <= (dec + decError));
+		
+		double[] intervalRaLeft ={
+			0.0,
+			0.0
+		};
+		double[] intervalRaRight ={
+				0.0,
+				0.0
+			};
+		
+		//RA.....
+		double left = ra - raError;
+		double right = ra + raError;
+		if (left < 0){ // --> intervalRaLeft::[360-left, 360] AND intervalRaRight=[0, right]
+			
+			intervalRaLeft[0] = 360 + left;
+			intervalRaLeft[1] = 360;
+			
+			intervalRaRight[0] = 0;
+			intervalRaRight[1] = right;
+			
+		}else{         
+			
+			intervalRaLeft[0] = left;
+			
+			if (right >= 360){ // --> intervalRaLeft::[left, 360] AND intervalRaRight::[0, right-360]
+				intervalRaLeft[1] = 360;
+				intervalRaRight[0] = 0;
+				intervalRaRight[1] = right - 360;
+			}else{				// --> intervalRaLeft::[left, ra] AND intervalRaRight::[ra, right]
+				intervalRaLeft[1] = ra;
+				intervalRaRight[0] = ra;
+				intervalRaRight[1] = right;
+			}
+		}
+		
+		double currentRa =  getRaDecimal();
+		boolean raOK =  (intervalRaLeft[0] <= currentRa && currentRa <=  intervalRaLeft[1]) || (intervalRaRight[0] <= currentRa && currentRa <=  intervalRaRight[1]);
+		
+		
+		return raOK && decOK;
+	}
 
 }

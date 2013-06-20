@@ -11,6 +11,7 @@
     		<enumeration value="DeviceCommunication"></enumeration>
     		<enumeration value="DeviceInAlarmState"></enumeration>
     		<enumeration value="DeviceInWrongActivityState"></enumeration>
+    		<enumeration value="ExecutorWrongState"></enumeration>
     	</restriction>
     </simpleType>
     

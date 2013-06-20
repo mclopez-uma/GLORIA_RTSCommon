@@ -4,13 +4,12 @@
 <!-- * Author: Juan Cabello * -->
 <!-- * Date  : 16/02/2012   * -->
 <!-- ************************ -->
-<wsdl:definitions xmlns:gloria.rt.entity.device="http://gloria.eu/rt/entity/device" xmlns:gloria.rt.entity.scheduler="http://gloria.eu/rt/entity/scheduler" xmlns:gloria.rti.fault="http://gloria.eu/rti/fault" xmlns:rti="http://gloria.eu/rti" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="gloria_rti" targetNamespace="http://gloria.eu/rti">
+<wsdl:definitions xmlns:gloria.rt.entity.device="http://gloria.eu/rt/entity/device" xmlns:gloria.rti.fault="http://gloria.eu/rti/fault" xmlns:rti="http://gloria.eu/rti" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="gloria_rti" targetNamespace="http://gloria.eu/rti">
   <wsdl:types>
     <xsd:schema targetNamespace="http://gloria.eu/rti">
     
       <xsd:import namespace="http://gloria.eu/rti/fault" schemaLocation="gloria_rti_fault.xsd"/> 
       <xsd:import namespace="http://gloria.eu/rt/entity/device" schemaLocation="gloria_rti_device.xsd"/>
-      <xsd:import namespace="http://gloria.eu/rt/entity/scheduler" schemaLocation="gloria_rti_scheduler.xsd"/>
       
       <!-- BASIC TYPE RESPONSES - BEGIN -->
 	  <xsd:element name="voidResponse">
@@ -1007,6 +1006,29 @@
           </xsd:sequence>
         </xsd:complexType>
       </xsd:element>
+      <xsd:element name="camGetFilterWheels">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="session" type="xsd:string"/>
+            <xsd:element name="deviceId" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="camGetFilterWheelsResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="out" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="camGetFocuser">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="session" type="xsd:string"/>
+            <xsd:element name="deviceId" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
       <!-- CAMERA ELEMENTS - END -->
       <!-- DOME ELEMENTS - BEGIN -->
       <xsd:element name="domGetNumberElement">
@@ -1651,6 +1673,30 @@
           </xsd:sequence>
         </xsd:complexType>
       </xsd:element>
+      <xsd:element name="mntIsPointingAtObject">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="session" type="xsd:string"/>
+            <xsd:element name="deviceId" type="xsd:string"/>
+            <xsd:element name="object" type="xsd:string"/>
+            <xsd:element name="raError" type="xsd:double"/>
+            <xsd:element name="decError" type="xsd:double"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mntIsPointingAtCoordinates">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="session" type="xsd:string"/>
+            <xsd:element name="deviceId" type="xsd:string"/>
+            <xsd:element name="ra" type="xsd:double"/>
+            <xsd:element name="dec" type="xsd:double"/>
+            <xsd:element name="raError" type="xsd:double"/>
+            <xsd:element name="decError" type="xsd:double"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
       <!-- MOUNT ELEMENTS - END -->
       
       <!-- FOCUSER ELEMENTS - BEGIN -->
@@ -2435,114 +2481,6 @@
       </xsd:element>
       <!-- ROTATOR ELEMENTS - END -->
       
-      <!-- SCHEDULER ELEMENTS - BEGIN -->
-      <xsd:element name="schTmplPlanCreate">
-        <xsd:complexType>
-          <xsd:sequence>
-            <xsd:element name="session" type="xsd:string"/>
-            <xsd:element name="id" type="xsd:string"/>
-            <xsd:element name="xml" type="xsd:string"/>
-            <xsd:element name="description" type="xsd:string"/>
-          </xsd:sequence>
-        </xsd:complexType>
-      </xsd:element>
-      <xsd:element name="schTmplPlanUpdate">
-        <xsd:complexType>
-          <xsd:sequence>
-            <xsd:element name="session" type="xsd:string"/>
-            <xsd:element name="id" type="xsd:string"/>
-            <xsd:element name="xml" nillable="true" type="xsd:string"/>
-            <xsd:element name="description" nillable="true" type="xsd:string"/>
-          </xsd:sequence>
-        </xsd:complexType>
-      </xsd:element>
-      <xsd:element name="schTmplPlanDelete">
-        <xsd:complexType>
-          <xsd:sequence>
-            <xsd:element name="session" type="xsd:string"/>
-            <xsd:element name="id" type="xsd:string"/>
-          </xsd:sequence>
-        </xsd:complexType>
-      </xsd:element>
-      <xsd:element name="schTmplPlanGet">
-        <xsd:complexType>
-          <xsd:sequence>
-            <xsd:element name="session" type="xsd:string"/>
-            <xsd:element name="id" nillable="true" type="xsd:string"/>
-            <xsd:element name="user" nillable="true" type="xsd:string"/>
-            <xsd:element name="creationFrom" nillable="true" type="xsd:date"/>
-            <xsd:element name="creationTo" nillable="true" type="xsd:date"/>
-          </xsd:sequence>
-        </xsd:complexType>
-      </xsd:element>
-      <xsd:element name="schTmplPlanGetResponse">
-        <xsd:complexType>
-          <xsd:sequence>
-          	<xsd:element maxOccurs="unbounded" minOccurs="0" name="out" type="gloria.rt.entity.scheduler:templatePlan"/>
-          </xsd:sequence>
-        </xsd:complexType>
-      </xsd:element>
-      
-      <xsd:element name="schPlanCreate">
-        <xsd:complexType>
-          <xsd:sequence>
-            <xsd:element name="session" type="xsd:string"/>
-            <xsd:element name="idTmpl" type="xsd:string"/>
-            <xsd:element name="xmlMapping" type="xsd:string"/>
-            <xsd:element name="execWindowStart" type="xsd:date"/>
-            <xsd:element name="execWindowEnd" type="xsd:date"/>
-            <xsd:element name="execMaxTime" type="xsd:long"/>
-          </xsd:sequence>
-        </xsd:complexType>
-      </xsd:element>
-      <xsd:element name="schPlanUpdate">
-        <xsd:complexType>
-          <xsd:sequence>
-            <xsd:element name="session" type="xsd:string"/>
-            <xsd:element name="id" type="xsd:string"/>
-            <xsd:element name="idTmpl" nillable="true" type="xsd:string"/>
-            <xsd:element name="xmlMapping" nillable="true" type="xsd:string"/>
-            <xsd:element name="execWindowStart" nillable="true" type="xsd:date"/>
-            <xsd:element name="execWindowEnd" nillable="true" type="xsd:date"/>
-            <xsd:element name="execMaxTime" nillable="true" type="xsd:long"/>
-          </xsd:sequence>
-        </xsd:complexType>
-      </xsd:element>
-      <xsd:element name="schPlanDelete">
-        <xsd:complexType>
-          <xsd:sequence>
-            <xsd:element name="session" type="xsd:string"/>
-            <xsd:element name="id" type="xsd:string"/>
-          </xsd:sequence>
-        </xsd:complexType>
-      </xsd:element>
-      <xsd:element name="schPlanGet">
-        <xsd:complexType>
-          <xsd:sequence>
-            <xsd:element name="session" type="xsd:string"/>
-            <xsd:element name="id" nillable="true" type="xsd:string"/>
-            <xsd:element name="user" nillable="true" type="xsd:string"/>
-            <xsd:element name="state" nillable="true" type="gloria.rt.entity.scheduler:planState"/>
-            <xsd:element name="creationFrom" nillable="true" type="xsd:date"/>
-            <xsd:element name="creationTo" nillable="true" type="xsd:date"/>
-            <xsd:element name="execWindowStartFrom" nillable="true" type="xsd:date"/>
-            <xsd:element name="execWindowStartTo" nillable="true" type="xsd:date"/>
-            <xsd:element name="execWindowEndFrom" nillable="true" type="xsd:date"/>
-            <xsd:element name="execWindowEndTo" nillable="true" type="xsd:date"/>
-            <xsd:element name="execMaxFrom" nillable="true" type="xsd:long"/>
-            <xsd:element name="execMaxTo" nillable="true" type="xsd:long"/> 
-          </xsd:sequence>
-        </xsd:complexType>
-      </xsd:element>
-      <xsd:element name="schPlanGetResponse">
-        <xsd:complexType>
-          <xsd:sequence>
-          	<xsd:element maxOccurs="unbounded" minOccurs="0" name="out" type="gloria.rt.entity.scheduler:plan"/>
-          </xsd:sequence>
-        </xsd:complexType>
-      </xsd:element>     
-      <!-- SCHEDULER ELEMENTS - END -->
-      
       <!-- SURVEILLANCE CAMERA ELEMENTS - BEGIN -->
       <xsd:element name="scamHasBrightness">
         <xsd:complexType>
@@ -2829,154 +2767,54 @@
       </xsd:element>
       <!-- SURVEILLANCE CAMERA ELEMENTS - END -->
       
-      <!-- DB ELEMENTS - BEGIN -->
-      <xsd:element name="dbIsAvailableDirectAccess">
+      <!-- EXECUTOR ELEMENTS - BEGIN -->
+      <xsd:element name="execStartOp">
         <xsd:complexType>
           <xsd:sequence>
             <xsd:element name="session" type="xsd:string"/>
-            <xsd:element name="deviceId" type="xsd:string"/>
+            <xsd:element name="uuidOp" type="xsd:string"/>
+            <xsd:element name="user" type="xsd:string"/>
+            <xsd:element name="seconds" type="xsd:long"/>
           </xsd:sequence>
         </xsd:complexType>
       </xsd:element>
-      <xsd:element name="dbIsAvailableChunkAccess">
+      <xsd:element name="execStopOp">
         <xsd:complexType>
           <xsd:sequence>
             <xsd:element name="session" type="xsd:string"/>
-            <xsd:element name="deviceId" type="xsd:string"/>
           </xsd:sequence>
         </xsd:complexType>
       </xsd:element>
-      <xsd:element name="dbIsAvailableURIAccess">
+      <xsd:element name="execGetInfo">
         <xsd:complexType>
           <xsd:sequence>
             <xsd:element name="session" type="xsd:string"/>
-            <xsd:element name="deviceId" type="xsd:string"/>
           </xsd:sequence>
         </xsd:complexType>
       </xsd:element>
-      <xsd:element name="dbGetFileInfo">
+      <xsd:element name="execGetInfoResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="gloria.rt.entity.device:executorInfo"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="execGetLastOpInfo">
         <xsd:complexType>
           <xsd:sequence>
             <xsd:element name="session" type="xsd:string"/>
-            <xsd:element name="deviceId" type="xsd:string"/>
-            <xsd:element name="folder" type="xsd:string"/>
-			<xsd:element name="filename" type="xsd:string"/>
           </xsd:sequence>
         </xsd:complexType>
       </xsd:element>
-      <xsd:element name="dbGetFileInfoResponse">
+      <xsd:element name="execGetLastOpInfoResponse">
         <xsd:complexType>
           <xsd:sequence>
-             <xsd:element name="out" type="gloria.rt.entity.device:dbFileInfo"/>
+            <xsd:element name="out" type="gloria.rt.entity.device:opInfo"/>
           </xsd:sequence>
         </xsd:complexType>
       </xsd:element>
-      <xsd:element name="dbGetFileContent">
-        <xsd:complexType>
-          <xsd:sequence>
-            <xsd:element name="session" type="xsd:string"/>
-            <xsd:element name="deviceId" type="xsd:string"/>
-            <xsd:element name="folder" type="xsd:string"/>
-			<xsd:element name="filename" type="xsd:string"/>
-          </xsd:sequence>
-        </xsd:complexType>
-      </xsd:element>
-      <xsd:element name="dbGetFileContentResponse">
-        <xsd:complexType>
-          <xsd:sequence>
-            <xsd:element maxOccurs="unbounded" minOccurs="0" name="out" type="xsd:byte"/>
-          </xsd:sequence>
-        </xsd:complexType>
-      </xsd:element>
-      <xsd:element name="dbGetFileChunk">
-        <xsd:complexType>
-          <xsd:sequence>
-            <xsd:element name="session" type="xsd:string"/>
-            <xsd:element name="deviceId" type="xsd:string"/>
-            <xsd:element name="fileName" type="xsd:string"/>
-            <xsd:element name="offset" type="xsd:long"/>
-            <xsd:element name="size" type="xsd:long"/>
-          </xsd:sequence>
-        </xsd:complexType>
-      </xsd:element>
-      <xsd:element name="dbGetFileChunkResponse">
-        <xsd:complexType>
-          <xsd:sequence>
-            <xsd:element maxOccurs="unbounded" minOccurs="0" name="out" type="xsd:byte"/>
-          </xsd:sequence>
-        </xsd:complexType>
-      </xsd:element>
-      <xsd:element name="dbGetFileURI">
-        <xsd:complexType>
-          <xsd:sequence>
-            <xsd:element name="session" type="xsd:string"/>
-            <xsd:element name="deviceId" type="xsd:string"/>
-            <xsd:element name="fileName" type="xsd:string"/>
-          </xsd:sequence>
-        </xsd:complexType>
-      </xsd:element>
-      <xsd:element name="dbWriteFile">
-        <xsd:complexType>
-          <xsd:sequence>
-            <xsd:element name="session" type="xsd:string"/>
-            <xsd:element name="deviceId" type="xsd:string"/>
-            <xsd:element name="fileName" type="xsd:string"/>
-            <xsd:element maxOccurs="unbounded" minOccurs="0" name="content" type="xsd:byte"/>
-            <xsd:element maxOccurs="unbounded" minOccurs="0" name="metadata" type="gloria.rt.entity.device:dbFileMetadata"/>
-          </xsd:sequence>
-        </xsd:complexType>
-      </xsd:element>
-      <xsd:element name="dbGetMetadata">
-        <xsd:complexType>
-          <xsd:sequence>
-            <xsd:element name="session" type="xsd:string"/>
-            <xsd:element name="deviceId" type="xsd:string"/>
-            <xsd:element name="fileName" type="xsd:string"/>
-          </xsd:sequence>
-        </xsd:complexType>
-      </xsd:element>
-      <xsd:element name="dbGetMetadataResponse">
-        <xsd:complexType>
-          <xsd:sequence>
-            <xsd:element maxOccurs="unbounded" minOccurs="0" name="out" type="gloria.rt.entity.device:dbFileMetadata"/>
-          </xsd:sequence>
-        </xsd:complexType>
-      </xsd:element>
-      <xsd:element name="dbGetFileSystemInfo">
-        <xsd:complexType>
-          <xsd:sequence>
-            <xsd:element name="session" type="xsd:string"/>
-            <xsd:element name="deviceId" type="xsd:string"/>
-          </xsd:sequence>
-        </xsd:complexType>
-      </xsd:element>
-      <xsd:element name="dbGetFileSystemInfoResponse">
-        <xsd:complexType>
-          <xsd:sequence>
-            <xsd:element name="out" type="gloria.rt.entity.device:dbFileSystemInfo"/>
-          </xsd:sequence>
-        </xsd:complexType>
-      </xsd:element>
-      <xsd:element name="dbRenameFile">
-        <xsd:complexType>
-          <xsd:sequence>
-            <xsd:element name="session" type="xsd:string"/>
-            <xsd:element name="deviceId" type="xsd:string"/>
-            <xsd:element name="currentFileName" type="xsd:string"/>
-            <xsd:element name="newFilename" type="xsd:string"/>
-          </xsd:sequence>
-        </xsd:complexType>
-      </xsd:element>
-      <xsd:element name="dbDeleteFile">
-        <xsd:complexType>
-          <xsd:sequence>
-            <xsd:element name="session" type="xsd:string"/>
-            <xsd:element name="deviceId" type="xsd:string"/>
-            <xsd:element name="fileName" type="xsd:string"/>
-          </xsd:sequence>
-        </xsd:complexType>
-      </xsd:element>
-      <!-- DB ELEMENTS - END -->
+      
+      <!-- EXECUTOR ELEMENTS - END -->
       
     </xsd:schema> 
   </wsdl:types>
@@ -3791,6 +3629,22 @@
     <wsdl:part element="rti:stringResponse" name="parameters">
     </wsdl:part>
   </wsdl:message>
+  <wsdl:message name="camGetFilterWheelsRequest">
+    <wsdl:part element="rti:camGetFilterWheels" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="camGetFilterWheelsResponse">
+    <wsdl:part element="rti:camGetFilterWheelsResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="camGetFocuserRequest">
+    <wsdl:part element="rti:camGetFocuser" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="camGetFocuserResponse">
+    <wsdl:part element="rti:stringResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
   <!-- CAMERA DEVICE MESSAGES - END -->
   
   <!-- DOME DEVICE MESSAGES - BEGIN -->
@@ -4371,6 +4225,22 @@
   </wsdl:message>
   <wsdl:message name="mntSlewObjectResponse">
     <wsdl:part element="rti:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntIsPointingAtObjectRequest">
+    <wsdl:part element="rti:mntIsPointingAtObject" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntIsPointingAtObjectResponse">
+    <wsdl:part element="rti:booleanResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntIsPointingAtCoordinatesRequest">
+    <wsdl:part element="rti:mntIsPointingAtCoordinates" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntIsPointingAtCoordinatesResponse">
+    <wsdl:part element="rti:booleanResponse" name="parameters">
     </wsdl:part>
   </wsdl:message>
   
@@ -4985,74 +4855,6 @@
   </wsdl:message>
   <!-- ROTATOR DEVICE MESSAGES - END -->
   
-  <!-- SCHEDULER MESSAGES - BEGIN -->
-  <wsdl:message name="schTmplPlanCreateRequest">
-    <wsdl:part element="rti:schTmplPlanCreate" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="schTmplPlanCreateResponse">
-    <wsdl:part element="rti:voidResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="schTmplPlanUpdateRequest">
-    <wsdl:part element="rti:schTmplPlanUpdate" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="schTmplPlanUpdateResponse">
-    <wsdl:part element="rti:voidResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="schTmplPlanDeleteRequest">
-    <wsdl:part element="rti:schTmplPlanDelete" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="schTmplPlanDeleteResponse">
-    <wsdl:part element="rti:voidResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="schTmplPlanGetRequest">
-    <wsdl:part element="rti:schTmplPlanGet" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="schTmplPlanGetResponse">
-    <wsdl:part element="rti:schTmplPlanGetResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="schPlanCreateRequest">
-    <wsdl:part element="rti:schPlanCreate" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="schPlanCreateResponse">
-    <wsdl:part element="rti:stringResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="schPlanUpdateRequest">
-    <wsdl:part element="rti:schPlanUpdate" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="schPlanUpdateResponse">
-    <wsdl:part element="rti:voidResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="schPlanDeleteRequest">
-    <wsdl:part element="rti:schPlanDelete" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="schPlanDeleteResponse">
-    <wsdl:part element="rti:voidResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="schPlanGetRequest">
-    <wsdl:part element="rti:schPlanGet" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="schPlanGetResponse">
-    <wsdl:part element="rti:schPlanGetResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  
-  <!-- SCHEDULER MESSAGES - END -->
-  
   <!-- SURVEILLANCE CAMERA MESSAGES - BEGIN -->
   <wsdl:message name="scamHasBrightnessRequest">
     <wsdl:part element="rti:scamHasBrightness" name="parameters">
@@ -5304,104 +5106,40 @@
   </wsdl:message>
   <!-- SURVEILLANCE CAMERA MESSAGES - END -->
   
-  <!-- DB MESSAGES - BEGIN -->
-  <wsdl:message name="dbIsAvailableDirectAccessRequest">
-    <wsdl:part element="rti:dbIsAvailableDirectAccess" name="parameters">
+  <!-- EXECUTOR MESSAGES - BEGIN -->
+  <wsdl:message name="execStartOpRequest">
+    <wsdl:part element="rti:execStartOp" name="parameters">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="dbIsAvailableDirectAccessResponse">
-    <wsdl:part element="rti:booleanResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="dbIsAvailableChunkAccessRequest">
-    <wsdl:part element="rti:dbIsAvailableChunkAccess" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="dbIsAvailableChunkAccessResponse">
-    <wsdl:part element="rti:booleanResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="dbIsAvailableURIAccessRequest">
-    <wsdl:part element="rti:dbIsAvailableURIAccess" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="dbIsAvailableURIAccessResponse">
-    <wsdl:part element="rti:booleanResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="dbGetFileInfoRequest">
-    <wsdl:part element="rti:dbGetFileInfo" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="dbGetFileInfoResponse">
-    <wsdl:part element="rti:dbGetFileInfoResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="dbGetFileContentRequest">
-    <wsdl:part element="rti:dbGetFileContent" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="dbGetFileContentResponse">
-    <wsdl:part element="rti:dbGetFileContentResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="dbGetFileChunkRequest">
-    <wsdl:part element="rti:dbGetFileChunk" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="dbGetFileChunkResponse">
-    <wsdl:part element="rti:dbGetFileChunkResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="dbGetFileURIRequest">
-    <wsdl:part element="rti:dbGetFileURI" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="dbGetFileURIResponse">
+  <wsdl:message name="execStartOpResponse">
     <wsdl:part element="rti:stringResponse" name="parameters">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="dbWriteFileRequest">
-    <wsdl:part element="rti:dbWriteFile" name="parameters">
+  <wsdl:message name="execStopOpRequest">
+    <wsdl:part element="rti:execStopOp" name="parameters">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="dbWriteFileResponse">
+  <wsdl:message name="execStopOpResponse">
     <wsdl:part element="rti:voidResponse" name="parameters">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="dbGetMetadataRequest">
-    <wsdl:part element="rti:dbGetMetadata" name="parameters">
+  <wsdl:message name="execGetInfoRequest">
+    <wsdl:part element="rti:execGetInfo" name="parameters">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="dbGetMetadataResponse">
-    <wsdl:part element="rti:dbGetMetadataResponse" name="parameters">
+  <wsdl:message name="execGetInfoResponse">
+    <wsdl:part element="rti:execGetInfoResponse" name="parameters">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="dbGetFileSystemInfoRequest">
-    <wsdl:part element="rti:dbGetFileSystemInfo" name="parameters">
+  <wsdl:message name="execGetLastOpInfoRequest">
+    <wsdl:part element="rti:execGetLastOpInfo" name="parameters">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="dbGetFileSystemInfoResponse">
-    <wsdl:part element="rti:dbGetFileSystemInfoResponse" name="parameters">
+  <wsdl:message name="execGetLastOpInfoResponse">
+    <wsdl:part element="rti:execGetLastOpInfoResponse" name="parameters">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="dbRenameFileRequest">
-    <wsdl:part element="rti:dbRenameFile" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="dbRenameFileResponse">
-    <wsdl:part element="rti:voidResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="dbDeleteFileRequest">
-    <wsdl:part element="rti:dbDeleteFile" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="dbDeleteFileResponse">
-    <wsdl:part element="rti:voidResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <!-- DB MESSAGES - END -->
+  <!-- EXECUTOR MESSAGES - END -->
   
   
   
@@ -6813,6 +6551,34 @@
       </wsdl:output>
     <wsdl:fault message="rti:rtiError" name="error"/>
     </wsdl:operation>
+    <wsdl:operation name="camGetFilterWheels">
+	  <wsdl:documentation>
+	  Returns the filter wheels identifiers associated to the camera.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier
+	  @return Identifier list
+	  @throws RtiError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rti:camGetFilterWheelsRequest">
+      </wsdl:input>
+      <wsdl:output message="rti:camGetFilterWheelsResponse">
+      </wsdl:output>
+    <wsdl:fault message="rti:rtiError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="camGetFocuser">
+	  <wsdl:documentation>
+	  Returns the focuser identifier associated to the camera.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier
+	  @return Identifier
+	  @throws RtiError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rti:camGetFocuserRequest">
+      </wsdl:input>
+      <wsdl:output message="rti:camGetFocuserResponse">
+      </wsdl:output>
+    <wsdl:fault message="rti:rtiError" name="error"/>
+    </wsdl:operation>
     
     <!-- CAMERA DEVICE PORT TYPE OPS - END -->
     <!-- DOME PORT TYPE OPS - BEGIN -->
@@ -7835,6 +7601,39 @@
       <wsdl:input message="rti:mntSlewObjectRequest">
       </wsdl:input>
       <wsdl:output message="rti:mntSlewObjectResponse">
+      </wsdl:output>
+    <wsdl:fault message="rti:rtiError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntIsPointingAtObject">
+	  <wsdl:documentation>
+	  Check if the mount is pointing at Object.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @param object Object to slew to.
+	  @param raError Allowed error in RA coordinate (Hours)
+	  @param decError Allowed error in DEC coordinate (Degrees)
+	  @throws RtiError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rti:mntIsPointingAtObjectRequest">
+      </wsdl:input>
+      <wsdl:output message="rti:mntIsPointingAtObjectResponse">
+      </wsdl:output>
+    <wsdl:fault message="rti:rtiError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="mntIsPointingAtCoordinates">
+	  <wsdl:documentation>
+	  Check if the mount is pointing at proper coordinates.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @param ra Proper RA coordinate (Hours)
+	  @param dec Proper DEC coordinate (Degrees)
+	  @param raError Allowed error in RA coordinate (Hours)
+	  @param decError Allowed error in DEC coordinate (Degrees)
+	  @throws RtiError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rti:mntIsPointingAtCoordinatesRequest">
+      </wsdl:input>
+      <wsdl:output message="rti:mntIsPointingAtCoordinatesResponse">
       </wsdl:output>
     <wsdl:fault message="rti:rtiError" name="error"/>
     </wsdl:operation>
@@ -8893,142 +8692,6 @@
     </wsdl:operation>
     <!-- ROTATOR PORT TYPE OPS - END -->
     
-    <!-- SCHEDULER PORT TYPE OPS - BEGIN -->
-    <wsdl:operation name="schTmplPlanCreate">
-	  <wsdl:documentation>
-	  Creates a plan template in the RT.
-	  @param session Session token if the used login method is based on session token type.
-	  @param id Template identifier.
-	  @param xml XML Plan template.
-	  @param description Template description.
-	  @throws RtiError In error case.
-	  </wsdl:documentation>
-      <wsdl:input message="rti:schTmplPlanCreateRequest">
-      </wsdl:input>
-      <wsdl:output message="rti:schTmplPlanCreateResponse">
-      </wsdl:output>
-    <wsdl:fault message="rti:rtiError" name="error"/>
-    </wsdl:operation>
-    <wsdl:operation name="schTmplPlanUpdate">
-	  <wsdl:documentation>
-	  Updates a plan template in the RT.
-	  @param session Session token if the used login method is based on session token type.
-	  @param id Template identifier.
-	  @param xml XML Plan template.
-	  @param description Template description.
-	  @throws RtiError In error case.
-	  </wsdl:documentation>
-      <wsdl:input message="rti:schTmplPlanUpdateRequest">
-      </wsdl:input>
-      <wsdl:output message="rti:schTmplPlanUpdateResponse">
-      </wsdl:output>
-    <wsdl:fault message="rti:rtiError" name="error"/>
-    </wsdl:operation>
-    <wsdl:operation name="schTmplPlanDelete">
-	  <wsdl:documentation>
-	  Deletes a plan template from RT.
-	  @param session Session token if the used login method is based on session token type.
-	  @param id Template identifier.
-	  @throws RtiError In error case.
-	  </wsdl:documentation>
-      <wsdl:input message="rti:schTmplPlanDeleteRequest">
-      </wsdl:input>
-      <wsdl:output message="rti:schTmplPlanDeleteResponse">
-      </wsdl:output>
-    <wsdl:fault message="rti:rtiError" name="error"/>
-    </wsdl:operation>
-    <wsdl:operation name="schTmplPlanGet">
-	  <wsdl:documentation>
-	  Searches templates.
-	  @param session Session token if the used login method is based on session token type.
-	  @param id Template identifier.
-	  @param user User.
-	  @param creationFrom Starting of the creation date interval.
-	  @param creationTo Ending of the creation date interval.
-	  @return List of matched TemplatePlan.
-	  @throws RtiError In error case.
-	  </wsdl:documentation>
-      <wsdl:input message="rti:schTmplPlanGetRequest">
-      </wsdl:input>
-      <wsdl:output message="rti:schTmplPlanGetResponse">
-      </wsdl:output>
-    <wsdl:fault message="rti:rtiError" name="error"/>
-    </wsdl:operation>
-     <wsdl:operation name="schPlanCreate">
-	  <wsdl:documentation>
-	  Creates a plan.
-	  @param session Session token if the used login method is based on session token type.
-	  @param idTmpl Template identifier.
-	  @param xmlMapping Inputs for the plan execution.
-	  @param execWindowStart Starting of the execution window.
-	  @param execWindowEnd Ending of the execution window.
-	  @param execMaxTime Max. execution time.
-	  @return Plan identifier.
-	  @throws RtiError In error case.
-	  </wsdl:documentation>
-      <wsdl:input message="rti:schPlanCreateRequest">
-      </wsdl:input>
-      <wsdl:output message="rti:schPlanCreateResponse">
-      </wsdl:output>
-    <wsdl:fault message="rti:rtiError" name="error"/>
-    </wsdl:operation>
-    <wsdl:operation name="schPlanUpdate">
-	  <wsdl:documentation>
-	  Updates the plan information
-	  @param session Session token if the used login method is based on session token type.
-	  @param idTmpl Template identifier.
-	  @param xmlMapping XML content indicating the values of the plan inputs.
-	  @param execWindowStart Stating of the execution window.
-	  @param execWindowEnd Ending of the execution window.
-	  @param execMaxTime Max. execution time.
-	  @throws RtiError In error case.
-	  </wsdl:documentation>
-      <wsdl:input message="rti:schPlanUpdateRequest">
-      </wsdl:input>
-      <wsdl:output message="rti:schPlanUpdateResponse">
-      </wsdl:output>
-    <wsdl:fault message="rti:rtiError" name="error"/>
-    </wsdl:operation>
-     <wsdl:operation name="schPlanDelete">
-	  <wsdl:documentation>
-	  Removes a plan from RT.
-	  @param session Session token if the used login method is based on session token type.
-	  @param id Plan identifier.
-	  @throws RtiError In error case.
-	  </wsdl:documentation>
-      <wsdl:input message="rti:schPlanDeleteRequest">
-      </wsdl:input>
-      <wsdl:output message="rti:schPlanDeleteResponse">
-      </wsdl:output>
-    <wsdl:fault message="rti:rtiError" name="error"/>
-    </wsdl:operation>
-    <wsdl:operation name="schPlanGet">
-	  <wsdl:documentation>
-	  Searches plans.
-	  @param session Session token if the used login method is based on session token type.
-	  @param id Plan identifier.
-	  @param user User.
-	  @param state Plan state.
-	  @param creationFrom Starting of the creation date interval.
-	  @param creationTo Ending of the creation date interval.
-	  @param execWindowStartFrom Starting of the window execution beginning.
-	  @param execWindowStartTo Ending of the window execution beginning.
-	  @param execWindowEndFrom Starting of the window execution ending.
-	  @param execWindowEndTo Ending of the window execution ending.
-	  @param execMaxFrom Starting of the maximum execution time interval.
-	  @param execMaxTo Ending of the maximum execution time interval.
-	  @return List of plans.		  
-	  @throws RtiError In error case.
-	  </wsdl:documentation>
-      <wsdl:input message="rti:schPlanGetRequest">
-      </wsdl:input>
-      <wsdl:output message="rti:schPlanGetResponse">
-      </wsdl:output>
-    <wsdl:fault message="rti:rtiError" name="error"/>
-    </wsdl:operation>
-    
-    <!-- SCHEDULER PORT TYPE OPS - END -->
-    
     <!-- SURVEILLANCE CAMERA PORT TYPE OPS - BEGIN -->
     <wsdl:operation name="scamHasBrightness">
 	  <wsdl:documentation>
@@ -9467,190 +9130,62 @@
     </wsdl:operation>
     <!-- SURVEILLANCE CAMERA PORT TYPE OPS - END -->
     
-    <!-- DB PORT TYPE OPS - BEGIN -->
-    <wsdl:operation name="dbIsAvailableDirectAccess">
+    <!-- EXECUTOR PORT TYPE OPS - BEGIN -->
+    <wsdl:operation name="execStartOp">
 	  <wsdl:documentation>
-	  Returns True if the method GetFileContent is available.
+	  Starts the interactive Observing Plan execution.
 	  @param session Session token if the used login method is based on session token type.
-	  @param deviceId Device identifier (the database is considered as a device).
-	  @return Boolean value.
+	  @param uuidOp Observing Plan identifier.
+	  @param user Observing Plan owner.
+	  @param seconds Observing Plan duration in seconds.
+	  @return Observing Plan UUID.
 	  @throws RtiError In error case.
 	  </wsdl:documentation>
-      <wsdl:input message="rti:dbIsAvailableDirectAccessRequest">
+      <wsdl:input message="rti:execStartOpRequest">
       </wsdl:input>
-      <wsdl:output message="rti:dbIsAvailableDirectAccessResponse">
+      <wsdl:output message="rti:execStartOpResponse">
       </wsdl:output>
     <wsdl:fault message="rti:rtiError" name="error"/>
     </wsdl:operation>
-    <wsdl:operation name="dbIsAvailableChunkAccess">
+    <wsdl:operation name="execStopOp">
 	  <wsdl:documentation>
-	  Returns True if the method GetFileChunk is available.
+	  Finishes the interactive Observing Plan execution.
 	  @param session Session token if the used login method is based on session token type.
-	  @param deviceId Device identifier (the database is considered as a device).
-	  @return Boolean value.
 	  @throws RtiError In error case.
 	  </wsdl:documentation>
-      <wsdl:input message="rti:dbIsAvailableChunkAccessRequest">
+      <wsdl:input message="rti:execStopOpRequest">
       </wsdl:input>
-      <wsdl:output message="rti:dbIsAvailableChunkAccessResponse">
+      <wsdl:output message="rti:execStopOpResponse">
       </wsdl:output>
     <wsdl:fault message="rti:rtiError" name="error"/>
     </wsdl:operation>
-    <wsdl:operation name="dbIsAvailableURIAccess">
+    <wsdl:operation name="execGetInfo">
 	  <wsdl:documentation>
-	  Returns True if the method GetFileURI is available.
+	  Recovers the executor information.
 	  @param session Session token if the used login method is based on session token type.
-	  @param deviceId Device identifier (the database is considered as a device).
-	  @return Boolean value.
+	  @return Executor information.
 	  @throws RtiError In error case.
 	  </wsdl:documentation>
-      <wsdl:input message="rti:dbIsAvailableURIAccessRequest">
+      <wsdl:input message="rti:execGetInfoRequest">
       </wsdl:input>
-      <wsdl:output message="rti:dbIsAvailableURIAccessResponse">
+      <wsdl:output message="rti:execGetInfoResponse">
       </wsdl:output>
     <wsdl:fault message="rti:rtiError" name="error"/>
     </wsdl:operation>
-    <wsdl:operation name="dbGetFileInfo">
+    <wsdl:operation name="execGetLastOpInfo">
 	  <wsdl:documentation>
-	  Returns the following file information:
-	  -size (long). Used bytes on disk.
-	  -name (String). The file name (input).
-	  -fullname (String). Full name (path + filename) in the file system.
+	  Recovers the last observing plan information.
 	  @param session Session token if the used login method is based on session token type.
-	  @param deviceId Device identifier (the database is considered as a device).
-	  @param fileName File name.
-	  @return File information.
+	  @return Executor information.
 	  @throws RtiError In error case.
 	  </wsdl:documentation>
-      <wsdl:input message="rti:dbGetFileInfoRequest">
+      <wsdl:input message="rti:execGetLastOpInfoRequest">
       </wsdl:input>
-      <wsdl:output message="rti:dbGetFileInfoResponse">
+      <wsdl:output message="rti:execGetLastOpInfoResponse">
       </wsdl:output>
     <wsdl:fault message="rti:rtiError" name="error"/>
     </wsdl:operation>
-    <wsdl:operation name="dbGetFileContent">
-	  <wsdl:documentation>
-	  Returns the whole file content.
-	  @param session Session token if the used login method is based on session token type.
-	  @param deviceId Device identifier (the database is considered as a device).
-	  @param fileName File name.
-	  @return File content.
-	  @throws RtiError In error case.
-	  </wsdl:documentation>
-      <wsdl:input message="rti:dbGetFileContentRequest">
-      </wsdl:input>
-      <wsdl:output message="rti:dbGetFileContentResponse">
-      </wsdl:output>
-    <wsdl:fault message="rti:rtiError" name="error"/>
-    </wsdl:operation>
-    <wsdl:operation name="dbGetFileChunk">
-	  <wsdl:documentation>
-	  Returns a chunk of the file (byte[]), null if no more information to read.
-	  @param session Session token if the used login method is based on session token type.
-	  @param deviceId Device identifier (the database is considered as a device).
-	  @param fileName File name.
-	  @param offset The first byte to read.
-	  @param size ChunkSize.
-	  @return Read information.
-	  @throws RtiError In error case.
-	  </wsdl:documentation>
-      <wsdl:input message="rti:dbGetFileChunkRequest">
-      </wsdl:input>
-      <wsdl:output message="rti:dbGetFileChunkResponse">
-      </wsdl:output>
-    <wsdl:fault message="rti:rtiError" name="error"/>
-    </wsdl:operation>
-    <wsdl:operation name="dbGetFileURI">
-	  <wsdl:documentation>
-	  Returns the file URL for external accesses (HTTP).
-	  @param session Session token if the used login method is based on session token type.
-	  @param deviceId Device identifier (the database is considered as a device).
-	  @param fileName File name.
-	  @return URI.
-	  @throws RtiError In error case.
-	  </wsdl:documentation>
-      <wsdl:input message="rti:dbGetFileURIRequest">
-      </wsdl:input>
-      <wsdl:output message="rti:dbGetFileURIResponse">
-      </wsdl:output>
-    <wsdl:fault message="rti:rtiError" name="error"/>
-    </wsdl:operation>
-    <wsdl:operation name="dbWriteFile">
-	  <wsdl:documentation>
-	  Writes a file into the file system.
-	  @param session Session token if the used login method is based on session token type.
-	  @param deviceId Device identifier (the database is considered as a device).
-	  @param fileName File name.
-	  @param content Whole content file.
-	  @param metadata List of metadata.
-	  @throws RtiError In error case.
-	  </wsdl:documentation>
-      <wsdl:input message="rti:dbWriteFileRequest">
-      </wsdl:input>
-      <wsdl:output message="rti:dbWriteFileResponse">
-      </wsdl:output>
-    <wsdl:fault message="rti:rtiError" name="error"/>
-    </wsdl:operation>
-    <wsdl:operation name="dbGetMetadata">
-	  <wsdl:documentation>
-	  Returns the metadata associated to a file.
-	  @param session Session token if the used login method is based on session token type.
-	  @param deviceId Device identifier (the database is considered as a device).
-	  @param fileName File name.
-	  @return List of metadata.
-	  @throws RtiError In error case.
-	  </wsdl:documentation>
-      <wsdl:input message="rti:dbGetMetadataRequest">
-      </wsdl:input>
-      <wsdl:output message="rti:dbGetMetadataResponse">
-      </wsdl:output>
-    <wsdl:fault message="rti:rtiError" name="error"/>
-    </wsdl:operation>
-    <wsdl:operation name="dbGetFileSystemInfo">
-	  <wsdl:documentation>
-	  Returns the file system information:
-	  -used (long). bytes used on disk.
-	  -free (long). bytes available on disk.
-	  @param session Session token if the used login method is based on session token type.
-	  @param deviceId Device identifier (the database is considered as a device).
-	  @return File system information.
-	  @throws RtiError In error case.
-	  </wsdl:documentation>
-      <wsdl:input message="rti:dbGetFileSystemInfoRequest">
-      </wsdl:input>
-      <wsdl:output message="rti:dbGetFileSystemInfoResponse">
-      </wsdl:output>
-    <wsdl:fault message="rti:rtiError" name="error"/>
-    </wsdl:operation>
-    <wsdl:operation name="dbRenameFile">
-	  <wsdl:documentation>
-	  Renames an existing file.
-	  @param session Session token if the used login method is based on session token type.
-	  @param deviceId Device identifier (the database is considered as a device).
-	  @param currentFileName Current file name.
-	  @param newFileName New file name.
-	  @throws RtiError In error case.
-	  </wsdl:documentation>
-      <wsdl:input message="rti:dbRenameFileRequest">
-      </wsdl:input>
-      <wsdl:output message="rti:dbRenameFileResponse">
-      </wsdl:output>
-    <wsdl:fault message="rti:rtiError" name="error"/>
-    </wsdl:operation>
-    <wsdl:operation name="dbDeleteFile">
-	  <wsdl:documentation>
-	  Deletes a file from D.B.
-	  @param session Session token if the used login method is based on session token type.
-	  @param deviceId Device identifier (the database is considered as a device).
-	  @throws RtiError In error case.
-	  </wsdl:documentation>
-      <wsdl:input message="rti:dbDeleteFileRequest">
-      </wsdl:input>
-      <wsdl:output message="rti:dbDeleteFileResponse">
-      </wsdl:output>
-    <wsdl:fault message="rti:rtiError" name="error"/>
-    </wsdl:operation>
-    <!-- DB PORT TYPE OPS - END -->
+    <!-- EXECUTOR PORT TYPE OPS - END -->
     
   </wsdl:portType>
 
@@ -10559,6 +10094,24 @@
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="camGetFilterWheels">
+      <soap:operation soapAction="http://gloria.eu/rti/camGetFilterWheels"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="camGetFocuser">
+      <soap:operation soapAction="http://gloria.eu/rti/camGetFocuser"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
     
     <!-- CAMERA DEVICE BINDING OPS - END -->
     
@@ -11205,7 +10758,6 @@
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-    
     <wsdl:operation name="mntSlewObject">
       <soap:operation soapAction="http://gloria.eu/rti/mntSlewObject"/>
       <wsdl:input>
@@ -11215,8 +10767,26 @@
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="mntIsPointingAtObject">
+      <soap:operation soapAction="http://gloria.eu/rti/mntIsPointingAtObject"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntIsPointingAtCoordinates">
+      <soap:operation soapAction="http://gloria.eu/rti/mntIsPointingAtCoordinates"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
    
-    <!-- DOME DEVICE BINDING OPS - END -->
+    <!-- MOUNT DEVICE BINDING OPS - END -->
     
     <!-- FOCUSER DEVICE BINDING OPS - BEGIN -->
     <wsdl:operation name="focGetCamera">
@@ -11898,81 +11468,6 @@
     </wsdl:operation>
     <!-- ROTATOR DEVICE BINDING OPS - END -->
     
-    <!-- SCHEDULER BINDING OPS - BEGIN -->
-    <wsdl:operation name="schTmplPlanCreate">
-      <soap:operation soapAction="http://gloria.eu/rti/schTmplPlanCreate"/>
-      <wsdl:input>
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="schTmplPlanUpdate">
-      <soap:operation soapAction="http://gloria.eu/rti/schTmplPlanUpdate"/>
-      <wsdl:input>
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="schTmplPlanDelete">
-      <soap:operation soapAction="http://gloria.eu/rti/schTmplPlanDelete"/>
-      <wsdl:input>
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="schTmplPlanGet">
-      <soap:operation soapAction="http://gloria.eu/rti/schTmplPlanGet"/>
-      <wsdl:input>
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="schPlanCreate">
-      <soap:operation soapAction="http://gloria.eu/rti/schPlanCreate"/>
-      <wsdl:input>
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="schPlanUpdate">
-      <soap:operation soapAction="http://gloria.eu/rti/schPlanUpdate"/>
-      <wsdl:input>
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="schPlanDelete">
-      <soap:operation soapAction="http://gloria.eu/rti/schPlanDelete"/>
-      <wsdl:input>
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="schPlanGet">
-      <soap:operation soapAction="http://gloria.eu/rti/schPlanGet"/>
-      <wsdl:input>
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <!-- SCHEDULER BINDING OPS - END -->
-    
      <!-- SURVEILLANCE CAMERA OPS - BEGIN -->
     <wsdl:operation name="scamHasBrightness">
       <soap:operation soapAction="http://gloria.eu/rti/scamHasBrightness"/>
@@ -12256,9 +11751,9 @@
     
     <!-- SURVEILLANCE CAMERA OPS - END -->
     
-    <!-- DB OPS - BEGIN -->
-    <wsdl:operation name="dbIsAvailableDirectAccess">
-      <soap:operation soapAction="http://gloria.eu/rti/dbIsAvailableDirectAccess"/>
+    <!-- EXECUTOR OPS - BEGIN -->
+    <wsdl:operation name="execStartOp">
+      <soap:operation soapAction="http://gloria.eu/rti/execStartOp"/>
       <wsdl:input>
         <soap:body use="literal"/>
       </wsdl:input>
@@ -12266,8 +11761,8 @@
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="dbIsAvailableChunkAccess">
-      <soap:operation soapAction="http://gloria.eu/rti/dbIsAvailableChunkAccess"/>
+    <wsdl:operation name="execStopOp">
+      <soap:operation soapAction="http://gloria.eu/rti/execStopOp"/>
       <wsdl:input>
         <soap:body use="literal"/>
       </wsdl:input>
@@ -12275,8 +11770,8 @@
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="dbIsAvailableURIAccess">
-      <soap:operation soapAction="http://gloria.eu/rti/dbIsAvailableURIAccess"/>
+    <wsdl:operation name="execGetInfo">
+      <soap:operation soapAction="http://gloria.eu/rti/execGetInfo"/>
       <wsdl:input>
         <soap:body use="literal"/>
       </wsdl:input>
@@ -12284,8 +11779,8 @@
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="dbGetFileInfo">
-      <soap:operation soapAction="http://gloria.eu/rti/dbGetFileInfo"/>
+    <wsdl:operation name="execGetLastOpInfo">
+      <soap:operation soapAction="http://gloria.eu/rti/execGetLastOpInfo"/>
       <wsdl:input>
         <soap:body use="literal"/>
       </wsdl:input>
@@ -12293,79 +11788,7 @@
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="dbGetFileContent">
-      <soap:operation soapAction="http://gloria.eu/rti/dbGetFileContent"/>
-      <wsdl:input>
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="dbGetFileChunk">
-      <soap:operation soapAction="http://gloria.eu/rti/dbGetFileChunk"/>
-      <wsdl:input>
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="dbGetFileURI">
-      <soap:operation soapAction="http://gloria.eu/rti/dbGetFileURI"/>
-      <wsdl:input>
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="dbWriteFile">
-      <soap:operation soapAction="http://gloria.eu/rti/dbWriteFile"/>
-      <wsdl:input>
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="dbGetMetadata">
-      <soap:operation soapAction="http://gloria.eu/rti/dbGetMetadata"/>
-      <wsdl:input>
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="dbGetFileSystemInfo">
-      <soap:operation soapAction="http://gloria.eu/rti/dbGetFileSystemInfo"/>
-      <wsdl:input>
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="dbRenameFile">
-      <soap:operation soapAction="http://gloria.eu/rti/dbRenameFile"/>
-      <wsdl:input>
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="dbDeleteFile">
-      <soap:operation soapAction="http://gloria.eu/rti/dbDeleteFile"/>
-      <wsdl:input>
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <!-- DB OPS - END -->
+    <!-- EXECUTOR OPS - END -->
     
   </wsdl:binding>
   

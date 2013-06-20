@@ -507,5 +507,26 @@ public interface RTDMountInterface extends RTDDeviceInterface {
 	 * @throws RTException In error case.
 	 */
 	public void mntSlewObject (String object) throws RTException;
+	
+	/**
+	 * Returns true if the mount is pointing at proper object.
+	 * @param object Object name
+	 * @param raError RA error (Hours)
+	 * @param decError DEC error (Degrees)
+	 * @return boolean
+	 * @throws RTException in error case.
+	 */
+	public boolean mntIsPointingAtObject(String object, double raError, double decError) throws RTException ;
+
+	/**
+	 * Returns true if the mount is pointing at proper RADEC coordinate.
+	 * @param ra RA coordinate.
+	 * @param dec DEC coordinate.
+	 * @param raError RA error.
+	 * @param decError DEC error.
+	 * @return boolean
+	 * @throws RTException In error case
+	 */
+	public boolean mntIsPointingAtCoordinates(double ra, double dec, double raError, double decError) throws RTException;
 
 }

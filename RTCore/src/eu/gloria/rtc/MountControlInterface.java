@@ -65,6 +65,28 @@ public interface MountControlInterface extends DeviceManagerInterface {
 	 */
 	public boolean mntIsParked(String deviceId) throws RTException;
 	
+	/**
+	 * Returns true if the mount is pointing at proper object.
+	 * @param deviceId Device identifier.
+	 * @param object Object name
+	 * @param raError RA error (Hours)
+	 * @param decError DEC error (Degrees)
+	 * @return boolean
+	 * @throws RTException in error case.
+	 */
+	public boolean mntIsPointingAtObject(String deviceId, String object, double raError, double decError) throws RTException;
+	
+	/**
+	 * Returns true if the mount is pointing at proper RADEC coordinate.
+	 * @param deviceId Device identifier.
+	 * @param ra RA coordinate.
+	 * @param dec DEC coordinate.
+	 * @param raError RA error.
+	 * @param decError DEC error.
+	 * @return boolean
+	 * @throws RTException In error case
+	 */
+	public boolean mntIsPointingAtCoordinates(String deviceId, double ra, double dec, double raError, double decError) throws RTException;
 	
 	/**
 	 * The right ascension for the target of an equatorial slew operation.

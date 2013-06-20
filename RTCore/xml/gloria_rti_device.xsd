@@ -603,4 +603,41 @@ DriveKing: 3.</documentation></annotation>
     		<enumeration value="EXPOSING"></enumeration>
     	</restriction>
     </simpleType>
+    
+    <simpleType name="executorState">
+    	<restriction base="string">
+    		<enumeration value="RUNNING"></enumeration>
+    		<enumeration value="BUSY"></enumeration>
+    		<enumeration value="IDLE"></enumeration>
+    		<enumeration value="WAIT_TURN"></enumeration>
+    	</restriction>
+    </simpleType>
+    
+    <simpleType name="opState">
+    	<restriction base="string">
+    		<enumeration value="DONE"></enumeration>
+    		<enumeration value="ABORTED"></enumeration>
+    		<enumeration value="RUNNING"></enumeration>
+    		<enumeration value="WAITING_TURN"></enumeration>
+    	</restriction>
+    </simpleType>
+    
+    <complexType name="executorInfo">
+    	<sequence>
+    		<element name="uuidOp" type="string"></element>
+    		<element name="description" type="string"></element>
+    		<element name="state" type="gloria.rt.entity.device:executorState"></element>
+    	</sequence>
+    </complexType>
+    
+    <complexType name="opInfo">
+    	<sequence>
+    		<element name="uuidOp" type="string"></element>
+    		<element name="user" type="string"></element>
+    		<element name="duration" type="long"></element>
+    		<element name="description" type="string"></element>
+    		<element name="state" type="gloria.rt.entity.device:opState"></element>
+    	</sequence>
+    </complexType>
+    
 </schema>

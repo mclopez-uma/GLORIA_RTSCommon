@@ -137,5 +137,13 @@ public interface DeviceManagerInterface  {
 	public boolean devIsBlocked(String deviceId) throws RTException;
 	
 	
+	/**
+	 * Returns true if the executor is running. It means the RTDs are accessible.
+	 * @return boolean 
+	 * @throws RTException In erro case.
+	 */
+	public boolean execIsRunningOp() throws RTException;
+	
+	
 	
 }

@@ -143,7 +143,7 @@ public class ResolverCatalogueSesame  implements ResolverCatalogue {
 		//ObjInfo info = resolver.getObject("HIP42313" /*"moon"*/ /* "Cycnos"*/, Epoch.J2000);
 		//ObjInfo info = resolver.getObject("HIP42662" /*"moon"*/ /* "Cycnos"*/, Epoch.J2000);
 		//ObjInfo info = resolver.getObject("HIP42662" /*"moon"*/ /* "Cycnos"*/, Epoch.J2000);
-		ObjInfo info = resolver.getObject("pgc21822" /*"moon"*/ /* "Cycnos"*/,  Epoch.J2000);
+		ObjInfo info = resolver.getObject("HIP30428" /*"moon"*/ /* "Cycnos"*/,  Epoch.J2000);
 		
 		System.out.println("RA=" + info.getPosition().getRaString(DegreeFormat.HHMMSS));
 		System.out.print("DEC=" + info.getPosition().getDecString(DegreeFormat.DDMMSS));
