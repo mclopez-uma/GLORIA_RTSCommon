@@ -14,10 +14,10 @@
 	elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema"
 	xmlns:gloria.rt.entity.scheduler="http://gloria.eu/rt/entity/scheduler">
 
-	<complexType name="dateIterval">
+	<complexType name="dateInterval">
 		<sequence>
-			<element name="min" type="date" minOccurs="0" maxOccurs="1" />
-			<element name="max" type="date" minOccurs="0" maxOccurs="1" />
+			<element name="min" type="dateTime" minOccurs="0" maxOccurs="1" />
+			<element name="max" type="dateTime" minOccurs="0" maxOccurs="1" />
 		</sequence>
 	</complexType>
 
@@ -25,13 +25,14 @@
 		<restriction base="string">
 			<enumeration value="OK"></enumeration>
 			<enumeration value="REJECTED"></enumeration>
+			<enumeration value="TIMEOUT"></enumeration>
 		</restriction>
 	</simpleType>
 
 	<complexType name="planOfferInfo">
 		<sequence>
 			<element name="uuid" type="string" />
-			<element name="state" type="gloria.rt.entity.scheduler:planOfferInfo" />
+			<element name="state" type="gloria.rt.entity.scheduler:planOfferState" />
 		</sequence>
 	</complexType>
 
@@ -53,10 +54,12 @@
 
 	<simpleType name="planState">
 		<restriction base="string">
+			<enumeration value="ADVERTISE"></enumeration>
 			<enumeration value="QUEUED"></enumeration>
 			<enumeration value="RUNNING"></enumeration>
 			<enumeration value="DONE"></enumeration>
-			<enumeration value="CANCEL"></enumeration>
+			<enumeration value="ABORTED"></enumeration>
+			<enumeration value="REJECTED"></enumeration>
 			<enumeration value="ERROR"></enumeration>
 		</restriction>
 	</simpleType>
@@ -69,6 +72,15 @@
 			<enumeration value="BY_ADMINISTRATOR"></enumeration>
 			<enumeration value="BY_GLORIA"></enumeration>
 			<enumeration value="BY_RTS"></enumeration>
+		</restriction>
+	</simpleType>
+	
+	<simpleType name="planType">
+		<restriction base="string">
+			<enumeration value="DARK"></enumeration>
+			<enumeration value="FLAT"></enumeration>
+			<enumeration value="OBSERVATION"></enumeration>
+			<enumeration value="BIAS"></enumeration>
 		</restriction>
 	</simpleType>
 
@@ -90,30 +102,79 @@
 			<element name="uuid" type="string" minOccurs="1" maxOccurs="1" />
 			<element name="stateInfo" type="gloria.rt.entity.scheduler:planStateInfo"
 				minOccurs="1" maxOccurs="1" />
-			<element name="queuedDate" type="dateTime" minOccurs="0"
+			<element name="type" type="gloria.rt.entity.scheduler:planType" minOccurs="1" maxOccurs="1" />
+			<element name="user" type="string" minOccurs="0"
+				maxOccurs="1"/>
+			<element name="description" type="string" minOccurs="0"
+				maxOccurs="1"/>
+			<element name="comment" type="string" minOccurs="0"
+				maxOccurs="1"/>
+			<element name="observationSession" type="dateTime" minOccurs="0" 
+			    maxOccurs="1" />	
+			<element name="execDateIni" type="dateTime" minOccurs="0"
 				maxOccurs="1" />
-			<element name="execbeginDate" type="dateTime" minOccurs="0"
+			<element name="execDateEnd" type="dateTime" minOccurs="0"
 				maxOccurs="1" />
-			<element name="execEndDate" type="dateTime" minOccurs="0"
+			<element name="execDeadline" type="dateTime" minOccurs="0"
 				maxOccurs="1" />
+			<element name="receivedDate" type="dateTime" minOccurs="0"
+				maxOccurs="1" />
+			<element name="advertDeadline" type="dateTime" minOccurs="0"
+				maxOccurs="1" />
+			<element name="advertDateIni" type="dateTime" minOccurs="0"
+				maxOccurs="1" />
+			<element name="advertDateEnd" type="dateTime" minOccurs="0"
+				maxOccurs="1" />
+			<element name="offeredDate" type="dateTime" minOccurs="0"
+				maxOccurs="1" />
+			<element name="offerDeadline" type="dateTime" minOccurs="0"
+				maxOccurs="1" />
+			<element name="scheduleDateIni" type="dateTime" minOccurs="0"
+				maxOccurs="1" />
+			<element name="scheduleDateEnd" type="dateTime" minOccurs="0"
+				maxOccurs="1" />
+			<element name="predAstr" type="dateTime" minOccurs="0"
+				maxOccurs="1" />
+			
+		</sequence>
+	</complexType>
+	
+	<complexType name="planSearchFilterResult">
+		<sequence>
+			<element name="paginationInfo" minOccurs="1" maxOccurs="1" type="gloria.rt.entity.scheduler:planSearchPaginationInfo" />
+			<element name="items" minOccurs="0" maxOccurs="unbounded" type="gloria.rt.entity.scheduler:planInfo" />
+		</sequence>
+	</complexType>
+	
+	<complexType name="planSearchPaginationInfo">
+		<sequence>
+			<element name="pageNumber" type="int" minOccurs="1"	maxOccurs="1" />
+			<element name="pageSize" type="int" minOccurs="1"	maxOccurs="1" />
+			<element name="pageCount" type="int" minOccurs="1"	maxOccurs="1" />
+		</sequence>
+	</complexType>
+	
+	<complexType name="planSearchPagination">
+		<sequence>
+			<element name="pageNumber" type="int" minOccurs="1"	maxOccurs="1" />
+			<element name="pageSize" type="int" minOccurs="1"	maxOccurs="1" />
 		</sequence>
 	</complexType>
 
 	<complexType name="planSearchFilter">
 		<sequence>
-			<element name="execPredictedDateInteval" type="gloria.rt.entity.scheduler:dateIterval"
+			<element name="user" type="string" minOccurs="0" maxOccurs="1" />
+			<element name="execPredictedDateInteval" type="gloria.rt.entity.scheduler:dateInterval"
 				minOccurs="0" maxOccurs="1" />
-			<element name="execBeginDateInteval" type="gloria.rt.entity.scheduler:dateIterval"
+			<element name="execBeginDateInteval" type="gloria.rt.entity.scheduler:dateInterval"
 				minOccurs="0" maxOccurs="1" />
-			<element name="execEndDateInteval" type="gloria.rt.entity.scheduler:dateIterval"
+			<element name="execEndDateInteval" type="gloria.rt.entity.scheduler:dateInterval"
 				minOccurs="0" maxOccurs="1" />
-			<element name="queuedDateInteval" type="gloria.rt.entity.scheduler:dateIterval"
-				minOccurs="0" maxOccurs="1" />
-
+			<element name="observationSession" type="dateTime" minOccurs="0" maxOccurs="1" />
 			<element name="states" minOccurs="0" maxOccurs="unbounded"
 				type="gloria.rt.entity.scheduler:planState" />
-			<element name="stateDetails" minOccurs="0" maxOccurs="unbounded"
-				type="gloria.rt.entity.scheduler:planStateDetail" />
+			<element name="types" minOccurs="0" maxOccurs="unbounded"
+				type="gloria.rt.entity.scheduler:planType" />
 
 		</sequence>
 	</complexType>

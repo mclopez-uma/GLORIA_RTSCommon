@@ -1,5 +1,6 @@
 package eu.gloria.rt.db.scheduler;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -17,6 +18,7 @@ import eu.gloria.rt.db.task.TaskManager;
 import eu.gloria.rt.db.task.TaskProperty;
 import eu.gloria.rt.db.task.TaskPropertyType;
 import eu.gloria.rt.db.util.DBUtil;
+import eu.gloria.tools.log.LogUtil;
 import eu.gloria.tools.time.DateTools;
 
 public class Test {
@@ -28,7 +30,6 @@ public class Test {
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 		
-		AdvertisementManager manager = new AdvertisementManager();
 		
 		/*eu.gloria.rt.db.scheduler.ObservingPlan op = new eu.gloria.rt.db.scheduler.ObservingPlan();
 		op.setScheduleDateIni(new Date());
@@ -53,11 +54,12 @@ public class Test {
 		em.close();*/
 
 		
-		Advertisement adv = null;
 
 		EntityManager em = DBUtil.getEntityManager();
 		
-		testOpList(em);
+		createObservingPlan(em);
+		
+		//testOpList(em);
 		
 		//testOp(em);
 		
@@ -82,83 +84,7 @@ public class Test {
 		calendar.add(Calendar.DATE, 1);
 		
 
-		for (int x = 0; x <  1; x++){
-			
-			adv = new Advertisement();
-			adv.setUuid("test20130326");
-			adv.setFile("test20130326.xml");
-			adv.setUser("jcabello");
-			adv.setPriority("0");
-			adv.setDeadline(calendar.getTime());
-			adv.setComment("HI");
-			adv.setState(AdvertisementState.PENDING);
-			adv.setReceived(new Date());
-			
-			manager.create(em, adv);
-			
-			/*adv = new Advertisement();
-			adv.setUuid("test02");
-			adv.setFile("test02.xml");
-			adv.setUser("jcabello");
-			adv.setPriority("0");
-			adv.setDeadline(calendar.getTime());
-			adv.setComment("HI");
-			adv.setState(AdvertisementState.PENDING);
-			adv.setReceived(new Date());
-			
-			manager.create(em, adv);
-			
-			adv = new Advertisement();
-			adv.setUuid("test03");
-			adv.setFile("test03.xml");
-			adv.setUser("jcabello");
-			adv.setPriority("0");
-			adv.setDeadline(calendar.getTime());
-			adv.setComment("HI");
-			adv.setState(AdvertisementState.PENDING);
-			adv.setReceived(new Date());
-			
-			manager.create(em, adv);
-			
-			adv = new Advertisement();
-			adv.setUuid("test04");
-			adv.setFile("test04.xml");
-			adv.setUser("jcabello");
-			adv.setPriority("0");
-			adv.setDeadline(calendar.getTime());
-			adv.setComment("HI");
-			adv.setState(AdvertisementState.PENDING);
-			adv.setReceived(new Date());
-			
-			manager.create(em, adv);
-			
-			/* adv = new Advertisement();
-			adv.setUuid("example02");
-			adv.setFile("example02.xml");
-			adv.setUser("UNKNOWN");
-			adv.setPriority("0");
-			adv.setDeadline(calendar.getTime());
-			adv.setComment("HI");
-			adv.setState(AdvertisementState.PENDING);
-			adv.setUuid("example02");
-			adv.setReceived(new Date());
-			
-			manager.create(em, adv);
-			
-			adv = new Advertisement();
-			adv.setUuid("example03");
-			adv.setFile("example03.xml");
-			adv.setUser("UNKNOWN");
-			adv.setPriority("0");
-			adv.setDeadline(calendar.getTime());
-			adv.setComment("HI");
-			adv.setState(AdvertisementState.PENDING);
-			adv.setUuid("example03");
-			adv.setReceived(new Date());
-			
-			manager.create(em, adv);*/
-		}
-		
+	
 		
 		//createAdvertisement(em);
 		//createAdvertisement(em);
@@ -244,6 +170,91 @@ public class Test {
 		}
 		
 		
+	}
+	
+	public static void createObservingPlan(EntityManager em) {
+		
+		em.getTransaction().begin();
+	    
+		ObservingPlan op = new ObservingPlan();
+		
+		op.setFile("kk");
+		op.setPriority(100);
+		op.setState(ObservingPlanState.ABORTED);
+		op.setUser("yo");
+		op.setUuid("dfsdfdddsf");
+		op.setPredDuration(21354);
+		op.setExecDuration(21354);
+		//op.setAdvertDeadline(new Date());
+		op.setType(ObservingPlanType.BIAS);
+	    
+	    em.persist(op);
+	    em.flush();
+	    
+	    ObservingPlan st = em.find(ObservingPlan.class, op.getId());    
+	    System.out.println(st.getId());
+	    
+	    em.getTransaction().rollback();
+
+	    em.close();
+	    
+		
+		/*try{
+			
+			
+
+			if (em != null){
+				em.getTransaction().begin();
+			}
+		
+			ObservingPlan op = new ObservingPlan();
+			
+			
+			op.setFile("kk");
+			op.setPriority(100);
+			op.setState(ObservingPlanState.ABORTED);
+			op.setUser("yo");
+			op.setUuid("dfsdfdddsf");
+			op.setPredDuration(21354);
+			op.setExecDuration(21354);
+			//op.setAdvertDeadline(new Date());
+			op.setType(ObservingPlanType.BIAS);
+		
+			em.persist(op);
+			em.flush();
+			//ObservingPlanManager manager = new ObservingPlanManager();
+			//manager.create(em , op);
+			
+			
+			if ("1".equals("1")) throw new Exception("toma ya!!!");
+		
+			if (em != null){
+				em.getTransaction().commit();
+			}
+
+
+			System.out.println("");
+		}catch(Exception ex){
+			System.out.println(ex.getMessage());
+			
+			if (em != null){
+				EntityTransaction tx = em.getTransaction();
+				if(tx != null && tx.isActive()) {
+					tx.rollback();
+				}
+			}
+		}finally{
+			
+			try{
+				if (em != null){
+					em.close();
+				}
+			}catch(Exception ex){
+				ex.printStackTrace();
+				LogUtil.severe(null, "Error closing EntityManager: " + ex.getMessage());
+			}
+		}*/
+
 	}
 	
 	

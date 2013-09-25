@@ -17,6 +17,7 @@ import eu.gloria.rt.entity.db.FileType;
 import eu.gloria.rt.entity.db.ObservingPlan;
 import eu.gloria.rt.entity.db.ObservingPlanOwner;
 import eu.gloria.rt.entity.db.ObservingPlanType;
+import eu.gloria.rt.entity.db.UuidType;
 import eu.gloria.rti_db.tools.RTIDBProxyConnection;
 
 public class Test {
@@ -43,7 +44,7 @@ public class Test {
 			//Recover OP
 			ObservingPlan opRecover = rts.getProxy().opGet("0001");
 			
-			System.out.println("uuid = " + rts.getProxy().uuidCreate());
+			System.out.println("uuid = " + rts.getProxy().uuidCreate(UuidType.FILE));
 			
 			/*ObservingPlan op = new ObservingPlan();
 			op.setOwner(ObservingPlanOwner.USER);

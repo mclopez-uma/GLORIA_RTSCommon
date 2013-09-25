@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- *************************************** -->
-<!-- * Project: GLORIA                     * -->
-<!-- * Archive: gloria_rt_db.wsdl   * -->
-<!-- * Author: Juan Cabello                * -->
-<!-- * Date : 25/03/2013                   * -->
-<!-- *************************************** -->
-<wsdl:definitions xmlns:gloria.rt.entity.db="http://gloria.eu/rt/entity/db" xmlns:rti_db="http://gloria.eu/rti_db" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="gloria_rti_db" targetNamespace="http://gloria.eu/rti_db">
+<!-- *************************************** --><!-- * Project: GLORIA                     * --><!-- * Archive: gloria_rt_db.wsdl   * --><!-- * Author: Juan Cabello                * --><!-- * Date : 25/03/2013                   * --><!-- *************************************** --><wsdl:definitions xmlns:gloria.rt.entity.db="http://gloria.eu/rt/entity/db" xmlns:rti_db="http://gloria.eu/rti_db" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="gloria_rti_db" targetNamespace="http://gloria.eu/rti_db">
 	
 	<wsdl:types>
 		<xsd:schema targetNamespace="http://gloria.eu/rti_db">
@@ -157,6 +151,7 @@
 			<xsd:element name="uuidCreate">
 				<xsd:complexType>
 					<xsd:sequence>
+						<xsd:element maxOccurs="1" minOccurs="1" name="uuidType" type="gloria.rt.entity.db:uuidType"/>
 					</xsd:sequence>
 				</xsd:complexType>
 			</xsd:element>
@@ -371,6 +366,7 @@
 		<wsdl:operation name="uuidCreate">
 			<wsdl:documentation>
 				Creates a new UUID.
+				@param uuidType UUID TYPE.
 				@return UUID.
 				@throws RtiDbError In error case.
 			</wsdl:documentation>

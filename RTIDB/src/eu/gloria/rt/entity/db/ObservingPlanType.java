@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;enumeration value="DARK"/>
  *     &lt;enumeration value="FLAT"/>
  *     &lt;enumeration value="OBSERVATION"/>
+ *     &lt;enumeration value="BIAS"/>
  *   &lt;/restriction>
  * &lt;/simpleType>
  * </pre>
@@ -27,7 +28,7 @@ public enum ObservingPlanType {
 
     DARK,
     FLAT,
-    OBSERVATION;
+    OBSERVATION, BIAS;
 
     public String value() {
         return name();

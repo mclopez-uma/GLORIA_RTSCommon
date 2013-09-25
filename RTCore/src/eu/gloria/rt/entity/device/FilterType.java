@@ -46,6 +46,11 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;enumeration value="JOHNSON_K"/>
  *     &lt;enumeration value="JOHNSON_L"/>
  *     &lt;enumeration value="H_ALPHA"/>
+ *     &lt;enumeration value="CLEAR"/>
+ *     &lt;enumeration value="JOHNSON_G"/>
+ *     &lt;enumeration value="JOHNSON_V"/>
+ *     &lt;enumeration value="INFRARED_RG850"/>
+ *     &lt;enumeration value="DARK"/>
  *   &lt;/restriction>
  * &lt;/simpleType>
  * </pre>
@@ -68,16 +73,30 @@ public enum FilterType {
     SLOAN_I("SLOAN_I"),
     SLOAN_Z("SLOAN_Z"),
     Z_FILTER("Z_FILTER"),
-    Y_FILTER("Y_FILTER"), CCD_RESPONSE("CCD_RESPONSE"),
+    Y_FILTER("Y_FILTER"),
+    CCD_RESPONSE("CCD_RESPONSE"),
     GRISM("GRISM"),
     @XmlEnumValue("SLIT_25UM")
-    SLIT_25_UM("SLIT_25UM"), @XmlEnumValue("SLIT_50UM")
+    SLIT_25_UM("SLIT_25UM"),
+    @XmlEnumValue("SLIT_50UM")
     SLIT_50_UM("SLIT_50UM"),
     @XmlEnumValue("SLIT_75UM")
     SLIT_75_UM("SLIT_75UM"),
     @XmlEnumValue("SLIT_100UM")
     SLIT_100_UM("SLIT_100UM"),
-    UKIRT_H("UKIRT_H"), UKIRT_J("UKIRT_J"), UKIRT_K("UKIRT_K"), UKIRT_Z("UKIRT_Z"), UKIRT_Y("UKIRT_Y"), JOHNSON_B("JOHNSON_B"), JOHNSON_R("JOHNSON_R"), JOHNSON_I("JOHNSON_I"), JOHNSON_J("JOHNSON_J"), JOHNSON_K("JOHNSON_K"), JOHNSON_L("JOHNSON_L"), H_ALPHA("H_ALPHA");
+    UKIRT_H("UKIRT_H"),
+    UKIRT_J("UKIRT_J"),
+    UKIRT_K("UKIRT_K"),
+    UKIRT_Z("UKIRT_Z"),
+    UKIRT_Y("UKIRT_Y"),
+    JOHNSON_B("JOHNSON_B"),
+    JOHNSON_R("JOHNSON_R"),
+    JOHNSON_I("JOHNSON_I"),
+    JOHNSON_J("JOHNSON_J"),
+    JOHNSON_K("JOHNSON_K"),
+    JOHNSON_L("JOHNSON_L"),
+    H_ALPHA("H_ALPHA"), CLEAR("CLEAR"), JOHNSON_G("JOHNSON_G"), JOHNSON_V("JOHNSON_V"), @XmlEnumValue("INFRARED_RG850")
+    INFRARED_RG_850("INFRARED_RG850"), DARK("DARK");
     private final String value;
 
     FilterType(String v) {

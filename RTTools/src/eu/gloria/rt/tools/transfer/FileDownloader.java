@@ -8,14 +8,33 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * File Downloader.
+ * 
+ * Protocols: HTTP.
+ * 
+ * @author jcabello
+ *
+ */
 public class FileDownloader {
 	
 	private String tmpPath;
 	
+	/**
+	 * Constructor
+	 * @param tmpPath temporal path. In this version is not used.
+	 */
 	public FileDownloader(String tmpPath){
 		this.tmpPath = tmpPath;
 	}
 	
+	/**
+	 * Download the source content
+	 * @param source URL
+	 * @param fileName local file name
+	 * @throws Exception In error case
+	 * @deprecated
+	 */
 	public void download(URL source, String fileName) throws Exception{
 		
 		if (source.getProtocol().equals("http")){ //http
@@ -26,6 +45,28 @@ public class FileDownloader {
 		
 	}
 	
+	/**
+	 * Download the source content.
+	 * @param source URL
+	 * @param fileName local file name.
+	 * @throws Exception In error case.
+	 */
+	public void download(FileURL source, String fileName) throws Exception{
+		
+		if (source.getProtocol() == FileURLProtocol.HTTP){ //http
+			httpDownload(source.getURL(), fileName);
+		}else{
+			throw new Exception("Impossible to download the file.");
+		}
+		
+	}
+	
+	/**
+	 * Internal download method
+	 * @param source File source
+	 * @param fileName local file name
+	 * @throws Exception In error case
+	 */
 	private void httpDownload(URL source, String fileName) throws Exception {
 		
         source.openConnection();

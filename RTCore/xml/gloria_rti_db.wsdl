@@ -162,6 +162,7 @@
 			<xsd:element name="uuidCreate">
 				<xsd:complexType>
 					<xsd:sequence>
+						<xsd:element name="uuidType" type="gloria.rt.entity.db:uuidType" maxOccurs="1" minOccurs="1" />
 					</xsd:sequence>
 				</xsd:complexType>
 			</xsd:element>
@@ -381,6 +382,7 @@
 		<wsdl:operation name="uuidCreate">
 			<wsdl:documentation>
 				Creates a new UUID.
+				@param uuidType UUID TYPE.
 				@return UUID.
 				@throws RtiDbError In error case.
 			</wsdl:documentation>

@@ -65,6 +65,7 @@ public class DateTools {
 	}
 	
 	public static Date getDate(XMLGregorianCalendar xgc){
+		if (xgc == null) return null;
 		return xgc.toGregorianCalendar().getTime();
 	}
 	

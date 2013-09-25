@@ -324,9 +324,14 @@
     		<enumeration value="JOHNSON_K"></enumeration>
     		<enumeration value="JOHNSON_L"></enumeration>
     		<enumeration value="H_ALPHA"></enumeration>
+    		<enumeration value="CLEAR"></enumeration>
+    		<enumeration value="JOHNSON_G"></enumeration>
+    		<enumeration value="JOHNSON_V"></enumeration>
+    		<enumeration value="INFRARED_RG850"></enumeration>
+    		<enumeration value="DARK"></enumeration>
     	</restriction>
     </simpleType>
-    
+
     <complexType name="deviceFilter">
     	<complexContent>
     		<extension base="gloria.rt.entity.device:device">

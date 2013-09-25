@@ -1,8 +1,11 @@
 package eu.gloria.rt.tools.transfer;
 
 import java.io.File;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.Date;
+
+import eu.gloria.rt.tools.ssh.SftpClient;
 
 /**
  * File Uploader tool.
@@ -22,6 +25,7 @@ public class FileUploader {
 		
 		
 		//URL url = new URL("ftp://user:password@localhost:23/tmp/kk.txt");
+		//URL url = new URL("sftp://user:password@localhost:23/tmp/kk.txt"
 		URL url = new URL("file:///C:/dummy/tmp.txt");
 		//URL url = new URL("file:///tmp/kk/");
 		
@@ -35,12 +39,21 @@ public class FileUploader {
 		System.out.println("port=" + url.getPort());
 		System.out.println("protocol=" + url.getProtocol());
 		System.out.println("file=" + url.getFile());
+		System.out.println("userInfo=" + url.getUserInfo());
 		
 		//URL urlSource = new URL("file:///C:/dummy/cp1/tmp.txt");
 		//URL urlTarget = new URL("file:///C:/dummy/cp2/f1/tmp.txt");
 		
 		//FileUploader uploader = new FileUploader("c:\\dummy\\cp1");
 		//uploader.upload(urlSource, urlTarget);
+		
+		
+		//-----------------------------------------
+		FileURL source = new FileURL("file:///C:/dummy/jcabello.jpg");
+		FileURL target = new FileURL("sftp://uma:uma@localhost:22/tmp/kk1/kk2/jcabello2.jpg");
+		
+		FileUploader uploader = new FileUploader("c:\\dummy\\cp1");
+		uploader.upload(source, target);
 		
 		
 	}
@@ -51,12 +64,70 @@ public class FileUploader {
 		this.tmpPath = tmpPath;
 	}
 	
+	
+	/**
+	 * Upload a file from source to target
+	 * @deprecated
+	 * @param source Source file URL
+	 * @param target Target fille URL
+	 * @throws Exception In error case
+	 */
 	public void upload(URL source, URL target) throws Exception{
 		
-		if (source.getProtocol().equals("file") && target.getProtocol().equals("file")){ //Move local file
+		if (source.getProtocol().equals("file") && target.getProtocol().equals("file")){ //local->local
 			moveLocalFile(source, target);
-		}else{
+		} else if (source.getProtocol().equals("file") && target.getProtocol().equals("ftp")){//local->ftp
+		} else{
 			throw new Exception("Impossible to transfer the file.");
+		}
+		
+	}
+	
+	public void upload(FileURL source, FileURL target) throws Exception{
+		
+		if (source.getProtocol() == FileURLProtocol.FILE && target.getProtocol() == FileURLProtocol.FILE){ //local->local
+			moveLocalFile(source.getURL(), target.getURL());
+		} else if (source.getProtocol() == FileURLProtocol.FILE && target.getProtocol() == FileURLProtocol.SFTP){//local->sftp
+			moveSftp(source.getURL(), target);
+		} else{
+			throw new Exception("Impossible to transfer the file.");
+		}
+		
+	}
+	
+	private void moveSftp(URL source, FileURL target) throws Exception{
+		
+		File sFile = new File(source.getPath());
+		File tFile = new File(target.getPath());
+		
+		if (!sFile.exists()){
+			throw new Exception("FileUploader::The source local file does not exist. SourceFile=" + tFile.toString());
+		}
+		
+		SftpClient client = new SftpClient(target.getHost(), target.getPort(), target.getUser(), target.getUserPw());
+		client.connect();
+		
+		try{
+			
+			//Verify and create the target directory
+			String targetFolders = tFile.getParentFile().getPath().replace('\\', '/');
+			boolean existPath = client.createDirectoryTree(targetFolders);
+			if (!existPath){
+				throw new Exception("FileUploader::Impossible to create the target directory. TargetFile=" + tFile.toString());
+			}
+			
+			//upload the file	
+			if (!client.upload(source.getPath(), target.getPath())){
+				throw new Exception("The file cannot be uploaded.");
+			}
+			
+			//Remove local file
+			
+			sFile.delete();
+			
+			
+		}finally{
+			client.disconnect();
 		}
 		
 	}

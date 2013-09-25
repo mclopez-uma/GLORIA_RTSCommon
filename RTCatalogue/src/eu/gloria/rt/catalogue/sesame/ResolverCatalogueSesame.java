@@ -14,6 +14,7 @@ import javax.xml.validation.SchemaFactory;
 
 import Sesame_pkg.SesameProxy;
 
+import eu.gloria.rt.catalogue.CacheObjInfo;
 import eu.gloria.rt.catalogue.ObjCategory;
 import eu.gloria.rt.catalogue.ObjInfo;
 import eu.gloria.rt.catalogue.ResolverCatalogue;
@@ -23,6 +24,7 @@ import eu.gloria.rt.exception.RTException;
 import eu.gloria.rt.unit.Epoch;
 import eu.gloria.rt.unit.Radec;
 import eu.gloria.tools.conversion.DegreeFormat;
+import eu.gloria.tools.log.LogUtil;
 
 /**
  * Resolver for Sesame repository (Simbad).
@@ -31,6 +33,12 @@ import eu.gloria.tools.conversion.DegreeFormat;
  *
  */
 public class ResolverCatalogueSesame  implements ResolverCatalogue {
+	
+	private static CacheObjInfo cache;
+	
+	static{
+		cache = new CacheObjInfo(200, true);
+	}
 	
 	@Override
 	public ObjInfo getObject(String id, Epoch epoch)   throws RTException {
@@ -42,48 +50,53 @@ public class ResolverCatalogueSesame  implements ResolverCatalogue {
 		
 		try{
 			
-			/*System.out.println((new Date()) + "ResolverCatalogueSesame.accessing....sleep 5 seconds.");
-			Thread.sleep(5000);*/
-		
-			SesameProxy proxy = new SesameProxy();
-			String response = proxy.getSesame().sesameXML(id);
+			//check cache
+			ObjInfo result = cache.get(id);
+			if (result == null){
+				
+				/*System.out.println((new Date()) + "ResolverCatalogueSesame.accessing....sleep 5 seconds.");
+				Thread.sleep(5000);*/
 			
-			Radec radec = parse(response);
-			
-			System.out.println((new Date()) + "ResolverCatalogueSesame.Accessed.");
-			
-			ObjInfo result = null;
-			if (radec != null){
-				result = new ObjInfo();
-				result.setCategory(ObjCategory.OutsideSSystemObj);
-				result.setId(id);
-				result.setPosition(radec);
+				SesameProxy proxy = new SesameProxy();
+				String response = proxy.getSesame().sesameXML(id);
+				
+				Radec radec = parse(response);
+				
+				LogUtil.info(this, "ResolverCatalogueSesame. ExternalServer accessed..............................!!!!");
+				
+				System.out.println((new Date()) + "ResolverCatalogueSesame.Accessed.");
+				
+				if (radec != null){
+					result = new ObjInfo();
+					result.setCategory(ObjCategory.OutsideSSystemObj);
+					result.setId(id);
+					result.setPosition(radec);
+				}
+				
+				if (result != null) cache.put(result);
+				
+				/*File schemaFile = new File("C:\\repositorio\\workspace\\tmp\\sesame_4x.xsd");
+				URL url = new URL("http://vizier.u-strasbg.fr/xml/sesame_4x.xsd");
+				boolean kk = schemaFile.exists();
+				SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+				Schema schema = schemaFactory.newSchema(url);
+
+				JAXBContext context = JAXBContext.newInstance(DeviceList.class);
+				Unmarshaller unmarshaller = context.createUnmarshaller();
+				unmarshaller.setSchema(schema);
+				
+				File file = new File("c:\\repositorio\\workspace\\tmp\\sesame_4x.xsd");
+				
+				InputStream inputStream = new ByteArrayInputStream(response.getBytes("UTF-8"));
+				
+				
+				Object obj = unmarshaller.unmarshal(inputStream);
+				
+				inputStream.close();*/
+				
 			}
 			
 			return result;
-			
-			
-			/*File schemaFile = new File("C:\\repositorio\\workspace\\tmp\\sesame_4x.xsd");
-			URL url = new URL("http://vizier.u-strasbg.fr/xml/sesame_4x.xsd");
-			boolean kk = schemaFile.exists();
-			SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-			Schema schema = schemaFactory.newSchema(url);
-
-			JAXBContext context = JAXBContext.newInstance(DeviceList.class);
-			Unmarshaller unmarshaller = context.createUnmarshaller();
-			unmarshaller.setSchema(schema);
-			
-			File file = new File("c:\\repositorio\\workspace\\tmp\\sesame_4x.xsd");
-			
-			InputStream inputStream = new ByteArrayInputStream(response.getBytes("UTF-8"));
-			
-			
-			Object obj = unmarshaller.unmarshal(inputStream);
-			
-			inputStream.close();*/
-			
-			
-			
 			
 		}catch(Exception ex){
 			ex.printStackTrace();
@@ -143,7 +156,7 @@ public class ResolverCatalogueSesame  implements ResolverCatalogue {
 		//ObjInfo info = resolver.getObject("HIP42313" /*"moon"*/ /* "Cycnos"*/, Epoch.J2000);
 		//ObjInfo info = resolver.getObject("HIP42662" /*"moon"*/ /* "Cycnos"*/, Epoch.J2000);
 		//ObjInfo info = resolver.getObject("HIP42662" /*"moon"*/ /* "Cycnos"*/, Epoch.J2000);
-		ObjInfo info = resolver.getObject("HIP30428" /*"moon"*/ /* "Cycnos"*/,  Epoch.J2000);
+		ObjInfo info = resolver.getObject("Delphinus" /*"moon"*/ /* "Cycnos"*/,  Epoch.J2000);
 		
 		System.out.println("RA=" + info.getPosition().getRaString(DegreeFormat.HHMMSS));
 		System.out.print("DEC=" + info.getPosition().getDecString(DegreeFormat.DDMMSS));

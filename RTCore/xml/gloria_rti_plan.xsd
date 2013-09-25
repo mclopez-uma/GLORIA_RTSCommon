@@ -178,6 +178,15 @@
     	</restriction>
     </xs:simpleType>
     
+    <xs:simpleType name="planType">
+    	<restriction base="string">
+    		<enumeration value="DARK"></enumeration>
+    		<enumeration value="FLAT"></enumeration>
+    		<enumeration value="OBSERVATION"></enumeration>
+   		 	<enumeration value="BIAS"></enumeration>
+    	</restriction>
+    </xs:simpleType>
+    
     <simpleType name="trackingRateType">
         <annotation>
         	<documentation></documentation>
@@ -235,8 +244,11 @@
     		<xs:element name="uuid" type="xs:string" minOccurs="0" maxOccurs="1"/>
     		<xs:element name="user" type="xs:string" minOccurs="0" maxOccurs="1"/>
     		<xs:element name="priority" type="xs:string" minOccurs="0" maxOccurs="1"/>
+    		<xs:element name="description" type="xs:string" minOccurs="0" maxOccurs="1"/>
     		<xs:element name="predictedExecIni" type="xs:date" minOccurs="0" maxOccurs="1"/>
     		<xs:element name="predictedExecEnd" type="xs:date" minOccurs="0" maxOccurs="1"/>
+    		<xs:element name="predictedExecTime" type="gloria.rt.entity.scheduler.plan:seconds"  minOccurs="0" maxOccurs="1"/>
+    		<xs:element name="type" type="gloria.rt.entity.scheduler.plan:planType"  minOccurs="0" maxOccurs="1"/>
   	  	</xs:sequence>
  	 </xs:complexType>
 

@@ -3,8 +3,13 @@ package eu.gloria.rt.db.util;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.FlushModeType;
 import javax.persistence.Persistence;
 
+import org.hibernate.FlushMode;
+
+import eu.gloria.rt.db.repository.RepObservingPlanType;
+import eu.gloria.rt.db.scheduler.ObservingPlan;
 import eu.gloria.tools.log.LogUtil;
 
 
@@ -43,7 +48,9 @@ public class DBUtil {
 	}
 	
 	public static EntityManager getEntityManager(){
-		return singleton.factory.createEntityManager();
+		EntityManager result = singleton.factory.createEntityManager();
+		result.setFlushMode(FlushModeType.COMMIT);
+		return result;
 	}
 	
 	public static void close(EntityManager manager){
@@ -79,5 +86,7 @@ public class DBUtil {
 		}
 		
 	}
+	
+
 
 }

@@ -156,16 +156,16 @@
 			<xsd:element name="planSearchByFilter">
 				<xsd:complexType>
 					<xsd:sequence>
-						<xsd:element name="filter" minOccurs="1" maxOccurs="1"
-							type="gloria.rt.entity.scheduler:planSearchFilter" />
+						<xsd:element name="filter" minOccurs="1" maxOccurs="1" type="gloria.rt.entity.scheduler:planSearchFilter" />
+						<xsd:element name="pagination" minOccurs="1" maxOccurs="1" type="gloria.rt.entity.scheduler:planSearchPagination" />
 					</xsd:sequence>
 				</xsd:complexType>
 			</xsd:element>
 			<xsd:element name="planSearchByFilterResponse">
 				<xsd:complexType>
 					<xsd:sequence>
-						<xsd:element name="out" minOccurs="0" maxOccurs="unbounded"
-							type="gloria.rt.entity.scheduler:planInfo" />
+						<xsd:element name="out" minOccurs="1" maxOccurs="1"
+							type="gloria.rt.entity.scheduler:planSearchFilterResult" />
 					</xsd:sequence>
 				</xsd:complexType>
 			</xsd:element>

@@ -310,6 +310,26 @@ public class OpManager {
 		return result;
 	}
 	
+	public synchronized boolean processEvent() throws ExtRtsInterruptionException{
+		
+		boolean result = false;
+		
+		ExtEventResume event =  interrupter.getEventResume();
+		if (event != null){
+			
+			try{
+				op.setDesc(event.getDescription());
+				op.setState(OpState.ABORTED);
+				result = true;
+				interrupter.resume();
+			}catch(Exception ex){
+				if (logs) LogUtil.info(this, "OpManager.OpWatchdog.run:: Error resuming external Exec. " + ex.getMessage());
+			}
+		}
+		
+		return result;
+	}
+	
 	class OpWatchdog implements Runnable {
 
 		@Override
@@ -436,27 +456,8 @@ public class OpManager {
 				if (logs) LogUtil.info(this, "OpManager.OpWatchdog.run:: Thread - Ends");
 			}
 
-		}
+		}	
 		
-		private boolean processEvent() throws ExtRtsInterruptionException{
-			
-			boolean result = false;
-			
-			ExtEventResume event =  interrupter.getEventResume();
-			if (event != null){
-				
-				try{
-					op.setDesc(event.getDescription());
-					op.setState(OpState.ABORTED);
-					result = true;
-					interrupter.resume();
-				}catch(Exception ex){
-					if (logs) LogUtil.info(this, "OpManager.OpWatchdog.run:: Error resuming external Exec. " + ex.getMessage());
-				}
-			}
-			
-			return result;
-		}
 	}
 	
 	

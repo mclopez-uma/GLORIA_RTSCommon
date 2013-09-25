@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:gloria.rt.entity.db="http://gloria.eu/rt/entity/db" elementFormDefault="qualified" targetNamespace="http://gloria.eu/rt/entity/db">
+<?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:gloria.rt.entity.db="http://gloria.eu/rt/entity/db" elementFormDefault="qualified" targetNamespace="http://gloria.eu/rt/entity/db">
 	
 	<simpleType name="fileContentType">
 		<restriction base="string">
 			<enumeration value="DARK"/>
 			<enumeration value="FLAT"/>
 			<enumeration value="OBSERVATION"/>
+			<enumeration value="BIAS"/>
 		</restriction>
 	</simpleType>
 	
@@ -24,6 +24,13 @@
 		</restriction>
 	</simpleType>
 	
+	<simpleType name="uuidType">
+		<restriction base="string">
+			<enumeration value="FILE"/>
+			<enumeration value="OP"/>
+		</restriction>
+	</simpleType>
+	
 	<simpleType name="observingPlanOwner">
 		<restriction base="string">
 			<enumeration value="SYSTEM"/>
@@ -36,6 +43,7 @@
 			<enumeration value="DARK"/>
 			<enumeration value="FLAT"/>
 			<enumeration value="OBSERVATION"/>
+			<enumeration value="BIAS"/>
 		</restriction>
 	</simpleType>
 	

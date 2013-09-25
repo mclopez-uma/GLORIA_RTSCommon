@@ -25,6 +25,7 @@ import eu.gloria.rt.unit.Epoch;
 import eu.gloria.rt.unit.Radec;
 import eu.gloria.tools.conversion.DegreeFormat;
 import eu.gloria.tools.file.FileUtil;
+import eu.gloria.tools.log.LogUtil;
 import eu.gloria.tools.time.DateTools;
 
 
@@ -82,6 +83,8 @@ public class ResolverCatalogueMPC implements ResolverCatalogue {
 		MPCResponseParser parser = new MPCResponseParser(response, date);
 		
 		Radec radec = parser.getRadec();
+		
+		LogUtil.info(this, "ResolverCatalogueMPC. ExternalServer accessed..............................!!!!");
 		
 		System.out.println((new Date()) + "ResolverCatalogueMPC.accessed.");
 		
