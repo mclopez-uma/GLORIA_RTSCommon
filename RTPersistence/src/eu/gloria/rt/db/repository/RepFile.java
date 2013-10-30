@@ -22,8 +22,8 @@ public class RepFile implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue
-	private String id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
 
 	@Enumerated( EnumType.ORDINAL)
 	private RepFileContentType contentType;
@@ -50,11 +50,11 @@ public class RepFile implements Serializable {
     public RepFile() {
     }
 
-	public String getId() {
+	public long getId() {
 		return this.id;
 	}
 
-	public void setId(String id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

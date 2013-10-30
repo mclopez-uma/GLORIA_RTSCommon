@@ -1,6 +1,7 @@
 package eu.gloria.rt.catalogue;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import eu.gloria.rt.catalogue.libnova.GmtOffset;
@@ -38,6 +39,12 @@ public class CatalogueTools {
 	
 	public static RTSInfo getSunRTSInfo(Observer observer, Date date) throws RTException{
 	
+		return getSunRTSInfo(observer, date, 0, 0);
+		
+	}
+	
+	public static RTSInfo getSunRTSInfo(Observer observer, Date date, int riseOffsetSecs, int setOffsetSecs) throws RTException{
+		
 		try{
 			
 			Date trunkDate = DateTools.trunk(date, "yyyyMMdd");
@@ -92,6 +99,15 @@ public class CatalogueTools {
 				result.setRise(objRTS.getRise());
 				result.setTransit(objRTS.getTransit());
 				result.setSet(objRTS.getSet());
+				
+				if (riseOffsetSecs != 0){
+					result.setRise(DateTools.increment(result.getRise(), Calendar.SECOND, riseOffsetSecs));
+				}
+				
+				if (setOffsetSecs != 0){
+					result.setSet(DateTools.increment(result.getSet(), Calendar.SECOND, setOffsetSecs));
+				}
+				
 				return result;
 			}
 			

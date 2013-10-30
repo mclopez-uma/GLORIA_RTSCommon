@@ -123,5 +123,9 @@ public class UUID {
 		
 	}
 
+	public String getTimeStamp() {
+		return timeStamp;
+	}
+
 }
 

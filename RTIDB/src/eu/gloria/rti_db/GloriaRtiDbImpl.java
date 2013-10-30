@@ -382,7 +382,8 @@ public class GloriaRtiDbImpl implements GloriaRtiDb {
 			try {
 				
 				if (manager.getOp(em, op.getUuid()) != null) {
-					throw new Exception("The Observing Plan already exists into the Repository database. UUID="	+ op.getUuid());
+					//throw new Exception("The Observing Plan already exists into the Repository database. UUID="	+ op.getUuid());
+					return op.getUuid();
 				}
 
 				// DB entity
@@ -424,7 +425,7 @@ public class GloriaRtiDbImpl implements GloriaRtiDb {
 
 			// OP
 			result = new ObservingPlan();
-			result.setId(dbOp.getId());
+			result.setId(String.valueOf(dbOp.getId()));
 			result.setOwner(ObservingPlanOwner.valueOf(dbOp.getOwner()
 					.toString()));
 			result.setType(ObservingPlanType.valueOf(dbOp.getType().toString()));
@@ -458,7 +459,7 @@ public class GloriaRtiDbImpl implements GloriaRtiDb {
 			result.setContentType(FileContentType.valueOf(dbFile
 					.getContentType().toString()));
 			result.setDate(getDate(dbFile.getDate()));
-			result.setId(dbFile.getId());
+			result.setId(String.valueOf(dbFile.getId()));
 			result.setType(FileType.valueOf(dbFile.getType().toString()));
 			// ??????result.setUrl(dbFile.get)
 			result.setUuid(dbFile.getUuid());
@@ -491,7 +492,7 @@ public class GloriaRtiDbImpl implements GloriaRtiDb {
 			result.setContentType(FileContentType.valueOf(dbFile
 					.getContentType().toString()));
 			result.setDate(getDate(dbFile.getDate()));
-			result.setId(dbFile.getId());
+			result.setId(String.valueOf(dbFile.getId()));
 			result.setType(FileType.valueOf(dbFile.getType().toString()));
 			result.setUuid(dbFile.getUuid());
 

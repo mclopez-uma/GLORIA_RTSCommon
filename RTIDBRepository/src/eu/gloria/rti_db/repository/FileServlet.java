@@ -98,6 +98,10 @@ public class FileServlet extends HttpServlet {
 			return;
 		}
 		
+		//Download parameter
+		String downloadStr = request.getParameter("download");
+		boolean download = downloadStr != null && downloadStr.trim().toLowerCase().equals("true");
+		
 		//Checks the input parameters
 		String format = request.getParameter("format");
 		if (format == null || !(format.equals("FITS") || format.equals("JPG"))){
@@ -136,13 +140,23 @@ public class FileServlet extends HttpServlet {
 				FileInputStream fileToDownload = new FileInputStream(fileFullName);
 				ServletOutputStream out = response.getOutputStream();
 
+				//ContentType
 				if (format.equals("JPG")) { //JPG
-					response.setContentType("image/jpg");
+					if (!download){
+						response.setContentType("image/jpeg");
+					}else{
+						response.setContentType("application/octet-stream");
+						response.setHeader("Content-Disposition",
+								"attachment; filename=" + uuid + "." + format.toLowerCase());
+					}
+					
 				} else { //FITS
 					response.setContentType("application/octet-stream");
 					response.setHeader("Content-Disposition",
 							"attachment; filename=" + uuid + "." + format.toLowerCase());
 				}
+				
+				//Lenght
 				response.setContentLength(fileToDownload.available());
 
 				int c;

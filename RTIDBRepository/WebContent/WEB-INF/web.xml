@@ -4,13 +4,15 @@
   
   <context-param>  
   	<param-name>repositoryBasePath</param-name>  
-  	<param-value>/usr/share/gloria/rts/repositories/rep01/</param-value>  
+   	<param-value>/usr/share/gloria/rts/repositories/rep01/</param-value>  
 <!--   	<param-value>C:\repositorio\workspace\tmp\repositories\rep01\</param-value>   -->
+
+<!--		<param-value>/data/gloria/rts/repositories/rep01/</param-value>   -->
   	
   </context-param> 
   <context-param>  
   	<param-name>repositoryCode</param-name>  
-  	<param-value>00000001</param-value>  
+  	<!-- DEFAULT      --><param-value>00000001</param-value>   
   </context-param>
  
   <welcome-file-list>

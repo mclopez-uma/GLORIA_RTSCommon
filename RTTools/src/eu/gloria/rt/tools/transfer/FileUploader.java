@@ -1,7 +1,11 @@
 package eu.gloria.rt.tools.transfer;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URL;
 import java.util.Date;
 
@@ -20,9 +24,6 @@ public class FileUploader {
 		File file = new File("c:\\dummy\\kk.txt");
 		System.out.println("filename=" + file.getName());
 		System.out.println("lastModification=" + new Date(file.lastModified()));
-		
-		
-		
 		
 		//URL url = new URL("ftp://user:password@localhost:23/tmp/kk.txt");
 		//URL url = new URL("sftp://user:password@localhost:23/tmp/kk.txt"
@@ -151,10 +152,36 @@ public class FileUploader {
 		}
 		
 		
+		//1) try to move the file....
 		if (!sFile.renameTo(tFile)){
-			throw new Exception("FileUploader:: Impossible to move the file. [source=" +sFile.toString() + ", target=" + tFile.toString() + "]");
+			//2)Imposible to move....try to copy.
+			//throw new Exception("FileUploader:: Impossible to MOVE the file. [source=" +sFile.toString() + ", target=" + tFile.toString() + "]");
+			try{
+				copyFileUsingFileStreams(sFile, tFile);
+			}catch (Exception e) {
+				throw new Exception("FileUploader:: Impossible to COPY OR MOVE the file. [source=" +sFile.toString() + ", target=" + tFile.toString() + "]. " + e.getMessage());
+			}
 		}
 		
+	}
+	
+	
+	private static void copyFileUsingFileStreams(File source, File dest)
+	        throws IOException {
+	    InputStream input = null;
+	    OutputStream output = null;
+	    try {
+	        input = new FileInputStream(source);
+	        output = new FileOutputStream(dest);
+	        byte[] buf = new byte[1024];
+	        int bytesRead;
+	        while ((bytesRead = input.read(buf)) > 0) {
+	            output.write(buf, 0, bytesRead);
+	        }
+	    } finally {
+	        input.close();
+	        output.close();
+	    }
 	}
 
 }

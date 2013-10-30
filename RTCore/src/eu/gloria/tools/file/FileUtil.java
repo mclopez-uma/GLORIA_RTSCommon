@@ -3,9 +3,12 @@ package eu.gloria.tools.file;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -107,6 +110,24 @@ public class FileUtil {
 			bw.close();
 		}
 		
+	}
+	
+	public static void copyFileUsingFileStreams(File source, File dest)
+	        throws IOException {
+	    InputStream input = null;
+	    OutputStream output = null;
+	    try {
+	        input = new FileInputStream(source);
+	        output = new FileOutputStream(dest);
+	        byte[] buf = new byte[1024];
+	        int bytesRead;
+	        while ((bytesRead = input.read(buf)) > 0) {
+	            output.write(buf, 0, bytesRead);
+	        }
+	    } finally {
+	        input.close();
+	        output.close();
+	    }
 	}
 
 }

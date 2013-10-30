@@ -100,7 +100,7 @@ public class ObservingPlanManager {
 	}
 	
 	
-	public ObservingPlan get(EntityManager em, String id){
+	public ObservingPlan get(EntityManager em, long id){
 		
 		ObservingPlan result = (ObservingPlan)em.find(ObservingPlan.class , id);
 			
@@ -174,7 +174,7 @@ public class ObservingPlanManager {
 		}
 	}
 	
-	public void delete(EntityManager em, String id) throws Exception{
+	public void delete(EntityManager em, long id) throws Exception{
 		
 		boolean localEm = false;
 		
@@ -452,6 +452,8 @@ public class ObservingPlanManager {
 					result.add((ObservingPlan)items.get(x));
 				}
 			}
+			
+			DBUtil.commit(em);
 				
 		}catch(NoResultException ex){
 			//All right...
@@ -501,6 +503,40 @@ public class ObservingPlanManager {
 		
 	}
 	
+	public long getCountByScheduleDate(EntityManager em, Date ini, Date end, String user) throws Exception{
+		
+		boolean localEm = false;
+		
+		try {
+			
+			if (em == null){
+				localEm = true;
+				em = DBUtil.getEntityManager();
+			}
+
+			DBUtil.beginTransaction(em);
+
+			Query query=em.createQuery("SELECT COUNT(op.id) FROM ObservingPlan op where scheduleDateIni>=?1 AND scheduleDateEnd<=?2 AND user=?3");
+			query.setParameter(1, ini);
+			query.setParameter(2, end);
+			query.setParameter(3, user);
+			Number countResult = (Number) query.getSingleResult();
+			
+			DBUtil.commit(em);
+			
+			return countResult.longValue();
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			LogUtil.severe(this, "Error recovering the CountByScheduleDate : " + ex.getMessage());
+			DBUtil.rollback(em);
+			throw ex;
+		} finally {
+			if (localEm) DBUtil.close(em);
+		}
+		
+	}
+	
 	public long getObservationTimeByScheduleDate(EntityManager em, Date ini, Date end) throws Exception{
 		
 		boolean localEm = false;
@@ -517,6 +553,42 @@ public class ObservingPlanManager {
 			Query query=em.createQuery("SELECT sum(op.predDuration) FROM ObservingPlan op where scheduleDateIni>=?1 AND scheduleDateEnd<=?2");
 			query.setParameter(1, ini);
 			query.setParameter(2, end);
+			System.out.println("data=" + query.getSingleResult());
+			Number countResult = (Number) query.getSingleResult();
+			
+			DBUtil.commit(em);
+			
+			if (countResult == null) return 0;
+			return countResult.longValue();
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			LogUtil.severe(this, "Error recovering the TimeByScheduleDate : " + ex.getMessage());
+			DBUtil.rollback(em);
+			throw ex;
+		} finally {
+			if (localEm) DBUtil.close(em);
+		}
+		
+	}
+	
+	public long getObservationTimeByScheduleDate(EntityManager em, Date ini, Date end, String user) throws Exception{
+		
+		boolean localEm = false;
+		
+		try {
+			
+			if (em == null){
+				localEm = true;
+				em = DBUtil.getEntityManager();
+			}
+
+			DBUtil.beginTransaction(em);
+
+			Query query=em.createQuery("SELECT sum(op.predDuration) FROM ObservingPlan op where scheduleDateIni>=?1 AND scheduleDateEnd<=?2 AND user=?3");
+			query.setParameter(1, ini);
+			query.setParameter(2, end);
+			query.setParameter(3, user);
 			System.out.println("data=" + query.getSingleResult());
 			Number countResult = (Number) query.getSingleResult();
 			

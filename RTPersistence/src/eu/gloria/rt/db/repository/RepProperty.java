@@ -14,8 +14,8 @@ public class RepProperty implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue
-	private String id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
 
 	private String name;
 
@@ -24,11 +24,11 @@ public class RepProperty implements Serializable {
     public RepProperty() {
     }
 
-	public String getId() {
+	public long getId() {
 		return this.id;
 	}
 
-	public void setId(String id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

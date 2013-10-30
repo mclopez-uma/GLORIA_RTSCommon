@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Logger;
 
-import eu.gloria.tools.configuration.Config;
+//import eu.gloria.tools.configuration.Config;
 
 
 /**
@@ -38,10 +38,10 @@ public class LogUtil {
 	    String DATE_FORMAT = "yyyy/dd/MM HH:mm:ss.SSSS";
 	    SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
 	    
-	    String rtsName = Config.getProperty("rt_config", "rts_name", "RTS_DEFAULT");
+	    //String rtsName = Config.getProperty("rt_config", "rts_name", "RTS_DEFAULT");
 	    
 		StringBuffer sb = new StringBuffer();
-		sb.append("[RTI-").append(rtsName).append("]::");
+		//sb.append("[RTI-").append(rtsName).append("]::");
 		sb.append("[").append(sdf.format(date)).append("]");
 		sb.append("[THREAD=").append(Thread.currentThread().getId()).append("]");
 		sb.append("[SOURCE=").append(sourceClassName).append("]");
@@ -70,6 +70,24 @@ public class LogUtil {
 	}
 	
 	/**
+	 * Writes severe log.
+	 * @param source Object source of the log.
+	 * @param msg Message.
+	 */
+	public static void severe(Class source, String msg){
+		Logger logger = null;
+		String sourceClassName = null;
+		if (source == null){
+			sourceClassName = LogUtil.class.getName();
+		}else{
+			sourceClassName = source.getName();
+		}
+		logger = Logger.getLogger(sourceClassName);
+				
+		logger.severe(getLog(sourceClassName, msg));
+	}
+	
+	/**
 	 * Writes info log.
 	 * @param source Object source of the log.
 	 * @param msg Message.
@@ -81,6 +99,24 @@ public class LogUtil {
 			sourceClassName = LogUtil.class.getName();
 		}else{
 			sourceClassName = source.getClass().getName();
+		}
+		logger = Logger.getLogger(sourceClassName);
+		
+		logger.info(getLog(sourceClassName, msg));
+	}
+	
+	/**
+	 * Writes info log.
+	 * @param source Object source of the log.
+	 * @param msg Message.
+	 */
+	public static void info(Class source, String msg){
+		Logger logger = null;
+		String sourceClassName = null;
+		if (source == null){
+			sourceClassName = LogUtil.class.getName();
+		}else{
+			sourceClassName = source.getName();
 		}
 		logger = Logger.getLogger(sourceClassName);
 		
@@ -106,6 +142,24 @@ public class LogUtil {
 	}
 	
 	/**
+	 * Writes fine log.
+	 * @param source Object source of the log.
+	 * @param msg Message.
+	 */
+	public static void fine(Class source, String msg){
+		Logger logger = null;
+		String sourceClassName = null;
+		if (source == null){
+			sourceClassName = LogUtil.class.getName();
+		}else{
+			sourceClassName = source.getName();
+		}
+		logger = Logger.getLogger(sourceClassName);
+		
+		logger.fine(getLog(sourceClassName, msg));
+	}
+	
+	/**
 	 * Writes finer log.
 	 * @param source Object source of the log.
 	 * @param msg Message.
@@ -124,6 +178,24 @@ public class LogUtil {
 	}
 	
 	/**
+	 * Writes finer log.
+	 * @param source Object source of the log.
+	 * @param msg Message.
+	 */
+	public static void finer(Class source, String msg){
+		Logger logger = null;
+		String sourceClassName = null;
+		if (source == null){
+			sourceClassName = LogUtil.class.getName();
+		}else{
+			sourceClassName = source.getName();
+		}
+		logger = Logger.getLogger(sourceClassName);
+		
+		logger.finer(getLog(sourceClassName, msg));
+	}
+	
+	/**
 	 * Writes finest log.
 	 * @param source Object source of the log.
 	 * @param msg Message.
@@ -135,6 +207,24 @@ public class LogUtil {
 			sourceClassName = LogUtil.class.getName();
 		}else{
 			sourceClassName = source.getClass().getName();
+		}
+		logger = Logger.getLogger(sourceClassName);
+		
+		logger.finest(getLog(sourceClassName, msg));
+	}
+	
+	/**
+	 * Writes finest log.
+	 * @param source Object source of the log.
+	 * @param msg Message.
+	 */
+	public static void finest(Class source, String msg){
+		Logger logger = null;
+		String sourceClassName = null;
+		if (source == null){
+			sourceClassName = LogUtil.class.getName();
+		}else{
+			sourceClassName = source.getName();
 		}
 		logger = Logger.getLogger(sourceClassName);
 		

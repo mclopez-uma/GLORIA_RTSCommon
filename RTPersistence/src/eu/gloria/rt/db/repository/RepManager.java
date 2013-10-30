@@ -27,6 +27,7 @@ public class RepManager {
 		repository.setActive(1);
 		repository.setCod(1);
 		repository.setConnUrl("file:///usr/share/gloria/rts/repositories/rep01/");
+//		repository.setConnUrl("file://C:/repositorio/workspace/tmp/repositories/rep01/");
 		repository.setPublicUrl("TODO");
 		repository.setDescription("Default");
 		repository.setName("REP01");
@@ -34,27 +35,27 @@ public class RepManager {
 		manager.create(em, repository);
 		
 		Repository rep = manager.getRepActive(em);
-		
-		System.out.println("kk");
+//		
+//		System.out.println("kk");
 		
 		
 
 		
-		//RepObservingPlan op0 = manager.getOp(em, "0000000000000001000000010000013dab017a20");
-		
-		
-		
-		/*UUID uuidOp = new UUID(1, 1);
-		RepObservingPlan op = new RepObservingPlan();
-		op.setOwner(RepObservingPlanOwner.USER);
-		op.setType(RepObservingPlanType.OBSERVATION);
-		op.setUser("jcabello");
-		op.setUuid(uuidOp.getValue());
-		
-		System.out.println("uuidOp=" + uuidOp.getValue());
-		
-		manager.create(em, op);
-		
+//		RepObservingPlan op0 = manager.getOp(em, "0000000000000001000000010000013dab017a20");
+//		
+//		
+//		
+//		UUID uuidOp = new UUID(1, 1);
+//		RepObservingPlan op = new RepObservingPlan();
+//		op.setOwner(RepObservingPlanOwner.USER);
+//		op.setType(RepObservingPlanType.OBSERVATION);
+//		op.setUser("mclopez");
+//		op.setUuid(uuidOp.getValue());
+//		
+//		System.out.println("uuidOp=" + uuidOp.getValue());
+//		
+//		manager.create(em, op);
+		/*
 		RepObservingPlan op2 = manager.getOp(em, uuidOp.getValue());
 		
 		UUID uuidFile = new UUID(1, 1);

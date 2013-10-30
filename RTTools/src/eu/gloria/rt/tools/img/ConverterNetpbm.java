@@ -23,6 +23,11 @@ public class ConverterNetpbm implements ConverterInterface{
 	}
 	
 	public void fitstopnm(File input, File output) throws Exception{
+		fitstopnm(input, output, 5000);
+	}
+	
+	
+	public void fitstopnm(File input, File output, int maxInc) throws Exception{
 		
 		String fileName = input.getName();
 		if (!fileName.endsWith(".fits") && !fileName.endsWith(".fts")) throw new Exception("The input file is not a FITS file: " + input.getAbsolutePath());
@@ -43,8 +48,7 @@ public class ConverterNetpbm implements ConverterInterface{
 		double min = Double.parseDouble(interval[0]);
 		double max = Double.parseDouble(interval[1]);
 		int minInt = (int) min;
-		int maxInt = (int) max;
-		maxInt = minInt + 5000;
+		int maxInt = minInt + maxInc;
 		
 		//fits -> pnm
 		//EXAMPLE: /usr/bin/fitstopnm -min 3929.0 -max 65535 "M30_01.fits" > M30_01.pnm
@@ -142,6 +146,19 @@ public class ConverterNetpbm implements ConverterInterface{
         		}catch(Exception ex){}
         	}
  		}  
+		
+	}
+
+	@Override
+	public void fitstojpeg(File input, File output) throws Exception {
+		
+		throw new Exception("Unsuported Method: ConverterNetpbm.fitstojpeg()");
+	}
+
+	@Override
+	public void fitstojpeg(File input, File output, String scale)
+			throws Exception {
+		throw new Exception("Unsuported Method: ConverterNetpbm.fitstojpeg(scale)");
 		
 	}
 

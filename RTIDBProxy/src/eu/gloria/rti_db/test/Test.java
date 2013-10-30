@@ -38,7 +38,7 @@ public class Test {
 			
 			System.out.println("BEGIN:" + (new Date()));
 			
-			RTIDBProxyConnection rts = new RTIDBProxyConnection("localhost", "9080", "RTIDB", "gloria_user", "12345", false, "c:\\repositorio\\workspace\\resources\\certificates\\dev\\cacerts_gloria_ca_dev");
+			RTIDBProxyConnection rts = new RTIDBProxyConnection("localhost", "9080", "RTIDB", "userdfadfadsfad", "fadsfad", false, "c:\\repositorio\\workspace\\resources\\certificates\\dev\\cacerts_gloria_ca_dev");
 			
 			
 			//Recover OP
