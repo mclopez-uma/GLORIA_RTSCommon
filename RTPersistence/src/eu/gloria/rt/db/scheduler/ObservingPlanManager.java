@@ -607,5 +607,31 @@ public class ObservingPlanManager {
 		}
 		
 	}
+	
+	public ObservingPlan getToOffshoreConfirmation(EntityManager em){
+		
+		ObservingPlan result = null;
+			
+			try{
+				
+				Date now = new Date();
+				
+				Query query = em.createQuery("SELECT op FROM ObservingPlan op where op.eventOffshoreConfirmDate is null AND op.advertOffshoreDeadline <= op.advertDeadline AND op.state=?1 AND  op.advertDeadline>?2 AND op.advertOffshoreDeadline<=?3 ");
+				query.setParameter(1, ObservingPlanState.OFFSHORE);
+				query.setParameter(2, now);
+				query.setParameter(3, now);
+				
+				LogUtil.severe(this, "now= " + now);
+				LogUtil.severe(this, "state= " + ObservingPlanState.OFFSHORE.ordinal());
+				
+				result = (ObservingPlan) query.setMaxResults(1).getSingleResult();
+				
+			}catch(NoResultException ex){
+				//All right...
+			}
+				
+			return result;
+				
+	}
 
 }

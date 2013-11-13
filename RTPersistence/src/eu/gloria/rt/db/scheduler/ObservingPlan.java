@@ -15,7 +15,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "ObservingPlan")
-public class ObservingPlan implements Serializable {
+public class ObservingPlan implements Serializable, Comparable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -23,6 +23,8 @@ public class ObservingPlan implements Serializable {
 	private long id;
 	
 	private String uuid;
+	
+	private String offshoreOpInfo;
 	
 	private String user;
 	
@@ -45,6 +47,9 @@ public class ObservingPlan implements Serializable {
 	
 	@Temporal( TemporalType.TIMESTAMP)
 	private Date advertDeadline;
+	
+	@Temporal( TemporalType.TIMESTAMP)
+	private Date advertOffshoreDeadline;
 	
 	@Temporal( TemporalType.TIMESTAMP)
 	private Date advertDateIni;
@@ -74,6 +79,9 @@ public class ObservingPlan implements Serializable {
     
     @Temporal( TemporalType.TIMESTAMP)
     private Date execDateObservationSession;
+    
+	@Temporal( TemporalType.TIMESTAMP)
+	private Date offerDeadline;
 	
 	@Temporal( TemporalType.TIMESTAMP)
 	private Date predAstr;
@@ -97,10 +105,10 @@ public class ObservingPlan implements Serializable {
 	private Date eventOffshoreReqDate;
 	
 	@Temporal( TemporalType.TIMESTAMP)
-	private Date eventFinishEventDate;
+	private Date eventOffshoreConfirmDate;
 	
 	@Temporal( TemporalType.TIMESTAMP)
-	private Date offerDeadline;
+	private Date eventFinishEventDate;
 	
 
     public ObservingPlan() {
@@ -353,5 +361,41 @@ public class ObservingPlan implements Serializable {
 	public void setOfferDeadline(Date offerDeadline) {
 		this.offerDeadline = offerDeadline;
 	}
+	
+	public int compareTo(Object other) {
+		if (other instanceof ObservingPlan) {
+			Integer one = hashCode();
+			Integer two = ((ObservingPlan) other).hashCode();
+			return one.compareTo(two);
+		}else{
+			return Integer.MAX_VALUE;
+		}
+	}
+
+	public String getOffshoreOpInfo() {
+		return offshoreOpInfo;
+	}
+
+	public void setOffshoreOpInfo(String offshoreOpInfo) {
+		this.offshoreOpInfo = offshoreOpInfo;
+	}
+
+	public Date getAdvertOffshoreDeadline() {
+		return advertOffshoreDeadline;
+	}
+
+	public void setAdvertOffshoreDeadline(Date advertOffshoreDeadline) {
+		this.advertOffshoreDeadline = advertOffshoreDeadline;
+	}
+
+	public Date getEventOffshoreConfirmDate() {
+		return eventOffshoreConfirmDate;
+	}
+
+	public void setEventOffshoreConfirmDate(Date eventOffshoreConfirmDate) {
+		this.eventOffshoreConfirmDate = eventOffshoreConfirmDate;
+	}
+
+	
 
 }

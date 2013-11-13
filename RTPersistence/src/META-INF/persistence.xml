@@ -18,11 +18,10 @@
 		<class>eu.gloria.rt.db.scheduler.SchTimeFrame</class>
 		
 		<properties>
-			
+		
 			<property name="hibernate.connection.datasource" value="java:/comp/env/jdbc/gloriaDS"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
             <property name="hibernate.id.new_generator_mappings" value ="true"/>
-
 
         </properties>
 	</persistence-unit>
