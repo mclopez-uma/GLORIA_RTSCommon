@@ -55,13 +55,22 @@ public class Test {
 
 		
 
-		EntityManager em = DBUtil.getEntityManager();
 		
-		createObservingPlan(em);
 		
-		//testOpList(em);
+		//createObservingPlan(em);
+		
+		for (int x = 0; x < 100; x++){
+			Thread.sleep(5000);
+			EntityManager em = DBUtil.getEntityManager();
+			testOpList(em);
+			DBUtil.close(em);
+		}
+		
+		
 		
 		//testOp(em);
+		
+		
 		
 		
 		
@@ -140,7 +149,8 @@ public class Test {
 			DBUtil.rollback(em);
 			
 		} finally {
-			DBUtil.close(em);
+			//em.clear();
+			//DBUtil.close(em);
 		}
 		
 		
