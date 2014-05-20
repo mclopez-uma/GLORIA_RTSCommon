@@ -533,6 +533,12 @@
           </xsd:sequence>
         </xsd:complexType>
       </xsd:element>
+       <xsd:element name="mntGetPointedObject">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
       <!-- MOUNT DEVICE ELEMENTS - END -->
       
     </xsd:schema> 
@@ -1069,6 +1075,14 @@
   </wsdl:message>
   <wsdl:message name="mntSlewObjectResponse">
     <wsdl:part element="rtdi.mount:voidResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntGetPointedObjectRequest">
+    <wsdl:part element="rtdi.mount:mntGetPointedObject" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="mntGetPointedObjectResponse">
+    <wsdl:part element="rtdi.mount:stringResponse" name="parameters">
     </wsdl:part>
   </wsdl:message>
   <!-- MOUNT DEVICE MESSAGES - END -->
@@ -1993,7 +2007,21 @@
       </wsdl:output>
     <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
     </wsdl:operation>
-    <!-- MOUNT PORT TYPE OPS - END -->
+    <wsdl:operation name="mntGetPointedObject">
+	  <wsdl:documentation>
+	  Get the pointed Object
+	  @param session Session token if the used login method is based on session token type.
+	  @return The pointed object.
+	  @throws rtdError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.mount:mntGetPointedObjectRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.mount:mntGetPointedObjectResponse">
+      </wsdl:output>
+      <wsdl:fault message="rtdi.mount:rtdError" name="error"/>
+    </wsdl:operation>
+    
+    <!-- MOUNT PORT TYPE OPS - END --> 
     
   </wsdl:portType>
 
@@ -2583,6 +2611,15 @@
     </wsdl:operation>
     <wsdl:operation name="mntSlewObject">
       <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntSlewObject"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mntGetPointedObject">
+      <soap:operation soapAction="http://gloria.eu/rtdi.dome/mntGetPointedObject"/>
       <wsdl:input>
         <soap:body use="literal"/>
       </wsdl:input>

@@ -99,7 +99,7 @@
 				<xsd:complexType>
 					<xsd:sequence>
 						<xsd:element maxOccurs="1" minOccurs="0" name="deadline" 
-							type="xsd:date" />
+							type="xsd:dateTime" />
 						<xsd:element maxOccurs="unbounded" minOccurs="1"
 							name="planList" type="xsd:string" />
 					</xsd:sequence>

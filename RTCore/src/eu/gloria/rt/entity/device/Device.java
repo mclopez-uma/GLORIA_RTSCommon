@@ -59,13 +59,13 @@ import javax.xml.bind.annotation.XmlType;
 })
 @XmlSeeAlso({
     DeviceFilter.class,
-    DeviceMount.class,
     DeviceRotator.class,
-    DeviceDome.class,
-    DeviceFocuser.class,
     DeviceMirror.class,
     DeviceGeneral.class,
-    DeviceCamera.class
+    DeviceCamera.class,
+    DeviceMount.class,
+    DeviceDome.class,
+    DeviceFocuser.class
 })
 public class Device {
 

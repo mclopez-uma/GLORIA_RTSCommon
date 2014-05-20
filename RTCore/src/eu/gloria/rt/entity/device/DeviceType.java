@@ -85,7 +85,9 @@ public enum DeviceType {
     STORM_SENSOR,
     RH_SENSOR,
     WEATHER_VANE,
-    DEW_REMOVER, TEMPERATURE_SENSOR, BAROMETER;
+    DEW_REMOVER,
+    TEMPERATURE_SENSOR,
+    BAROMETER;
 
     public String value() {
         return name();

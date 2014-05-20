@@ -183,6 +183,12 @@
           </xsd:sequence>
         </xsd:complexType>
       </xsd:element>
+      <xsd:element name="focGetMinStep">
+        <xsd:complexType>
+          <xsd:sequence>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
       <xsd:element name="focGetPosition">
         <xsd:complexType>
           <xsd:sequence>
@@ -364,6 +370,14 @@
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="focGetMaxStepResponse">
+    <wsdl:part element="rtdi.focuser:longResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="focGetMinStepRequest">
+    <wsdl:part element="rtdi.focuser:focGetMinStep" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="focGetMinStepResponse">
     <wsdl:part element="rtdi.focuser:longResponse" name="parameters">
     </wsdl:part>
   </wsdl:message>
@@ -641,6 +655,20 @@
       </wsdl:output>
     <wsdl:fault message="rtdi.focuser:rtdError" name="error"/>
     </wsdl:operation>
+    <wsdl:operation name="focGetMinStep">
+	  <wsdl:documentation>
+	  Minimum step position permitted.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return Step.
+	  @throws RtiError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.focuser:focGetMinStepRequest">
+      </wsdl:input>
+      <wsdl:output message="rtdi.focuser:focGetMinStepResponse">
+      </wsdl:output>
+    <wsdl:fault message="rtdi.focuser:rtdError" name="error"/>
+    </wsdl:operation>
     <wsdl:operation name="focGetPosition">
 	  <wsdl:documentation>
 	  Current focuser position, in steps. 
@@ -888,6 +916,15 @@
     </wsdl:operation>
     <wsdl:operation name="focGetMaxStep">
       <soap:operation soapAction="http://gloria.eu/rtdi.focuser/focGetMaxStep"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="focGetMinStep">
+      <soap:operation soapAction="http://gloria.eu/rti/focGetMinStep"/>
       <wsdl:input>
         <soap:body use="literal"/>
       </wsdl:input>

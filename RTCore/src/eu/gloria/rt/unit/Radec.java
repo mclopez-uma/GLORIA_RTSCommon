@@ -27,6 +27,7 @@ public class Radec {
 	private int decDD;
 	private int decMM;
 	private double decSS;
+	private boolean decNegative;
 	
 	private boolean logs = false;
 	
@@ -64,7 +65,7 @@ public class Radec {
 	 * @param decSS DEC Seconds
 	 * @throws RTException In error case.
 	 */
-	public Radec(int raHH, int raMM, double raSS, int decDD, int decMM,	double decSS) throws RTException {
+	public Radec(int raHH, int raMM, double raSS, boolean decNegative, int decDD, int decMM, double decSS) throws RTException {
 		
 		this.epoch = Epoch.J2000; //by default.
 		
@@ -78,7 +79,7 @@ public class Radec {
 		//this.decMM = decMM;
 		//this.decSS = decSS;
 		
-		this.setDec(decDD, decMM, decSS);
+		this.setDec(decNegative, decDD, decMM, decSS);
 		
 	}
 	
@@ -155,9 +156,9 @@ public class Radec {
 	 * @param comp3 SS
 	 * @throws RTException In error case.
 	 */
-	public void setDec(int comp1, int comp2, double comp3) throws RTException{
+	public void setDec(boolean negative, int comp1, int comp2, double comp3) throws RTException{
 		
-		double decDegree = DegreesConverter.toDegreesD(comp1, comp2, comp3);
+		double decDegree = DegreesConverter.toDegreesD(negative, comp1, comp2, comp3);
 		this.setDec(decDegree);
 	}
 	
@@ -239,7 +240,7 @@ public class Radec {
 	 * @param format Up to now (DD:MM:SS).
 	 * @throws RTException In error case.
 	 */
-	public void setDec(String value, DegreeFormat format) throws RTException{
+	public void setDec(String value, DegreeFormat format) throws RTException{ //kk
 		
 		if (format != DegreeFormat.DDMMSS){
 			throw new RTException("Degree Format supported: " + DegreeFormat.DDMMSS );
@@ -252,14 +253,19 @@ public class Radec {
 			String comp2 = st.nextToken();
 			String comp3 = st.nextToken();
 			
-			this.decDD = Integer.parseInt(comp1);
+			this.decNegative = comp1.startsWith("-");
+			if (this.decNegative){
+				this.decDD = Integer.parseInt(comp1.substring(1)); //jump -
+			}else{
+				this.decDD = Integer.parseInt(comp1);
+			}
 			this.decMM = Integer.parseInt(comp2);
 			this.decSS = Double.parseDouble(comp3);
 			if (logs) LogUtil.info(this, "Radec.setDec. decDD=" + this.raHH);
 			if (logs) LogUtil.info(this, "Radec.setDec. decMM=" + this.raMM);
 			if (logs) LogUtil.info(this, "Radec.setDec. decSS=" + this.raSS);
 			
-			this.decDecimal = DegreesConverter.toDegreesD(this.decDD, this.decMM, this.decSS);
+			this.decDecimal = DegreesConverter.toDegreesD(this.decNegative, this.decDD, this.decMM, this.decSS);
 			if (logs) LogUtil.info(this, "Radec.setDec. decDecimal=" + this.decDecimal);
 			
 		}catch(Exception ex){
@@ -355,9 +361,9 @@ public class Radec {
 	 * @throws RTException In error case
 	 * 
 	 */
-	private void toDecimal() throws RTException{
+	private void toDecimal() throws RTException{ //kk
 		
-		decDecimal = DegreesConverter.toDegreesD(decDD, decMM, decSS);
+		decDecimal = DegreesConverter.toDegreesD(decNegative, decDD, decMM, decSS);
 		raDecimal = DegreesConverter.toDegreesH(raHH, raMM, raSS);
 		
 	

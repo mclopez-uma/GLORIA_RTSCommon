@@ -28,7 +28,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum ActivityState {
 
-    NOT_DEFINED, READY,
+    NOT_DEFINED,
+    READY,
     BUSY,
     OFF,
     MAINTENANCE,

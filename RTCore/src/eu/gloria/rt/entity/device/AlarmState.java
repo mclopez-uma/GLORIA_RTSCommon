@@ -18,6 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;enumeration value="DRIVER_HW"/>
  *     &lt;enumeration value="DRIVER_SW"/>
  *     &lt;enumeration value="SHUTDOWN"/>
+ *     &lt;enumeration value="WEATHER"/>
  *   &lt;/restriction>
  * &lt;/simpleType>
  * </pre>
@@ -31,7 +32,7 @@ public enum AlarmState {
     MALFUNCTION,
     DRIVER_HW,
     DRIVER_SW,
-    SHUTDOWN;
+    SHUTDOWN, WEATHER;
 
     public String value() {
         return name();

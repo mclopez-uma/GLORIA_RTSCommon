@@ -569,6 +569,17 @@ public interface CameraControlInterface extends DeviceManagerInterface {
 	public Double camGetExposureTime(String deviceId) throws RTException;
 	
 	/**
+	 * Returns the exposure time interval for the object and filter selected.
+	 *  
+	 * @param deviceId Device identifier.
+	 * @param filterType filter
+	 * @param object
+	 * @return Current value.
+	 * @throws RTException In error case.
+	 */	
+	public List<Double> camGetObjectExposureTime(String deviceId, String filter, String object) throws RTException;
+	
+	/**
 	 * Sets the camera cooler setpoint in degrees Kelvin.
 	 * @param deviceId Device identifier
 	 * @param value New value.

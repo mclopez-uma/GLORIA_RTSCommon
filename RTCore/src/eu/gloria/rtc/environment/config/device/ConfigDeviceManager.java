@@ -1,6 +1,8 @@
 package eu.gloria.rtc.environment.config.device;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
@@ -145,6 +147,18 @@ public class ConfigDeviceManager {
 					break;
 				}
 			}
+		}
+		
+		return result;
+	}
+	
+	public List <Device> getDeviceByType (DeviceType type){
+		
+		List <Device> result = new ArrayList <Device> ();
+		
+		for (eu.gloria.rt.entity.environment.config.device.Device dev : deviceList.getDevice()) {
+			if (dev.getType()==type)
+				result.add(dev);					
 		}
 		
 		return result;

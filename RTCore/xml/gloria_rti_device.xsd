@@ -96,6 +96,7 @@
     		<enumeration value="DRIVER_HW"></enumeration>
     		<enumeration value="DRIVER_SW"></enumeration>
     		<enumeration value="SHUTDOWN"></enumeration>
+    		<enumeration value="WEATHER"></enumeration>
     	</restriction>
     </simpleType>
 
@@ -240,6 +241,7 @@
     	<restriction base="string">
     		<enumeration value="FITS"></enumeration>
     		<enumeration value="JPG"></enumeration>
+    		<enumeration value="FZ"></enumeration>
     	</restriction>
     </simpleType>
 

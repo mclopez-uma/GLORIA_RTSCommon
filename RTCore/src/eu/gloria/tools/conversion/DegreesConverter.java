@@ -9,23 +9,28 @@ public class DegreesConverter {
 	public static String toDDMMSS (double data){
 		
 		boolean negative = data < 0;
-		if (negative) data = data * -1;
+		if (negative) data = data * -1; //to positive
 	
 		int DD = (int) Math.abs(data);
 		int MM = (int) Math.abs((data - DD)*60);
 		double SS = (((data - DD)*60) - MM)*60;	
 		
-		if (negative) DD = DD * -1;
+		//if (negative) DD = DD * -1;
 		
 		int ss = (int) Math.abs(SS*100);
-		return (String.valueOf(DD)+":"+String.valueOf(MM)+":" + String.valueOf((double) ss/100));
+		//return (String.valueOf(DD)+":"+String.valueOf(MM)+":" + String.valueOf((double) ss/100));
+		
+		String sign = "";
+		if (negative) sign = "-";
+		return (sign + String.valueOf(DD)+":"+String.valueOf(MM)+":" + String.valueOf((double) ss/100));
+		
 	}
 	
-	public static double toDegreesD (int DD, int MM, double SS) throws RTException{
+	public static double toDegreesD (boolean negative, int DD, int MM, double SS) throws RTException{
 		
 		if (MM < 0 || SS < 0) throw new RTException("Invalid negative number.");
 		
-		boolean negative = DD < 0;
+		//boolean negative = DD < 0;
 		if (negative) DD = Math.abs(DD);
 		
 		double result = ((SS/60 + MM)/60 + DD);

@@ -6,33 +6,36 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para imageFormat.
+ * <p>Clase Java para opState.
  * 
  * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * <p>
  * <pre>
- * &lt;simpleType name="imageFormat">
+ * &lt;simpleType name="opState">
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *     &lt;enumeration value="FITS"/>
- *     &lt;enumeration value="JPG"/>
- *     &lt;enumeration value="FZ"/>
+ *     &lt;enumeration value="DONE"/>
+ *     &lt;enumeration value="ABORTED"/>
+ *     &lt;enumeration value="RUNNING"/>
+ *     &lt;enumeration value="WAITING_TURN"/>
  *   &lt;/restriction>
  * &lt;/simpleType>
  * </pre>
  * 
  */
-@XmlType(name = "imageFormat")
+@XmlType(name = "opState")
 @XmlEnum
-public enum ImageFormat {
+public enum OpState {
 
-    FITS,
-    JPG, FZ;
+    DONE,
+    ABORTED,
+    RUNNING,
+    WAITING_TURN;
 
     public String value() {
         return name();
     }
 
-    public static ImageFormat fromValue(String v) {
+    public static OpState fromValue(String v) {
         return valueOf(v);
     }
 

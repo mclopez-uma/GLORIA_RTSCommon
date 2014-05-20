@@ -29,7 +29,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum ActivityStateMirror {
 
-    NOT_DEFINED, READY,
+    NOT_DEFINED,
+    READY,
     BUSY,
     OFF,
     MAINTENANCE,

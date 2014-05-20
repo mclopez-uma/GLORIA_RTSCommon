@@ -17,7 +17,13 @@ import eu.gloria.rt.exception.RTException;
  */
 public interface RTDMountInterface extends RTDDeviceInterface {
 	
-		
+	
+	/**
+	 * Returns the pointed object.
+	 * @return The pointed Object or unknown.
+	 * @throws RTException In error case
+	 */
+	public String mntGetPointedObject() throws RTException;
 	
 	/**
 	 * Returns the UTC date/time of the telescope's internal clock.

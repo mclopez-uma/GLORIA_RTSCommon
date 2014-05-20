@@ -574,6 +574,21 @@
           </xsd:sequence>
         </xsd:complexType>
       </xsd:element>
+      <xsd:element name="camGetObjectExposureTime">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="object" type="xsd:string"/>
+            <xsd:element name="filterType" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="camGetObjectExposureTimeResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="out" type="xsd:double"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
       <xsd:element name="camSetCCDTemperature">
         <xsd:complexType>
           <xsd:sequence>
@@ -1369,6 +1384,14 @@
   </wsdl:message>
   <wsdl:message name="camGetExposureTimeResponse">
     <wsdl:part element="rtdi.camera:doubleResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="camGetObjectExposureTimeRequest">
+    <wsdl:part element="rtdi.camera:camGetObjectExposureTime" name="parameters">
+    </wsdl:part>
+  </wsdl:message>  
+  <wsdl:message name="camGetObjectExposureTimeResponse">
+    <wsdl:part element="rtdi.camera:camGetObjectExposureTimeResponse" name="parameters">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="camSetCCDTemperatureRequest">
@@ -2451,6 +2474,22 @@
     </wsdl:output>
     <wsdl:fault message="rtdi.camera:rtdError" name="error"/>
     </wsdl:operation>
+    <wsdl:operation name="camGetObjectExposureTime">
+	  <wsdl:documentation>
+	  Returns the exposure time interval for the object and filter selected.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @param filterType filter
+	  @param object
+	  @return Current value.
+	  @throws RtiError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rtdi.camera:camGetObjectExposureTimeRequest">
+    </wsdl:input>
+      <wsdl:output message="rtdi.camera:camGetObjectExposureTimeResponse">
+    </wsdl:output>
+    <wsdl:fault message="rtdi.camera:rtdError" name="error"/>
+    </wsdl:operation>
     <wsdl:operation name="camSetCCDTemperature">
 	  <wsdl:documentation>
 	  Sets the CCD cooler setpoint. Only valid if CanControlTemperature is True.
@@ -3411,6 +3450,15 @@
     </wsdl:operation>
     <wsdl:operation name="camGetExposureTime">
       <soap:operation soapAction="http://gloria.eu/rtdi.camera/camGetExposureTime"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="camGetObjectExposureTime">
+      <soap:operation soapAction="http://gloria.eu/rti/camGetObjectExposureTime"/>
       <wsdl:input>
         <soap:body use="literal"/>
       </wsdl:input>

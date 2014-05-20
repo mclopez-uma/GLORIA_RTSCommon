@@ -84,5 +84,50 @@ public class ConverterImageMagic implements ConverterInterface {
 
 
 	}
+	
+	@Override
+	public void jpegtofits(File input, File output, File workDir) throws Exception{
+		
+		String fileName = input.getName();
+		if (!fileName.endsWith(".jpg")) throw new Exception("The input file is not a JPG file: " + input.getAbsolutePath());
+		
+		Executor exec = new Executor();
+		
+		//fits -> jpg
+		//EXAMPLE:  /usr/bin/convert -normalize M30_01.fits > M30_01.jpg
+				
+		String cmd = "/usr/bin/convert";
+		String[] params = { 
+				input.getAbsolutePath(),
+				output.getAbsolutePath()
+		};
+		
+		ExecResult result = exec.execute(cmd, params);
+		 
+		if (result.getCode() != 0) throw new Exception("ConverterImageMagic.jpegtofits(). Error:" + result.getCode() + ", " + result.getErr());
+	}
+	
+	@Override
+	public void jpegtopnm(File input, File output, File workDir) throws Exception{
+		throw new Exception("Unsuported Method: ConverterImageMagic.jpegtopnm()");
+	}
+	
+	@Override
+	public void pnmtofits(File input, File output, File workDir) throws Exception{
+		throw new Exception("Unsuported Method: ConverterImageMagic.pnmtofits()");
+	}
+
+	@Override
+	public void pnmtofits(File input, File output, File workDir, long minvalue, long maxvalue) throws Exception {
+		throw new Exception("Unsuported Method: ConverterImageMagic.pnmtofits()");
+		
+	}
+
+	@Override
+	public void bmptopnm(File input, File output, File workDir)
+			throws Exception {
+		throw new Exception("Unsuported Method: ConverterImageMagic.pnmtofits()");
+		
+	}
 
 }

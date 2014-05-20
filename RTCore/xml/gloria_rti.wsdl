@@ -734,6 +734,23 @@
             <xsd:element name="deviceId" type="xsd:string"/>
           </xsd:sequence>
         </xsd:complexType>
+      </xsd:element>      
+      <xsd:element name="camGetObjectExposureTime">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="session" type="xsd:string"/>
+            <xsd:element name="deviceId" type="xsd:string"/>
+            <xsd:element name="object" type="xsd:string"/>
+            <xsd:element name="filterType" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="camGetObjectExposureTimeResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="out" type="xsd:double"/>
+          </xsd:sequence>
+        </xsd:complexType>
       </xsd:element>
       <xsd:element name="camSetCCDTemperature">
         <xsd:complexType>
@@ -1733,6 +1750,14 @@
         </xsd:complexType>
       </xsd:element>
       <xsd:element name="focGetMaxStep">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="session" type="xsd:string"/>
+            <xsd:element name="deviceId" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="focGetMinStep">
         <xsd:complexType>
           <xsd:sequence>
             <xsd:element name="session" type="xsd:string"/>
@@ -3413,6 +3438,14 @@
     <wsdl:part element="rti:doubleResponse" name="parameters">
     </wsdl:part>
   </wsdl:message>
+  <wsdl:message name="camGetObjectExposureTimeRequest">
+    <wsdl:part element="rti:camGetObjectExposureTime" name="parameters">
+    </wsdl:part>
+  </wsdl:message>  
+  <wsdl:message name="camGetObjectExposureTimeResponse">
+    <wsdl:part element="rti:camGetObjectExposureTimeResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
   <wsdl:message name="camSetCCDTemperatureRequest">
     <wsdl:part element="rti:camSetCCDTemperature" name="parameters">
     </wsdl:part>
@@ -4284,6 +4317,14 @@
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="focGetMaxStepResponse">
+    <wsdl:part element="rti:longResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="focGetMinStepRequest">
+    <wsdl:part element="rti:focGetMinStep" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="focGetMinStepResponse">
     <wsdl:part element="rti:longResponse" name="parameters">
     </wsdl:part>
   </wsdl:message>
@@ -6170,6 +6211,22 @@
     </wsdl:output>
     <wsdl:fault message="rti:rtiError" name="error"/>
     </wsdl:operation>
+    <wsdl:operation name="camGetObjectExposureTime">
+	  <wsdl:documentation>
+	  Returns the exposure time interval for the object and filter selected.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @param filterType filter
+	  @param object
+	  @return Current value.
+	  @throws RtiError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rti:camGetObjectExposureTimeRequest">
+    </wsdl:input>
+      <wsdl:output message="rti:camGetObjectExposureTimeResponse">
+    </wsdl:output>
+    <wsdl:fault message="rti:rtiError" name="error"/>
+    </wsdl:operation>
     <wsdl:operation name="camSetCCDTemperature">
 	  <wsdl:documentation>
 	  Sets the CCD cooler setpoint. Only valid if CanControlTemperature is True.
@@ -7709,6 +7766,20 @@
       <wsdl:input message="rti:focGetMaxStepRequest">
       </wsdl:input>
       <wsdl:output message="rti:focGetMaxStepResponse">
+      </wsdl:output>
+    <wsdl:fault message="rti:rtiError" name="error"/>
+    </wsdl:operation>
+    <wsdl:operation name="focGetMinStep">
+	  <wsdl:documentation>
+	  Minimum step position permitted.
+	  @param session Session token if the used login method is based on session token type.
+	  @param deviceId Device identifier.
+	  @return Step.
+	  @throws RtiError In error case.
+	  </wsdl:documentation>
+      <wsdl:input message="rti:focGetMinStepRequest">
+      </wsdl:input>
+      <wsdl:output message="rti:focGetMinStepResponse">
       </wsdl:output>
     <wsdl:fault message="rti:rtiError" name="error"/>
     </wsdl:operation>
@@ -9851,6 +9922,15 @@
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="camGetObjectExposureTime">
+      <soap:operation soapAction="http://gloria.eu/rti/camGetObjectExposureTime"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="camSetCCDTemperature">
       <soap:operation soapAction="http://gloria.eu/rti/camSetCCDTemperature"/>
       <wsdl:input>
@@ -10827,6 +10907,15 @@
     </wsdl:operation>
     <wsdl:operation name="focGetMaxStep">
       <soap:operation soapAction="http://gloria.eu/rti/focGetMaxStep"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="focGetMinStep">
+      <soap:operation soapAction="http://gloria.eu/rti/focGetMinStep"/>
       <wsdl:input>
         <soap:body use="literal"/>
       </wsdl:input>

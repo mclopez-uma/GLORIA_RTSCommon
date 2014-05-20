@@ -29,7 +29,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum ActivityContinueStateCamera {
 
-    NOT_DEFINED, OFF,
+    NOT_DEFINED,
+    OFF,
     ERROR,
     MAITENANCE,
     BUSY,

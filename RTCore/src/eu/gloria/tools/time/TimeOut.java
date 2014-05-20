@@ -29,5 +29,13 @@ public class TimeOut {
 		Date now = new Date();
 		initTime = now.getTime();
 	}
+	
+	public Date getTimeoutIni(){
+		return new Date(initTime);
+	}
+	
+	public Date getTimeoutDeadline(){
+		return new Date(timeout + initTime);
+	}
 
 }

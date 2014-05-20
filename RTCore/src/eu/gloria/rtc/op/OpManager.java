@@ -141,7 +141,10 @@ public class OpManager {
 						interrupter.resume();
 					}catch(Exception exRes){ 
 						if (logs) LogUtil.severe(this, "OpManager.start:: Error resuming because cannot be interrupted:" + ex.getMessage());
+						
+						throw new Exception ("Error interrupting the system. " + ex.getMessage());
 					}
+					throw new Exception ("Error interrupting the system. " + ex.getMessage());
 				}finally{
 					
 					if (logs) LogUtil.info(this, "OpManager.start - Ends returning uuidOP=" + uuidOp);
@@ -174,13 +177,13 @@ public class OpManager {
 			switch(info.getState()){
 			
 			case IDLE:
-				if (logs) LogUtil.info(this, "OpManager.start:: State is IDLE. It cannot be stopped.");
+				if (logs) LogUtil.info(this, "OpManager.stop:: State is IDLE. It cannot be stopped.");
 				break;
 			case BUSY:
-				if (logs) LogUtil.info(this, "OpManager.start:: State is BUSY. It cannot be stopped. " + info.getDescription());
+				if (logs) LogUtil.info(this, "OpManager.stop:: State is BUSY. It cannot be stopped. " + info.getDescription());
 				throw new Exception("State is BUSY. It cannot be stopped. " + info.getDescription());
 			case RUNNING :
-				if (logs) LogUtil.info(this, "OpManager.start:: State is (RUNNING) -> Stopping...");
+				if (logs) LogUtil.info(this, "OpManager.stop:: State is (RUNNING) -> Stopping...");
 				
 				//stop the thread
 				if (this.thread != null){
@@ -195,15 +198,15 @@ public class OpManager {
 					this.op.setState(OpState.DONE);
 					interrupter.resume();
 				}catch(Exception ex){
-					if (logs) LogUtil.severe(this, "OpManager.start:: Error resuming the interrupter. " + ex.getMessage());
+					if (logs) LogUtil.severe(this, "OpManager.stop:: Error resuming the interrupter. " + ex.getMessage());
 				}			
 				
-				if (logs) LogUtil.info(this, "OpManager.start:: State is RUNNING -> Stopped.");
+				if (logs) LogUtil.info(this, "OpManager.stop:: State is RUNNING -> Stopped.");
 				
 				break;
 			case WAIT_TURN :
 				
-				if (logs) LogUtil.info(this, "OpManager.start:: State is (WAIT_TURN) -> Stopping...");
+				if (logs) LogUtil.info(this, "OpManager.stop:: State is (WAIT_TURN) -> Stopping...");
 				
 				//stop the thread
 				if (this.thread != null){
@@ -218,10 +221,10 @@ public class OpManager {
 					this.op.setState(OpState.ABORTED);
 					interrupter.resume();
 				}catch(Exception ex){
-					if (logs) LogUtil.severe(this, "OpManager.start:: Error resuming the interrupter. " + ex.getMessage());
+					if (logs) LogUtil.severe(this, "OpManager.stop:: Error resuming the interrupter. " + ex.getMessage());
 				}			
 				
-				if (logs) LogUtil.info(this, "OpManager.start:: State is RUNNING -> Stopped.");
+				if (logs) LogUtil.info(this, "OpManager.stop:: State is RUNNING -> Stopped.");
 				
 				break;
 				

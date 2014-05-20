@@ -568,6 +568,16 @@ public interface RTDCameraInterface extends RTDDeviceInterface {
 	public Double camGetExposureTime() throws RTException;
 	
 	/**
+	 * Returns the exposure time interval for the object and filter selected.
+	 *  
+	 * @param filterType filter
+	 * @param object
+	 * @return Current value.
+	 * @throws RTException In error case.
+	 */	
+	public List<Double> camGetObjectExposureTime(String filter, String object) throws RTException;
+	
+	/**
 	 * Sets the camera cooler setpoint in degrees Kelvin.
 	 * 
 	 * @param value New value.

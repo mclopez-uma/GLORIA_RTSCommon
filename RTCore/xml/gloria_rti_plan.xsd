@@ -142,44 +142,48 @@
  	</xs:complexType>
  	
  	<xs:simpleType name="filterType">
-    	<restriction base="string">
-    		<enumeration value="OPEN"></enumeration>
-    		<enumeration value="CLOSED"></enumeration>
-    		<enumeration value="BESSEL_I"></enumeration>
-    		<enumeration value="BESSEL_R"></enumeration>
-    		<enumeration value="BESSEL_V"></enumeration>
-    		<enumeration value="BESSEL_B"></enumeration>
-    		<enumeration value="BESSEL_U"></enumeration>
-    		<enumeration value="SLOAN_U"></enumeration>
-    		<enumeration value="SLOAN_G"></enumeration>
-    		<enumeration value="SLOAN_R"></enumeration>
-    		<enumeration value="SLOAN_I"></enumeration>
-    		<enumeration value="SLOAN_Z"></enumeration>
-    		<enumeration value="Z_FILTER"></enumeration>
-    		<enumeration value="Y_FILTER"></enumeration>
-    		<enumeration value="CCD_RESPONSE"></enumeration>
-    		<enumeration value="GRISM"></enumeration>
-    		<enumeration value="SLIT_25UM"></enumeration>
-    		<enumeration value="SLIT_50UM"></enumeration>
-    		<enumeration value="SLIT_75UM"></enumeration>
-    		<enumeration value="SLIT_100UM"></enumeration>
-    		<enumeration value="UKIRT_H"></enumeration>
-    		<enumeration value="UKIRT_J"></enumeration>
-    		<enumeration value="UKIRT_K"></enumeration>
-    		<enumeration value="UKIRT_Z"></enumeration>
-    		<enumeration value="UKIRT_Y"></enumeration>
-    		<enumeration value="JOHNSON_B"></enumeration>
-    		<enumeration value="JOHNSON_R"></enumeration>
-    		<enumeration value="JOHNSON_I"></enumeration>
-    		<enumeration value="JOHNSON_J"></enumeration>
-    		<enumeration value="JOHNSON_K"></enumeration>
-    		<enumeration value="JOHNSON_L"></enumeration>
-    		<enumeration value="JOHNSON_V"></enumeration>
-    		<enumeration value="H_ALPHA"></enumeration>
-    	</restriction>
-    </xs:simpleType>
-    
-    <xs:simpleType name="planType">
+ 		<restriction base="string">
+ 			<enumeration value="OPEN"></enumeration>
+ 			<enumeration value="CLOSED"></enumeration>
+ 			<enumeration value="BESSEL_I"></enumeration>
+ 			<enumeration value="BESSEL_R"></enumeration>
+ 			<enumeration value="BESSEL_V"></enumeration>
+ 			<enumeration value="BESSEL_B"></enumeration>
+ 			<enumeration value="BESSEL_U"></enumeration>
+ 			<enumeration value="SLOAN_U"></enumeration>
+ 			<enumeration value="SLOAN_G"></enumeration>
+ 			<enumeration value="SLOAN_R"></enumeration>
+ 			<enumeration value="SLOAN_I"></enumeration>
+ 			<enumeration value="SLOAN_Z"></enumeration>
+ 			<enumeration value="Z_FILTER"></enumeration>
+ 			<enumeration value="Y_FILTER"></enumeration>
+ 			<enumeration value="CCD_RESPONSE"></enumeration>
+ 			<enumeration value="GRISM"></enumeration>
+ 			<enumeration value="SLIT_25UM"></enumeration>
+ 			<enumeration value="SLIT_50UM"></enumeration>
+ 			<enumeration value="SLIT_75UM"></enumeration>
+ 			<enumeration value="SLIT_100UM"></enumeration>
+ 			<enumeration value="UKIRT_H"></enumeration>
+ 			<enumeration value="UKIRT_J"></enumeration>
+ 			<enumeration value="UKIRT_K"></enumeration>
+ 			<enumeration value="UKIRT_Z"></enumeration>
+ 			<enumeration value="UKIRT_Y"></enumeration>
+ 			<enumeration value="JOHNSON_B"></enumeration>
+ 			<enumeration value="JOHNSON_R"></enumeration>
+ 			<enumeration value="JOHNSON_I"></enumeration>
+ 			<enumeration value="JOHNSON_J"></enumeration>
+ 			<enumeration value="JOHNSON_K"></enumeration>
+ 			<enumeration value="JOHNSON_L"></enumeration>
+ 			<enumeration value="JOHNSON_V"></enumeration>
+ 			<enumeration value="H_ALPHA"></enumeration>
+ 			<xs:enumeration value="JOHNSON_G"></xs:enumeration>
+ 			<xs:enumeration value="CLEAR"></xs:enumeration>
+ 			<xs:enumeration value="INFRARED_RG850"></xs:enumeration>
+ 			<xs:enumeration value="DARK"></xs:enumeration>
+ 		</restriction>
+ 	</xs:simpleType>
+
+ 	<xs:simpleType name="planType">
     	<restriction base="string">
     		<enumeration value="DARK"></enumeration>
     		<enumeration value="FLAT"></enumeration>

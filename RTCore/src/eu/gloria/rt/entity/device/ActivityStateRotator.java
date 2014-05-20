@@ -29,7 +29,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum ActivityStateRotator {
 
-    NOT_DEFINED, READY,
+    NOT_DEFINED,
+    READY,
     BUSY,
     OFF,
     MAINTENANCE,

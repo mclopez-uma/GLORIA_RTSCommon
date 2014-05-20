@@ -42,7 +42,7 @@ public class Image {
 
     @XmlElement(required = true)
     protected ImageFormat format;
-	protected int numX;
+    protected int numX;
     protected int numY;
     protected int numPlanes;
     @XmlElement(required = true)
@@ -60,7 +60,7 @@ public class Image {
         return format;
     }
 
-	/**
+    /**
      * Define el valor de la propiedad format.
      * 
      * @param value
@@ -72,7 +72,7 @@ public class Image {
         this.format = value;
     }
 
-	/**
+    /**
      * Obtiene el valor de la propiedad numX.
      * 
      */

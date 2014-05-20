@@ -54,14 +54,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DbFileMetadata }
-     * 
-     */
-    public DbFileMetadata createDbFileMetadata() {
-        return new DbFileMetadata();
-    }
-
-    /**
      * Create an instance of {@link DeviceProperty }
      * 
      */
@@ -78,19 +70,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DbFileSystemInfo }
+     * Create an instance of {@link OpInfo }
      * 
      */
-    public DbFileSystemInfo createDbFileSystemInfo() {
-        return new DbFileSystemInfo();
+    public OpInfo createOpInfo() {
+        return new OpInfo();
     }
 
     /**
-     * Create an instance of {@link DbFileInfo }
+     * Create an instance of {@link ExecutorInfo }
      * 
      */
-    public DbFileInfo createDbFileInfo() {
-        return new DbFileInfo();
+    public ExecutorInfo createExecutorInfo() {
+        return new ExecutorInfo();
     }
 
     /**
@@ -102,14 +94,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DeviceMount }
-     * 
-     */
-    public DeviceMount createDeviceMount() {
-        return new DeviceMount();
-    }
-
-    /**
      * Create an instance of {@link DeviceRotator }
      * 
      */
@@ -118,27 +102,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ImageContent }
+     * Create an instance of {@link DbFileInfo }
      * 
      */
-    public ImageContent createImageContent() {
-        return new ImageContent();
-    }
-
-    /**
-     * Create an instance of {@link DeviceDome }
-     * 
-     */
-    public DeviceDome createDeviceDome() {
-        return new DeviceDome();
-    }
-
-    /**
-     * Create an instance of {@link DeviceFocuser }
-     * 
-     */
-    public DeviceFocuser createDeviceFocuser() {
-        return new DeviceFocuser();
+    public DbFileInfo createDbFileInfo() {
+        return new DbFileInfo();
     }
 
     /**
@@ -158,19 +126,67 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Error }
-     * 
-     */
-    public Error createError() {
-        return new Error();
-    }
-
-    /**
      * Create an instance of {@link DeviceCamera }
      * 
      */
     public DeviceCamera createDeviceCamera() {
         return new DeviceCamera();
+    }
+
+    /**
+     * Create an instance of {@link DbFileSystemInfo }
+     * 
+     */
+    public DbFileSystemInfo createDbFileSystemInfo() {
+        return new DbFileSystemInfo();
+    }
+
+    /**
+     * Create an instance of {@link DbFileMetadata }
+     * 
+     */
+    public DbFileMetadata createDbFileMetadata() {
+        return new DbFileMetadata();
+    }
+
+    /**
+     * Create an instance of {@link DeviceMount }
+     * 
+     */
+    public DeviceMount createDeviceMount() {
+        return new DeviceMount();
+    }
+
+    /**
+     * Create an instance of {@link DeviceDome }
+     * 
+     */
+    public DeviceDome createDeviceDome() {
+        return new DeviceDome();
+    }
+
+    /**
+     * Create an instance of {@link ImageContent }
+     * 
+     */
+    public ImageContent createImageContent() {
+        return new ImageContent();
+    }
+
+    /**
+     * Create an instance of {@link DeviceFocuser }
+     * 
+     */
+    public DeviceFocuser createDeviceFocuser() {
+        return new DeviceFocuser();
+    }
+
+    /**
+     * Create an instance of {@link Error }
+     * 
+     */
+    public Error createError() {
+        return new Error();
     }
 
 }

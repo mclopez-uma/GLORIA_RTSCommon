@@ -47,7 +47,10 @@ public enum MeasureUnit {
     DEGREE("DEGREE"),
     OHM("OHM"),
     @XmlEnumValue("A/V")
-    A_V("A/V"), KELVIN("KELVIN"), CELSIUS("CELSIUS"), PASCAL("PASCAL");
+    A_V("A/V"),
+    KELVIN("KELVIN"),
+    CELSIUS("CELSIUS"),
+    PASCAL("PASCAL");
     private final String value;
 
     MeasureUnit(String v) {

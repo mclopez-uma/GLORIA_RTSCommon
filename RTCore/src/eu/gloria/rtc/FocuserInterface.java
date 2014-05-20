@@ -50,6 +50,15 @@ public interface FocuserInterface extends DeviceManagerInterface {
 	public long focGetMaxIncrement(String deviceId) throws RTException;
 	
 	/**
+	 * Minimum step position permitted.
+	 * 
+	 * @param deviceId Device identifier.
+	 * @return Step
+	 * @throws RTException In error case.
+	 */
+	public long focGetMinStep(String deviceId) throws RTException;
+	
+	/**
 	 * Maximum step position permitted.
 	 * 
 	 * @param deviceId Device identifier.

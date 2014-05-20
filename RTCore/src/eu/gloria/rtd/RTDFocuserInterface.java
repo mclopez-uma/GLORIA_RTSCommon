@@ -54,6 +54,14 @@ public interface RTDFocuserInterface extends RTDDeviceInterface {
 	public long focGetMaxStep() throws RTException;
 	
 	/**
+	 * Minimum step position permitted.
+	 * 
+	 * @return Step
+	 * @throws RTException In error case.
+	 */
+	public long focGetMinStep() throws RTException;
+	
+	/**
 	 * Current focuser position, in steps.
 	 * 
 	 * @return position
